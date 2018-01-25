@@ -52,6 +52,7 @@ void draw(SDL_Window* window, SDL_Renderer* renderer, const Sprite sprite)
 	/* Blit the sprite onto the screen */
 	SDL_RenderCopy(renderer, sprite.texture, NULL, &destRect);
 }
+
 extern  char source_path[1024];
 
 int main(int argc, char *argv[])
@@ -62,8 +63,13 @@ int main(int argc, char *argv[])
     if(SDL_CreateWindowAndRenderer(0, 0, 0, &window, &renderer) < 0)
         exit(2);
 
-    char file_path[1024];
-    sprintf(file_path,"%s/image.bmp",source_path);
+//    char file_path[1024];
+//    sprintf(file_path,"%s/image.bmp",source_path);
+//    file_path = "/data/user/0/com.example.haoyongchun.myapplication/files/sdl/image.bmp";
+    char *file_path = "/data/user/0/com.example.haoyongchun.myapplication/files/sdl/wallpaperBlue.bmp";
+//    char *file_path = "/mnt/sdcard/wallpaperMoon.png";
+//    char *file_path = "/mnt/sdcard/wallpaperBlue.bmp";
+//    char *file_path = "/mnt/sdcard/image.bmp";
 	Sprite sprite = LoadSprite(file_path, renderer);
     if(sprite.texture == NULL)
         exit(2);
@@ -81,8 +87,7 @@ int main(int argc, char *argv[])
                 done = 1;
             }
         }
-		
-		
+
 		/* Draw a gray background */
 		SDL_SetRenderDrawColor(renderer, 0xA0, 0xA0, 0xA0, 0xFF);
 		SDL_RenderClear(renderer);
