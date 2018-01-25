@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mlt LC_NUMERIC="zh_CN" producer="playlist0" title="Anonymous Submission" version="6.5.0" root="/data/test">
+  <profile display_aspect_den="360" sample_aspect_den="1" colorspace="709" description="automatic" display_aspect_num="640" frame_rate_num="25" frame_rate_den="1" progressive="1" sample_aspect_num="1" width="640" height="360"/>
+  <consumer target="/data/test/q.mp4" use_blur="1" ab="128k" threads="8" aspect="1.777777777777778" vb="1500k" ar="44100" f="mp4" realtime="-4" mlt_service="avformat" width="640" height="360" r="24"/>
+  <producer id="2" out="00:00:59.960" in="00:00:00.000">
+    <property name="length">00:01:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">p.mp4</property>
+    <property name="audio_index">1</property>
+    <property name="video_index">0</property>
+    <property name="mute_on_pause">0</property>
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="seekable">1</property>
+    <property name="aspect_ratio">1</property>
+    <property name="threads">15</property>
+  </producer>
+  <playlist id="playlist0" title="Anonymous Submission">
+    <entry producer="2" out="00:00:59.960" in="00:00:00.000"/>
+  </playlist>
+</mlt>
