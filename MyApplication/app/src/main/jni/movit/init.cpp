@@ -361,7 +361,7 @@ bool init_movit(const string& data_directory, MovitDebugLevel debug_level)
 	}
 
 	movit_data_directory = new string(data_directory);
-	movit_debug_level = debug_level;
+	movit_debug_level = MOVIT_DEBUG_ON;//debug_level;
 
 	// geez	
 	glPixelStorei(GL_PACK_ALIGNMENT, 1);

@@ -695,7 +695,7 @@ static void on_fatal_error( mlt_properties owner, mlt_consumer consumer )
 	mlt_properties_set_int( MLT_CONSUMER_PROPERTIES(consumer), "melt_error", 1 );
 }
 
-#define main    SDL_main
+//#define main    SDL_main
 
 extern char source_path[1024];
 

@@ -31,7 +31,7 @@
 
 #include <framework/mlt.h>
 
-#define main    SDL_main
+//#define main    SDL_main
 
 
 #if (defined(__APPLE__) || defined(_WIN32) || defined(HAVE_SDL2)) && !defined(MELT_NOSDL)

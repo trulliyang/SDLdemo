@@ -337,7 +337,9 @@ mlt_producer mlt_factory_producer( mlt_profile profile, const char *service, con
  * \return a new filter
  */
 
-mlt_filter mlt_factory_filter( mlt_profile profile, const char *service, const void *input )
+mlt_filter mlt_factory_filter( mlt_profile profile,
+							   const char *service,
+							   const void *input )
 {
 	mlt_filter obj = NULL;
 

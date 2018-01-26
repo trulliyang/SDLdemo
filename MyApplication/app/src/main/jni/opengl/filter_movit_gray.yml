@@ -1,0 +1,22 @@
+schema_version: 0.1
+type: filter
+identifier: movit.gray
+title: gray (GLSL)
+version: 1
+copyright: shiyang1
+creator: shiyang1
+license: GPLv2
+language: en
+tags:
+  - Video
+description: >
+  generate a gray frame in several ways.
+
+parameters:
+  - identifier: type
+    title: gray type
+    type: int
+    minimum: 0
+    maximum: 4
+    default: 0
+    mutable: yes

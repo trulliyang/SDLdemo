@@ -72,11 +72,16 @@ public class SDLActivity extends Activity {
         String library;
         String[] libraries = SDLActivity.mSingleton.getLibraries();
         if (libraries.length > 0) {
+            for (int i=0; i<libraries.length; i++) {
+                String libname = "lib" + libraries[i] + ".so";
+                Log.e("shiyang", "shiyang lib name="+libname);
+            }
+
             library = "lib" + libraries[libraries.length - 1] + ".so";
         } else {
             library = "libmain.so";
         }
-        return "libmain.so";
+        return "libmelt.so";
     }
 
     /**
@@ -98,14 +103,14 @@ public class SDLActivity extends Activity {
     protected String[] getLibraries() {
         return new String[] {
 //                "memLeakTrace",
-            "SDL2",
+                "SDL2",
                 "ijkffmpeg",
-            // "SDL2_image",
-            // "SDL2_mixer",
-            // "SDL2_net",
-            // "SDL2_ttf",
-            //"main"
-               // "movit"
+//                "SDL2_image",
+//                "SDL2_mixer",
+//                "SDL2_net",
+//                "SDL2_ttf",
+//                "main"
+//                "movit",
                 "melt"
         };
     }

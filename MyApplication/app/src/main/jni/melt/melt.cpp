@@ -56,7 +56,7 @@ int test_filters(char *filter_name, char *video_name) {
 	m_pprofile.set_explicit(0);
 //	Mlt::Producer m_producer(m_pprofile, video_name);
 
-    Mlt::Producer m_producer(m_pprofile, "avformat",video_name);
+    Mlt::Producer m_producer(m_pprofile, "avformat", video_name);
 
     m_producer.set("put_mode", 0);
 	m_producer.set("real_time", 1);
@@ -64,10 +64,11 @@ int test_filters(char *filter_name, char *video_name) {
 
 	Mlt::FilteredConsumer m_consumer(m_pprofile,"xgl",NULL);
 
+    int t_h = m_pprofile.height();
+    int t_w = m_pprofile.width();
 
-
-	m_consumer.set("width",1920);
-	m_consumer.set("height",1072);
+	m_consumer.set("width", 1920);
+	m_consumer.set("height", 1072);
 
 
 	ffconsumer = &m_consumer;
@@ -98,16 +99,26 @@ int test_filters(char *filter_name, char *video_name) {
 //        m_producer.unlock();
 //    }
 
-
 	Mlt::Filter m_filter2(m_pprofile, "movit.mirror");
 	if(m_filter2.is_valid()){
-
-
 		m_producer.lock();
 		m_producer.attach(m_filter2);
 		m_producer.unlock();
 	}
 
+    Mlt::Filter m_filterVignette(m_pprofile, "movit.vignette");
+    if(m_filterVignette.is_valid()){
+        m_producer.lock();
+        m_producer.attach(m_filterVignette);
+        m_producer.unlock();
+    }
+
+    Mlt::Filter m_filterGray(m_pprofile, "movit.gray");
+    if(m_filterGray.is_valid()){
+        m_producer.lock();
+        m_producer.attach(m_filterGray);
+        m_producer.unlock();
+    }
 
 	m_consumer.connect(m_producer);
 	m_consumer.run();
@@ -144,7 +155,7 @@ JNIEXPORT void Java_org_libsdl_app_SDLActivity_nativeclose(){
 extern "C" {
 #endif
 
-//#define main    SDL_main
+#define main    SDL_main
 
 extern char source_path[1024];
 
