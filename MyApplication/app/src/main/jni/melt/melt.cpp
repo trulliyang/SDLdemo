@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <jni.h>
 #include "../mlt++/Mlt.h"
-
+#include <android/log.h>
 #include "mlt_log.h"
 
 
@@ -16,7 +16,7 @@ static Repository *m_repo = NULL;
 void factory_init() {
 	// should call mltsetenv before this init
 	static int factory_inited = 0;
-	if(factory_inited == 0){
+	if (factory_inited == 0) {
 		m_repo = Factory::init();
 		factory_inited = 1;
 	}
@@ -67,57 +67,60 @@ int test_filters(char *filter_name, char *video_name) {
     int t_h = m_pprofile.height();
     int t_w = m_pprofile.width();
 
-	m_consumer.set("width", 1920);
-	m_consumer.set("height", 1072);
+    __android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang video w=%d,h=%d",t_w, t_h);
 
+	m_consumer.set("width", t_w);
+	m_consumer.set("height", t_h);
 
 	ffconsumer = &m_consumer;
 
-//	Mlt::Filter m_filter(m_pprofile, "grayscale");
-
 	Mlt::Filter m_filter(m_pprofile, "movit.convert");
 	if(m_filter.is_valid()){
-		/*
-        m_filter.set("av.x","200");
-        m_filter.set("av.y","10");
-        m_filter.set("av.w","300");
-        m_filter.set("av.h","300");
-		*/
+//        m_filter.set("av.x","200");
+//        m_filter.set("av.y","10");
+//        m_filter.set("av.w","300");
+//        m_filter.set("av.h","300");
 		m_producer.lock();
 		m_producer.attach(m_filter);
 		m_producer.unlock();
-	}
-
-
+	} else {
+        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filter movit.convert is invalid");
+    }
 
 //    Mlt::Filter m_filter1(m_pprofile, "movit.crop");
 //    if(m_filter1.is_valid()){
-//
-//
 //        m_producer.lock();
 //        m_producer.attach(m_filter1);
 //        m_producer.unlock();
+//    } else {
+//        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filter1 movit.crop is invalid");
 //    }
 
-	Mlt::Filter m_filter2(m_pprofile, "movit.mirror");
-	if(m_filter2.is_valid()){
-		m_producer.lock();
-		m_producer.attach(m_filter2);
-		m_producer.unlock();
-	}
+//	Mlt::Filter m_filter2(m_pprofile, "movit.mirror");
+//	if(m_filter2.is_valid()){
+//		m_producer.lock();
+//		m_producer.attach(m_filter2);
+//		m_producer.unlock();
+//	} else {
+//        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filter2 movit.mirror is invalid");
+//    }
 
-    Mlt::Filter m_filterVignette(m_pprofile, "movit.vignette");
-    if(m_filterVignette.is_valid()){
-        m_producer.lock();
-        m_producer.attach(m_filterVignette);
-        m_producer.unlock();
-    }
+//    Mlt::Filter m_filterVignette(m_pprofile, "movit.vignette");
+//    if(m_filterVignette.is_valid()){
+//        m_producer.lock();
+//        m_producer.attach(m_filterVignette);
+//        m_producer.unlock();
+//    } else {
+//        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterVignette movit.vignette is invalid");
+//    }
 
     Mlt::Filter m_filterGray(m_pprofile, "movit.gray");
     if(m_filterGray.is_valid()){
         m_producer.lock();
         m_producer.attach(m_filterGray);
         m_producer.unlock();
+    } else {
+        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterGray movit.gray is invalid");
     }
 
 	m_consumer.connect(m_producer);
@@ -155,7 +158,7 @@ JNIEXPORT void Java_org_libsdl_app_SDLActivity_nativeclose(){
 extern "C" {
 #endif
 
-#define main    SDL_main
+#define main SDL_main
 
 extern char source_path[1024];
 
