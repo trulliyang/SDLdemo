@@ -33,7 +33,7 @@ namespace movit {
     {
         Effect::set_gl_state(glsl_program_num, prefix, sampler_num);
 
-        type = 0;
+        type = 0;//5
     }
 
 }  // namespace movit

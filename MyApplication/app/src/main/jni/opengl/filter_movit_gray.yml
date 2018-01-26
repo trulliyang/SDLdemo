@@ -17,6 +17,6 @@ parameters:
     title: gray type
     type: int
     minimum: 0
-    maximum: 4
+    maximum: 5
     default: 0
     mutable: yes
