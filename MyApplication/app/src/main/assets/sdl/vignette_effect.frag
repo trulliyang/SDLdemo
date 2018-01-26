@@ -16,6 +16,7 @@ vec4 FUNCNAME(vec2 tc) {
 	float linear_falloff = clamp(dist, 0.0, pihalf);
 	float falloff = cos(linear_falloff) * cos(linear_falloff);
 	x.rgb *= vec3(falloff);
+	//x.rgb *= vec3(1.0-linear_falloff/pihalf);
 
 	return x;
 }

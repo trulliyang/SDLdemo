@@ -58,7 +58,7 @@ float gain_theta = 0.0f, gain_rad = 0.0f, gain_v = 0.25f;
 float saturation = 1.0f;
 
 float radius = 0.3f;
- float inner_radius = 0.3f;
+float inner_radius = 0.3f;
 float blur_radius = 20.0f;
 float blurred_mix_amount = 0.5f;
 	
