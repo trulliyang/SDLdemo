@@ -193,9 +193,6 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/framework/ \
                     $(LOCAL_PATH)/ffmpeg/include \
                     $(LOCAL_PATH)/movit
 
-
-
-
 # Add your application source files here...
 LOCAL_SRC_FILES := $(wildcard $(LOCAL_PATH)/framework/*.c) \
                    $(wildcard $(LOCAL_PATH)/mlt++/*.cpp) \

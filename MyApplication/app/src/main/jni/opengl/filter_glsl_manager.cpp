@@ -363,7 +363,11 @@ void GlslManager::set_effect_third_input( mlt_service service, mlt_frame frame, 
 	set_frame_specific_data( service, frame, "_movit effect third input frame", input_frame, 0, NULL, NULL );
 }
 
-int GlslManager::render_frame_texture(EffectChain *chain, mlt_frame frame, int width, int height, uint8_t **image)
+int GlslManager::render_frame_texture(EffectChain *chain,
+									  mlt_frame frame,
+									  int width,
+									  int height,
+									  uint8_t **image)
 {
 	glsl_texture texture = get_texture( width, height, GL_RGBA8 );
 	if (!texture) {
@@ -375,7 +379,11 @@ int GlslManager::render_frame_texture(EffectChain *chain, mlt_frame frame, int w
 	check_error();
 	glBindFramebuffer( GL_FRAMEBUFFER, fbo );
 	check_error();
-	glFramebufferTexture2D( GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture->texture, 0 );
+	glFramebufferTexture2D( GL_FRAMEBUFFER,
+							GL_COLOR_ATTACHMENT0,
+							GL_TEXTURE_2D,
+							texture->texture,
+							0 );
 	check_error();
 	glBindFramebuffer( GL_FRAMEBUFFER, 0 );
 	check_error();
@@ -415,7 +423,11 @@ int GlslManager::render_frame_texture(EffectChain *chain, mlt_frame frame, int w
 	return 0;
 }
 
-int GlslManager::render_frame_rgba(EffectChain *chain, mlt_frame frame, int width, int height, uint8_t **image)
+int GlslManager::render_frame_rgba(EffectChain *chain,
+								   mlt_frame frame,
+								   int width,
+								   int height,
+								   uint8_t **image)
 {
 	glsl_texture texture = get_texture( width, height, GL_RGBA8 );
 	if (!texture) {
@@ -482,8 +494,12 @@ int GlslManager::render_frame_rgba(EffectChain *chain, mlt_frame frame, int widt
 	check_error();
 	glBindTexture( GL_TEXTURE_2D, 0 );
 	check_error();
-	mlt_properties_set_data( MLT_FRAME_PROPERTIES(frame), "movit.convert.texture", texture, 0,
-		(mlt_destructor) GlslManager::release_texture, NULL);
+	mlt_properties_set_data( MLT_FRAME_PROPERTIES(frame),
+							 "movit.convert.texture",
+							 texture,
+							 0,
+		                     (mlt_destructor) GlslManager::release_texture,
+							 NULL);
 	glDeleteFramebuffers( 1, &fbo );
 	check_error();
 

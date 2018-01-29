@@ -123,6 +123,25 @@ int test_filters(char *filter_name, char *video_name) {
         __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterGray movit.gray is invalid");
     }
 
+    Mlt::Filter m_filterBlur(m_pprofile, "movit.blur");
+    if(m_filterGray.is_valid()){
+        m_producer.lock();
+        m_producer.attach(m_filterBlur);
+        m_producer.unlock();
+    } else {
+        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterBlur movit.blur is invalid");
+    }
+
+	Mlt::Filter m_filterPixelation(m_pprofile, "movit.pixelation");
+	if(m_filterPixelation.is_valid()){
+		m_producer.lock();
+		m_producer.attach(m_filterPixelation);
+		m_producer.unlock();
+	} else {
+		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterPixelation movit.pixelation is invalid");
+	}
+
+
 	m_consumer.connect(m_producer);
 	m_consumer.run();
 

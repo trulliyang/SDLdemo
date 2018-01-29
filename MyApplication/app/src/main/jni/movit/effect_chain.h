@@ -207,7 +207,9 @@ public:
 	// will create its own that is not shared with anything else. Does not take
 	// ownership of the passed-in ResourcePool, but will naturally take ownership
 	// of its own internal one if created.
-	EffectChain(float aspect_nom, float aspect_denom, ResourcePool *resource_pool = NULL);
+	EffectChain(float aspect_nom,
+				float aspect_denom,
+				ResourcePool *resource_pool = NULL);
 	~EffectChain();
 
 	// User API:
@@ -222,25 +224,35 @@ public:
 	Effect *add_effect(Effect *effect) {
 		return add_effect(effect, last_added_effect());
 	}
-	Effect *add_effect(Effect *effect, Effect *input) {
+	Effect *add_effect(Effect *effect,
+					   Effect *input) {
 		std::vector<Effect *> inputs;
 		inputs.push_back(input);
 		return add_effect(effect, inputs);
 	}
-	Effect *add_effect(Effect *effect, Effect *input1, Effect *input2) {
+	Effect *add_effect(Effect *effect,
+					   Effect *input1,
+					   Effect *input2) {
 		std::vector<Effect *> inputs;
 		inputs.push_back(input1);
 		inputs.push_back(input2);
 		return add_effect(effect, inputs);
 	}
-	Effect *add_effect(Effect *effect, Effect *input1, Effect *input2, Effect *input3) {
+	Effect *add_effect(Effect *effect,
+					   Effect *input1,
+					   Effect *input2,
+					   Effect *input3) {
 		std::vector<Effect *> inputs;
 		inputs.push_back(input1);
 		inputs.push_back(input2);
 		inputs.push_back(input3);
 		return add_effect(effect, inputs);
 	}
-	Effect *add_effect(Effect *effect, Effect *input1, Effect *input2, Effect *input3, Effect *input4) {
+	Effect *add_effect(Effect *effect,
+					   Effect *input1,
+					   Effect *input2,
+					   Effect *input3,
+					   Effect *input4) {
 		std::vector<Effect *> inputs;
 		inputs.push_back(input1);
 		inputs.push_back(input2);
@@ -248,7 +260,12 @@ public:
 		inputs.push_back(input4);
 		return add_effect(effect, inputs);
 	}
-	Effect *add_effect(Effect *effect, Effect *input1, Effect *input2, Effect *input3, Effect *input4, Effect *input5) {
+	Effect *add_effect(Effect *effect,
+					   Effect *input1,
+					   Effect *input2,
+					   Effect *input3,
+					   Effect *input4,
+					   Effect *input5) {
 		std::vector<Effect *> inputs;
 		inputs.push_back(input1);
 		inputs.push_back(input2);
@@ -281,9 +298,10 @@ public:
 	// If you have both RGBA and Y'CbCr output(s), the RGBA output will come
 	// in the last draw buffer. Also, <format> and <alpha_format> must be
 	// identical between the two.
-	void add_ycbcr_output(const ImageFormat &format, OutputAlphaFormat alpha_format,
+	void add_ycbcr_output(const ImageFormat &format,
+						  OutputAlphaFormat alpha_format,
 	                      const YCbCrFormat &ycbcr_format,
-			      YCbCrOutputSplitting output_splitting = YCBCR_OUTPUT_INTERLEAVED,
+			              YCbCrOutputSplitting output_splitting = YCBCR_OUTPUT_INTERLEAVED,
 	                      GLenum output_type = GL_UNSIGNED_BYTE);
 
 	// Change Y'CbCr output format. (This can be done also after finalize()).
@@ -422,7 +440,10 @@ private:
 	// Make sure the output rectangle is at least large enough to hold
 	// the given input rectangle in both dimensions, and is of the
 	// current aspect ratio (aspect_nom/aspect_denom).
-	void size_rectangle_to_fit(unsigned width, unsigned height, unsigned *output_width, unsigned *output_height);
+	void size_rectangle_to_fit(unsigned width,
+							   unsigned height,
+							   unsigned *output_width,
+							   unsigned *output_height);
 
 	// Compute the input sizes for all inputs for all effects in a given phase,
 	// and inform the effects about the results.	
@@ -442,10 +463,12 @@ private:
 	// Create all GLSL programs needed to compute the given effect, and all outputs
 	// that depend on it (whenever possible). Returns the phase that has <output>
 	// as the last effect. Also pushes all phases in order onto <phases>.
-	Phase *construct_phase(Node *output, std::map<Node *, Phase *> *completed_effects);
+	Phase *construct_phase(Node *output,
+						   std::map<Node *, Phase *> *completed_effects);
 
 	// Execute one phase, ie. set up all inputs, effects and outputs, and render the quad.
-	void execute_phase(Phase *phase, bool last_phase,
+	void execute_phase(Phase *phase,
+					   bool last_phase,
 	                   std::map<Phase *, GLuint> *output_textures,
 	                   std::set<Phase *> *generated_mipmaps);
 
@@ -453,12 +476,14 @@ private:
 	void setup_uniforms(Phase *phase);
 
 	// Set up the given sampler number for sampling from an RTT texture.
-	void setup_rtt_sampler(int sampler_num, bool use_mipmaps);
+	void setup_rtt_sampler(int sampler_num,
+						   bool use_mipmaps);
 
 	// Output the current graph to the given file in a Graphviz-compatible format;
 	// only useful for debugging.
 	void output_dot(const char *filename);
-	std::vector<std::string> get_labels_for_edge(const Node *from, const Node *to);
+	std::vector<std::string> get_labels_for_edge(const Node *from,
+												 const Node *to);
 	void output_dot_edge(FILE *fp,
 	                     const std::string &from_node_id,
 	                     const std::string &to_node_id,
@@ -477,7 +502,9 @@ private:
 	// The reason why we store nodes left to visit instead of a more conventional
 	// list of nodes to visit is that we want to be able to limit ourselves to
 	// a subgraph instead of all nodes. The set thus serves a dual purpose.
-	void topological_sort_visit_node(Node *node, std::set<Node *> *nodes_left_to_visit, std::vector<Node *> *sorted_list);
+	void topological_sort_visit_node(Node *node,
+									 std::set<Node *> *nodes_left_to_visit,
+									 std::vector<Node *> *sorted_list);
 
 	// Used during finalize().
 	void find_color_spaces_for_inputs();

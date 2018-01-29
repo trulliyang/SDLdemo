@@ -1,0 +1,38 @@
+schema_version: 0.1
+type: filter
+identifier: movit.pixelation
+title: gray (GLSL)
+version: 1
+copyright: shiyang1
+creator: shiyang1
+license: GPLv2
+language: en
+tags:
+  - Video
+description: >
+  generate a pixelation frame.
+
+parameters:
+  - identifier: pixel
+    title: pixelation pixel
+    type: float
+    minimum: 0.0
+    maximum: 100.0
+    default: 8.0
+    mutable: yes
+
+  - identifier: widthStep
+    title: pixelation widthStep
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.000520
+    mutable: yes
+
+  - identifier: heightStep
+    title: pixelation heightStep
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.000933
+    mutable: yes

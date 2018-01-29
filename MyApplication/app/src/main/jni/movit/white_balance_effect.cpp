@@ -23,7 +23,7 @@ Vector3d convert_color_temperature_to_xyz(float T)
 	double invT = 1.0 / T;
 	double x, y;
 
-	assert(T >= 1000.0f);
+   	assert(T >= 1000.0f);
 	assert(T <= 15000.0f);
 
 	if (T <= 4000.0f) {
