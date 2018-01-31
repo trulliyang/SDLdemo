@@ -83,29 +83,23 @@ int test_filters(char *filter_name, char *video_name) {
         __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filter movit.convert is invalid");
     }
 
-
-    Mlt::Filter m_filterResize(m_pprofile, "movit.resize");
-    if (m_filterResize.is_valid()) {
-        m_producer.lock();
-        m_producer.attach(m_filterResize);
-        m_producer.unlock();
-    } else {
-        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterResize movit.resize is invalid");
-    }
-
-//	m_consumer.set("width", t_w/3);
-//	m_consumer.set("height", t_h);
-
-
-
-//    Mlt::Filter m_filter1(m_pprofile, "movit.crop");
-//    if(m_filter1.is_valid()){
+//    Mlt::Filter m_filterResize(m_pprofile, "movit.resize");
+//    if (m_filterResize.is_valid()) {
 //        m_producer.lock();
-//        m_producer.attach(m_filter1);
+//        m_producer.attach(m_filterResize);
 //        m_producer.unlock();
 //    } else {
-//        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filter1 movit.crop is invalid");
+//        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterResize movit.resize is invalid");
 //    }
+
+    Mlt::Filter m_filterCrop(m_pprofile, "movit.crop");
+    if(m_filterCrop.is_valid()){
+        m_producer.lock();
+        m_producer.attach(m_filterCrop);
+        m_producer.unlock();
+    } else {
+        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filter1 movit.crop is invalid");
+    }
 
 //	Mlt::Filter m_filter2(m_pprofile, "movit.mirror");
 //	if(m_filter2.is_valid()){
@@ -116,14 +110,14 @@ int test_filters(char *filter_name, char *video_name) {
 //        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filter2 movit.mirror is invalid");
 //    }
 
-    Mlt::Filter m_filterVignette(m_pprofile, "movit.vignette");
-    if(m_filterVignette.is_valid()){
-        m_producer.lock();
-        m_producer.attach(m_filterVignette);
-        m_producer.unlock();
-    } else {
-        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterVignette movit.vignette is invalid");
-    }
+//    Mlt::Filter m_filterVignette(m_pprofile, "movit.vignette");
+//    if(m_filterVignette.is_valid()){
+//        m_producer.lock();
+//        m_producer.attach(m_filterVignette);
+//        m_producer.unlock();
+//    } else {
+//        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterVignette movit.vignette is invalid");
+//    }
 
 //    Mlt::Filter m_filterGray(m_pprofile, "movit.gray");
 //    if(m_filterGray.is_valid()){

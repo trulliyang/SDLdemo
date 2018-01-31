@@ -29,6 +29,10 @@ using namespace movit;
 
 static int get_image( mlt_frame frame, uint8_t **image, mlt_image_format *format, int *width, int *height, int writable )
 {
+	__android_log_print(ANDROID_LOG_ERROR, "shiyang",
+						"shiyang filter_movit_crop get_image w=%d,h=%d", *width, *height);
+//	*width = *width/3;
+//	*height = *height/3;
 	int error = 0;
 	mlt_properties properties = MLT_FRAME_PROPERTIES( frame );
 	mlt_filter filter = (mlt_filter) mlt_frame_pop_service( frame );
@@ -75,6 +79,14 @@ static int get_image( mlt_frame frame, uint8_t **image, mlt_image_format *format
 		double right   = mlt_properties_get_double( properties, "crop.right" );
 		double top     = mlt_properties_get_double( properties, "crop.top" );
 		double bottom  = mlt_properties_get_double( properties, "crop.bottom" );
+		__android_log_print(ANDROID_LOG_ERROR, "shiyang",
+							"shiyang filter_movit_crop get_image l=%f,r=%f, t=%f, b=%f",
+                            left, right, top, bottom);
+        left = *width/3;
+        right = *width/3;
+        top = *height/3;
+        bottom = *height/3;
+
 		int owidth  = *width - left - right;
 		int oheight = *height - top - bottom;
 		owidth = owidth < 0 ? 0 : owidth;
@@ -99,7 +111,7 @@ static int get_image( mlt_frame frame, uint8_t **image, mlt_image_format *format
 	Effect* effect = GlslManager::set_effect( MLT_FILTER_SERVICE( filter ), frame, new OptionalEffect<PaddingEffect> );
 	assert(effect);
 	*image = (uint8_t *) MLT_FILTER_SERVICE( filter );
-	RGBATuple border_color( 0.0f, 0.0f, 0.0f, 1.0f );
+	RGBATuple border_color( 1.0f, 0.0f, 0.0f, 1.0f );
 	bool ok = effect->set_vec4( "border_color", (float*) &border_color );
 	assert(ok);
 	return error;

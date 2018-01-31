@@ -50,7 +50,7 @@ static float alignment_parse( char* align )
 static int get_image( mlt_frame frame, uint8_t **image, mlt_image_format *format, int *width, int *height, int writable )
 {
 	__android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang filter_movit_resize get_image w=%d, h=%d", *width, *height);
-	*width = *width/3;
+//	*width = *width/3;
 	*height = *height;
 	int error = 0;
 	mlt_properties properties = MLT_FRAME_PROPERTIES( frame );
@@ -170,6 +170,8 @@ static int get_image( mlt_frame frame, uint8_t **image, mlt_image_format *format
 		GlslManager::get_instance()->lock_service( frame );
 //		*width = *width/2;
 //		*height = *height/2;
+		rect.x = 500.5f;
+        rect.y = 200.5f;
 		mlt_properties_set_int( filter_properties, "_movit.parms.int.width", *width );
 		mlt_properties_set_int( filter_properties, "_movit.parms.int.height", *height );
 		mlt_properties_set_double( filter_properties, "_movit.parms.float.left", rect.x );
@@ -177,7 +179,7 @@ static int get_image( mlt_frame frame, uint8_t **image, mlt_image_format *format
 
 
 		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang filter_movit_resize get_image "
-				"shader set w=%d, h=%d, l=%d, t=%d", *width, *height, rect.x, rect.y);
+				"shader set w=%d, h=%d, l=%f, t=%f", *width, *height, rect.x, rect.y);
 
 		bool disable = ( *width == owidth && *height == oheight && rect.x == 0 && rect.y == 0 );
 		mlt_properties_set_int( filter_properties, "_movit.parms.int.disable", disable );
