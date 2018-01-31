@@ -17,9 +17,9 @@ namespace movit {
     PixelationEffect::PixelationEffect()
             : pixel(8.0f), widthStep(1.0f/1920.0f), heightStep(1.0f/1072.0f)
     {
-        register_float("pixel", (float *)&pixel);
-        register_float("widthStep", (float *)&widthStep);
-        register_float("heightStep", (float *)&heightStep);
+        register_float("pixel", &pixel);
+        register_float("widthStep", &widthStep);
+        register_float("heightStep", &heightStep);
     }
 
     string PixelationEffect::output_fragment_shader()

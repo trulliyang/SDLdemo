@@ -24,7 +24,7 @@
 // ourselves (which might interfere with whatever OpenGL extension library
 // Movit has chosen to use).
 #include <movit/resource_pool.h>
-
+#include <android/log.h>
 #include <mlt++/MltFilter.h>
 #include <mlt++/MltDeque.h>
 #include <map>

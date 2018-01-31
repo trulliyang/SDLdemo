@@ -50,7 +50,9 @@ YCbCr422InterleavedInput::~YCbCr422InterleavedInput()
 	}
 }
 
-void YCbCr422InterleavedInput::set_gl_state(GLuint glsl_program_num, const string& prefix, unsigned *sampler_num)
+void YCbCr422InterleavedInput::set_gl_state(GLuint glsl_program_num,
+											const string& prefix,
+											unsigned *sampler_num)
 {
 	for (unsigned channel = 0; channel < 2; ++channel) {
 		glActiveTexture(GL_TEXTURE0 + *sampler_num + channel);

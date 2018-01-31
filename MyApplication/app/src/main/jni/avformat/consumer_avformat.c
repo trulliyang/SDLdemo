@@ -549,12 +549,10 @@ static uint8_t* interleaved_to_planar( int samples, int channels, uint8_t* audio
 	int c;
 
 	memset( buffer, 0, AUDIO_ENCODE_BUFFER_SIZE );
-	for ( c = 0; c < channels; c++ )
-	{
+	for ( c = 0; c < channels; c++ ) {
 		uint8_t *q = audio + c * bytes_per_sample;
 		int i = samples + 1;
-		while ( --i )
-		{
+		while ( --i ) {
 			memcpy( p, q, bytes_per_sample );
 			p += bytes_per_sample;
 			q += channels * bytes_per_sample;
@@ -910,34 +908,26 @@ static AVStream *add_video_stream( mlt_consumer consumer, AVFormatContext *oc, A
 				mlt_properties_set( properties, "_logfilename", logfilename );
 				filename = mlt_properties_get( properties, "_logfilename" );
 			}
-			if ( c->flags & AV_CODEC_FLAG_PASS1 )
-			{
+			if ( c->flags & AV_CODEC_FLAG_PASS1 ) {
 				f = mlt_fopen( filename, "w" );
 				if ( !f )
 					perror( filename );
 				else
 					mlt_properties_set_data( properties, "_logfile", f, 0, ( mlt_destructor )fclose, NULL );
-			}
-			else
-			{
+			} else {
 				/* read the log file */
 				f = mlt_fopen( filename, "r" );
-				if ( !f )
-				{
+				if ( !f ) {
 					perror( filename );
-				}
-				else
-				{
+				} else {
 					fseek( f, 0, SEEK_END );
 					size = ftell( f );
 					fseek( f, 0, SEEK_SET );
 					logbuffer = av_malloc( size + 1 );
-					if ( !logbuffer )
+					if ( !logbuffer ) {
 						mlt_log_fatal( MLT_CONSUMER_SERVICE( consumer ), "Could not allocate log buffer\n" );
-					else
-					{
-						if ( size >= 0 )
-						{
+					} else {
+						if ( size >= 0 ) {
 							size = fread( logbuffer, 1, size, f );
 							logbuffer[size] = '\0';
 							c->stats_in = logbuffer;
@@ -965,8 +955,7 @@ static AVFrame *alloc_picture( int pix_fmt, int width, int height )
 	AVFrame *picture = avcodec_alloc_frame();
 #endif
 
-	if ( picture )
-	{
+	if ( picture ) {
 		int size = av_image_alloc(picture->data, picture->linesize, width, height, pix_fmt, IMAGE_ALIGN);
 		if (size > 0) {
 			picture->format = pix_fmt;
@@ -976,9 +965,7 @@ static AVFrame *alloc_picture( int pix_fmt, int width, int height )
 			av_free( picture );
 			picture = NULL;
 		}
-	}
-	else
-	{
+	} else {
 		// Something failed - clean up what we can
 	 	av_free( picture );
 	 	picture = NULL;

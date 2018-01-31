@@ -1,4 +1,4 @@
-#include <epoxy/gl.h>
+#include 	<epoxy/gl.h>
 #include <assert.h>
 
 #include "effect_util.h"
@@ -114,7 +114,8 @@ Effect::AlphaHandling PaddingEffect::alpha_handling() const
 	return INPUT_AND_OUTPUT_PREMULTIPLIED_ALPHA;
 }
 	
-void PaddingEffect::get_output_size(unsigned *width, unsigned *height, unsigned *virtual_width, unsigned *virtual_height) const
+void PaddingEffect::get_output_size(unsigned *width, unsigned *height,
+									unsigned *virtual_width, unsigned *virtual_height) const
 {
 	*virtual_width = *width = output_width;
 	*virtual_height = *height = output_height;

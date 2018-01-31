@@ -43,7 +43,7 @@ void VignetteEffect::set_gl_state(GLuint glsl_program_num, const string &prefix,
 {
 	Effect::set_gl_state(glsl_program_num, prefix, sampler_num);
 
-	uniform_pihalf_div_radius = 0.5 * M_PI / radius;
+	uniform_pihalf_div_radius = (float) (0.5 * M_PI / radius);
 	uniform_flipped_center = Point2D(center.x, 1.0f - center.y);
 }
 

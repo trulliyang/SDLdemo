@@ -75,17 +75,28 @@ int test_filters(char *filter_name, char *video_name) {
 	ffconsumer = &m_consumer;
 
 	Mlt::Filter m_filter(m_pprofile, "movit.convert");
-	if(m_filter.is_valid()){
-//        m_filter.set("av.x","200");
-//        m_filter.set("av.y","10");
-//        m_filter.set("av.w","300");
-//        m_filter.set("av.h","300");
+	if (m_filter.is_valid()) {
 		m_producer.lock();
 		m_producer.attach(m_filter);
 		m_producer.unlock();
 	} else {
         __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filter movit.convert is invalid");
     }
+
+
+    Mlt::Filter m_filterResize(m_pprofile, "movit.resize");
+    if (m_filterResize.is_valid()) {
+        m_producer.lock();
+        m_producer.attach(m_filterResize);
+        m_producer.unlock();
+    } else {
+        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterResize movit.resize is invalid");
+    }
+
+//	m_consumer.set("width", t_w/3);
+//	m_consumer.set("height", t_h);
+
+
 
 //    Mlt::Filter m_filter1(m_pprofile, "movit.crop");
 //    if(m_filter1.is_valid()){
@@ -105,42 +116,51 @@ int test_filters(char *filter_name, char *video_name) {
 //        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filter2 movit.mirror is invalid");
 //    }
 
-//    Mlt::Filter m_filterVignette(m_pprofile, "movit.vignette");
-//    if(m_filterVignette.is_valid()){
+    Mlt::Filter m_filterVignette(m_pprofile, "movit.vignette");
+    if(m_filterVignette.is_valid()){
+        m_producer.lock();
+        m_producer.attach(m_filterVignette);
+        m_producer.unlock();
+    } else {
+        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterVignette movit.vignette is invalid");
+    }
+
+//    Mlt::Filter m_filterGray(m_pprofile, "movit.gray");
+//    if(m_filterGray.is_valid()){
 //        m_producer.lock();
-//        m_producer.attach(m_filterVignette);
+//        m_producer.attach(m_filterGray);
 //        m_producer.unlock();
 //    } else {
-//        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterVignette movit.vignette is invalid");
+//        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterGray movit.gray is invalid");
 //    }
 
-    Mlt::Filter m_filterGray(m_pprofile, "movit.gray");
-    if(m_filterGray.is_valid()){
-        m_producer.lock();
-        m_producer.attach(m_filterGray);
-        m_producer.unlock();
-    } else {
-        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterGray movit.gray is invalid");
-    }
+//    Mlt::Filter m_filterBlur(m_pprofile, "movit.blur");
+//    if(m_filterGray.is_valid()){
+//        m_producer.lock();
+//        m_producer.attach(m_filterBlur);
+//        m_producer.unlock();
+//    } else {
+//        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterBlur movit.blur is invalid");
+//    }
 
-    Mlt::Filter m_filterBlur(m_pprofile, "movit.blur");
-    if(m_filterGray.is_valid()){
-        m_producer.lock();
-        m_producer.attach(m_filterBlur);
-        m_producer.unlock();
-    } else {
-        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterBlur movit.blur is invalid");
-    }
+//	Mlt::Filter m_filterPixelation(m_pprofile, "movit.pixelation");
+//	if(m_filterPixelation.is_valid()){
+//		m_producer.lock();
+//		m_producer.attach(m_filterPixelation);
+//		m_producer.unlock();
+//	} else {
+//		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterPixelation movit.pixelation is invalid");
+//	}
 
-	Mlt::Filter m_filterPixelation(m_pprofile, "movit.pixelation");
-	if(m_filterPixelation.is_valid()){
-		m_producer.lock();
-		m_producer.attach(m_filterPixelation);
-		m_producer.unlock();
-	} else {
-		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterPixelation movit.pixelation is invalid");
-	}
 
+//	Mlt::Filter m_filterRect(m_pprofile, "movit.rect");
+//	if(m_filterRect.is_valid()){
+//		m_producer.lock();
+//		m_producer.attach(m_filterRect);
+//		m_producer.unlock();
+//	} else {
+//		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterRect movit.rect is invalid");
+//	}
 
 	m_consumer.connect(m_producer);
 	m_consumer.run();

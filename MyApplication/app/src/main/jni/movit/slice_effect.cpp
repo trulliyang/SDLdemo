@@ -39,8 +39,10 @@ void SliceEffect::inform_input_size(unsigned input_num, unsigned width, unsigned
 	input_height = height;
 }
 
-void SliceEffect::get_output_size(unsigned *width, unsigned *height,
-                                  unsigned *virtual_width, unsigned *virtual_height) const
+void SliceEffect::get_output_size(unsigned *width,
+								  unsigned *height,
+                                  unsigned *virtual_width,
+								  unsigned *virtual_height) const
 {
 	if (direction == HORIZONTAL) {
 		*width = div_round_up(input_width, input_slice_size) * output_slice_size;

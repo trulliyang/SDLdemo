@@ -73,15 +73,19 @@ void YCbCrInput::set_gl_state(GLuint glsl_program_num, const string& prefix, uns
 {
 	compute_ycbcr_matrix(ycbcr_format, uniform_offset, &uniform_ycbcr_matrix, type);
 
-	uniform_cb_offset.x = compute_chroma_offset(
-		ycbcr_format.cb_x_position, ycbcr_format.chroma_subsampling_x, widths[1]);
-	uniform_cb_offset.y = compute_chroma_offset(
-		ycbcr_format.cb_y_position, ycbcr_format.chroma_subsampling_y, heights[1]);
+	uniform_cb_offset.x = compute_chroma_offset(ycbcr_format.cb_x_position,
+												ycbcr_format.chroma_subsampling_x,
+												widths[1]);
+	uniform_cb_offset.y = compute_chroma_offset(ycbcr_format.cb_y_position,
+												ycbcr_format.chroma_subsampling_y,
+												heights[1]);
 
-	uniform_cr_offset.x = compute_chroma_offset(
-		ycbcr_format.cr_x_position, ycbcr_format.chroma_subsampling_x, widths[2]);
-	uniform_cr_offset.y = compute_chroma_offset(
-		ycbcr_format.cr_y_position, ycbcr_format.chroma_subsampling_y, heights[2]);
+	uniform_cr_offset.x = compute_chroma_offset(ycbcr_format.cr_x_position,
+												ycbcr_format.chroma_subsampling_x,
+												widths[2]);
+	uniform_cr_offset.y = compute_chroma_offset(ycbcr_format.cr_y_position,
+												ycbcr_format.chroma_subsampling_y,
+												heights[2]);
 
 	for (unsigned channel = 0; channel < num_channels; ++channel) {
 		glActiveTexture(GL_TEXTURE0 + *sampler_num + channel);
@@ -120,10 +124,13 @@ void YCbCrInput::set_gl_state(GLuint glsl_program_num, const string& prefix, uns
 			}
 
 			// (Re-)upload the texture.
-			texture_num[channel] = resource_pool->create_2d_texture(internal_format, widths[channel], heights[channel]);
+			texture_num[channel] = resource_pool->create_2d_texture(internal_format,
+																	widths[channel],
+																	heights[channel]);
 			glBindTexture(GL_TEXTURE_2D, texture_num[channel]);
 			check_error();
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, needs_mipmaps ? GL_LINEAR_MIPMAP_NEAREST : GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
+							needs_mipmaps ? GL_LINEAR_MIPMAP_NEAREST : GL_LINEAR);
 			check_error();
 			glBindBuffer(GL_PIXEL_UNPACK_BUFFER_ARB, pbos[channel]);
 			check_error();
@@ -131,7 +138,8 @@ void YCbCrInput::set_gl_state(GLuint glsl_program_num, const string& prefix, uns
 			check_error();
 			glPixelStorei(GL_UNPACK_ROW_LENGTH, pitch[channel]);
 			check_error();
-			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, widths[channel], heights[channel], format, type, pixel_data[channel]);
+			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, widths[channel], heights[channel],
+							format, type, pixel_data[channel]);
 			check_error();
 			glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
 			check_error();
@@ -176,8 +184,11 @@ string YCbCrInput::output_fragment_shader()
 			(fabs(ycbcr_format.cb_x_position - ycbcr_format.cr_x_position) < 1e-6) &&
 			(fabs(ycbcr_format.cb_y_position - ycbcr_format.cr_y_position) < 1e-6);
 		char buf[256];
-		snprintf(buf, sizeof(buf), "#define Y_CB_CR_SAME_TEXTURE 0\n#define CB_CR_SAME_TEXTURE 1\n#define CB_CR_OFFSETS_EQUAL %d\n",
-			cb_cr_offsets_equal);
+		snprintf(buf, sizeof(buf),
+				 "#define Y_CB_CR_SAME_TEXTURE 0\n"
+				 "#define CB_CR_SAME_TEXTURE 1\n"
+				 "#define CB_CR_OFFSETS_EQUAL %d\n",
+			     cb_cr_offsets_equal);
 		frag_shader += buf;
 	} else {
 		frag_shader += "#define Y_CB_CR_SAME_TEXTURE 0\n#define CB_CR_SAME_TEXTURE 0\n";

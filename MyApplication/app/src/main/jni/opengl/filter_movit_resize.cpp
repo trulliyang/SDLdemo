@@ -26,12 +26,14 @@
 #include "filter_glsl_manager.h"
 #include <movit/init.h>
 #include <movit/padding_effect.h>
+#include <android/log.h>
 #include "optional_effect.h"
 
 using namespace movit;
 
 static float alignment_parse( char* align )
 {
+	__android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang filter_movit_resize alignment_parse");
 	int ret = 0.0f;
 
 	if ( align == NULL );
@@ -47,6 +49,9 @@ static float alignment_parse( char* align )
 
 static int get_image( mlt_frame frame, uint8_t **image, mlt_image_format *format, int *width, int *height, int writable )
 {
+	__android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang filter_movit_resize get_image w=%d, h=%d", *width, *height);
+	*width = *width/3;
+	*height = *height;
 	int error = 0;
 	mlt_properties properties = MLT_FRAME_PROPERTIES( frame );
 	mlt_filter filter = (mlt_filter) mlt_frame_pop_service( frame );
@@ -103,8 +108,7 @@ static int get_image( mlt_frame frame, uint8_t **image, mlt_image_format *format
 	if ( *format == mlt_image_none || ( rescale && !strcmp( rescale, "none" ) ) )
 		return mlt_frame_get_image( frame, image, format, width, height, writable );
 
-	if ( mlt_properties_get_int( properties, "distort" ) == 0 )
-	{
+	if ( mlt_properties_get_int( properties, "distort" ) == 0 ) {
 		// Normalise the input and out display aspect
 		int normalised_width = profile->width;
 		int normalised_height = profile->height;
@@ -164,10 +168,16 @@ static int get_image( mlt_frame frame, uint8_t **image, mlt_image_format *format
 	if ( !error ) {
 		mlt_properties filter_properties = MLT_FILTER_PROPERTIES( filter );
 		GlslManager::get_instance()->lock_service( frame );
+//		*width = *width/2;
+//		*height = *height/2;
 		mlt_properties_set_int( filter_properties, "_movit.parms.int.width", *width );
 		mlt_properties_set_int( filter_properties, "_movit.parms.int.height", *height );
 		mlt_properties_set_double( filter_properties, "_movit.parms.float.left", rect.x );
 		mlt_properties_set_double( filter_properties, "_movit.parms.float.top", rect.y );
+
+
+		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang filter_movit_resize get_image "
+				"shader set w=%d, h=%d, l=%d, t=%d", *width, *height, rect.x, rect.y);
 
 		bool disable = ( *width == owidth && *height == oheight && rect.x == 0 && rect.y == 0 );
 		mlt_properties_set_int( filter_properties, "_movit.parms.int.disable", disable );
@@ -185,6 +195,7 @@ static int get_image( mlt_frame frame, uint8_t **image, mlt_image_format *format
 
 static mlt_frame process( mlt_filter filter, mlt_frame frame )
 {
+//	__android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang filter_movit_resize process");
 	mlt_frame_push_service( frame, filter );
 	mlt_frame_push_get_image( frame, get_image );
 	return frame;
@@ -193,6 +204,7 @@ static mlt_frame process( mlt_filter filter, mlt_frame frame )
 extern "C"
 mlt_filter filter_movit_resize_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg )
 {
+	__android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang filter_movit_resize filter_movit_resize_init");
 	mlt_filter filter = NULL;
 	GlslManager* glsl = GlslManager::get_instance();
 
