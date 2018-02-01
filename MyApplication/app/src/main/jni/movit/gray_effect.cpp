@@ -33,7 +33,13 @@ namespace movit {
     {
         Effect::set_gl_state(glsl_program_num, prefix, sampler_num);
 
-        type = 0;//5
+//        type = 0;//5
+    }
+
+    void GrayEffect::setParameters(int _type) {
+        __android_log_print(ANDROID_LOG_ERROR, "shiyang",
+                            "shiyang GrayEffect::setParameters type=%d", _type);
+        type = _type;
     }
 
 }  // namespace movit

@@ -18,8 +18,8 @@ static int get_image( mlt_frame frame, uint8_t **image, mlt_image_format *format
     GlslManager::get_instance()->lock_service( frame );
     mlt_position position = mlt_filter_get_position( filter, frame );
     mlt_position length = mlt_filter_get_length2( filter, frame );
-    mlt_properties_set_int( properties, "_movit.parms.int.type",
-                               mlt_properties_anim_get_int( properties, "type", position, length ) );
+    int v = mlt_properties_anim_get_int( properties, "type", position, length );
+    mlt_properties_set_int( properties, "_movit.parms.int.type", v);
     GlslManager::get_instance()->unlock_service( frame );
     *format = mlt_image_glsl;
     int error = mlt_frame_get_image( frame, image, format, width, height, writable );

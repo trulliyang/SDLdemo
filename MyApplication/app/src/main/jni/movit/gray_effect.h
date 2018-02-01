@@ -28,7 +28,7 @@ namespace movit {
 
         virtual void inform_input_size(unsigned input_num, unsigned width, unsigned height);
         void set_gl_state(GLuint glsl_program_num, const std::string &prefix, unsigned *sampler_num);
-
+        void setParameters(int _type);
     private:
         int type;
     };

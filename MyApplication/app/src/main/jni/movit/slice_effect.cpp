@@ -10,8 +10,8 @@ using namespace std;
 namespace movit {
 
 SliceEffect::SliceEffect()
-	: input_slice_size(1),
-	  output_slice_size(1),
+	: input_slice_size(10),
+	  output_slice_size(10),
 	  offset(0),
 	  direction(VERTICAL)
 {

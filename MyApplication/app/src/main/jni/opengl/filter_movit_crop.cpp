@@ -79,13 +79,13 @@ static int get_image( mlt_frame frame, uint8_t **image, mlt_image_format *format
 		double right   = mlt_properties_get_double( properties, "crop.right" );
 		double top     = mlt_properties_get_double( properties, "crop.top" );
 		double bottom  = mlt_properties_get_double( properties, "crop.bottom" );
-		__android_log_print(ANDROID_LOG_ERROR, "shiyang",
-							"shiyang filter_movit_crop get_image l=%f,r=%f, t=%f, b=%f",
-                            left, right, top, bottom);
-        left = *width/3;
-        right = *width/3;
-        top = *height/3;
-        bottom = *height/3;
+//		__android_log_print(ANDROID_LOG_ERROR, "shiyang",
+//							"shiyang filter_movit_crop get_image l=%f,r=%f, t=%f, b=%f",
+//                            left, right, top, bottom);
+//        left = *width/3;
+//        right = *width/3;
+//        top = *height/3;
+//        bottom = *height/3;
 
 		int owidth  = *width - left - right;
 		int oheight = *height - top - bottom;
@@ -101,7 +101,7 @@ static int get_image( mlt_frame frame, uint8_t **image, mlt_image_format *format
 		mlt_properties_set_double( properties, "_movit.parms.float.left", -left );
 		mlt_properties_set_double( properties, "_movit.parms.float.top", -top );
 
-		bool disable = ( *width == owidth && *height == oheight );
+		bool disable = false;( *width == owidth && *height == oheight );
 		mlt_properties_set_int( properties, "_movit.parms.int.disable", disable );
 
 		GlslManager::get_instance()->unlock_service( frame );

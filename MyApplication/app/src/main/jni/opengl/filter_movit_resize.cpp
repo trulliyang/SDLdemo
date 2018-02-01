@@ -47,9 +47,11 @@ static float alignment_parse( char* align )
 	return ret;
 }
 
-static int get_image( mlt_frame frame, uint8_t **image, mlt_image_format *format, int *width, int *height, int writable )
+static int get_image( mlt_frame frame, uint8_t **image, mlt_image_format *format,
+                      int *width, int *height, int writable )
 {
-	__android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang filter_movit_resize get_image w=%d, h=%d", *width, *height);
+	__android_log_print(ANDROID_LOG_ERROR, "shiyang",
+                        "shiyang filter_movit_resize get_image w=%d, h=%d", *width, *height);
 //	*width = *width/3;
 	*height = *height;
 	int error = 0;
@@ -177,7 +179,6 @@ static int get_image( mlt_frame frame, uint8_t **image, mlt_image_format *format
 		mlt_properties_set_double( filter_properties, "_movit.parms.float.left", rect.x );
 		mlt_properties_set_double( filter_properties, "_movit.parms.float.top", rect.y );
 
-
 		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang filter_movit_resize get_image "
 				"shader set w=%d, h=%d, l=%f, t=%f", *width, *height, rect.x, rect.y);
 
@@ -206,7 +207,8 @@ static mlt_frame process( mlt_filter filter, mlt_frame frame )
 extern "C"
 mlt_filter filter_movit_resize_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg )
 {
-	__android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang filter_movit_resize filter_movit_resize_init");
+	__android_log_print(ANDROID_LOG_ERROR, "shiyang",
+                        "shiyang filter_movit_resize filter_movit_resize_init");
 	mlt_filter filter = NULL;
 	GlslManager* glsl = GlslManager::get_instance();
 

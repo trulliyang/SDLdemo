@@ -131,7 +131,8 @@ static void *create_service( mlt_profile profile, mlt_service_type type, const c
 	return NULL;
 }
 
-static void add_parameters( mlt_properties params, void *object, int req_flags, const char *unit, const char *subclass, const char *id_prefix )
+static void add_parameters( mlt_properties params, void *object, int req_flags,
+							const char *unit, const char *subclass, const char *id_prefix )
 {
 	const AVOption *opt = NULL;
 

@@ -8,7 +8,10 @@
 
 vec4 FUNCNAME(vec2 tc) {
 	tc -= PREFIX(offset);
+	tc -= vec2(0.25);
 	tc *= PREFIX(scale);
+    tc *= 2.0;
+
 
 	vec2 tc_texels = tc * PREFIX(normalized_coords_to_texels);
 	vec2 coverage_bottomleft = clamp(tc_texels + PREFIX(offset_bottomleft), 0.0f, 1.0f);

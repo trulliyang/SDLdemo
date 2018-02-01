@@ -248,6 +248,10 @@ void EffectChain::find_all_nonlinear_inputs(Node *node, vector<Node *> *nonlinea
 Effect *EffectChain::add_effect(Effect *effect, const vector<Effect *> &inputs)
 {
 	assert(!finalized);
+    __android_log_print(ANDROID_LOG_ERROR, "shiyang",
+                        "shiyang EffectChain add_effect name =%s, input size=%d, num_inputs=%d",
+                        effect->effect_type_id().c_str(), inputs.size(), effect->num_inputs());
+
 	assert(inputs.size() == effect->num_inputs());
 	Node *node = add_node(effect);
 	for (unsigned i = 0; i < inputs.size(); ++i) {

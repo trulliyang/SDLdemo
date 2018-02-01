@@ -34,6 +34,7 @@ extern mlt_filter filter_movit_gray_init( mlt_profile profile, mlt_service_type 
 extern mlt_filter filter_lift_gamma_gain_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
 extern mlt_filter filter_movit_mirror_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
 extern mlt_filter filter_movit_opacity_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
+extern mlt_filter filter_movit_overlay_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
 extern mlt_filter filter_movit_pixelation_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
 extern mlt_filter filter_movit_rect_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
 extern mlt_filter filter_movit_resample_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
@@ -71,6 +72,7 @@ void opengles_mlt_register( mlt_repository repository)
 	MLT_REGISTER( filter_type, "movit.lift_gamma_gain", filter_lift_gamma_gain_init );
 	MLT_REGISTER( filter_type, "movit.mirror", filter_movit_mirror_init );
 	MLT_REGISTER( filter_type, "movit.opacity", filter_movit_opacity_init );
+	MLT_REGISTER( filter_type, "movit.overlay", filter_movit_overlay_init );
 	MLT_REGISTER( filter_type, "movit.pixelation", filter_movit_pixelation_init );
 	MLT_REGISTER( filter_type, "movit.rect", filter_movit_rect_init );
 	MLT_REGISTER( filter_type, "movit.resample", filter_movit_resample_init );
@@ -91,6 +93,7 @@ void opengles_mlt_register( mlt_repository repository)
 	MLT_REGISTER_METADATA( filter_type, "movit.lift_gamma_gain", metadata, "filter_movit_lift_gamma_gain.yml" );
 	MLT_REGISTER_METADATA( filter_type, "movit.mirror", metadata, "filter_movit_mirror.yml" );
 	MLT_REGISTER_METADATA( filter_type, "movit.opacity", metadata, "filter_movit_opacity.yml" );
+//	MLT_REGISTER_METADATA( filter_type, "movit.overlay", metadata, "filter_movit_overlay.yml" );
 	MLT_REGISTER_METADATA( filter_type, "movit.pixelation", metadata, "filter_movit_pixelation.yml" );
 	MLT_REGISTER_METADATA( filter_type, "movit.rect", metadata, "filter_movit_rect.yml" );
 	MLT_REGISTER_METADATA( filter_type, "movit.saturation", metadata, "filter_movit_saturation.yml" );

@@ -43,6 +43,7 @@
 #include <errno.h>
 #include <locale.h>
 #include <float.h>
+#include <android/log.h>
 
 /** \brief private implementation of the property list */
 
@@ -943,7 +944,9 @@ int mlt_properties_set_int( mlt_properties self, const char *name, int value )
 {
 	int error = 1;
 
-	if ( !self || !name ) return error;
+	if ( !self || !name ) {
+		return error;
+	}
 
 	// Fetch the property to work with
 	mlt_property property = mlt_properties_fetch( self, name );
@@ -952,7 +955,12 @@ int mlt_properties_set_int( mlt_properties self, const char *name, int value )
 	if ( property != NULL )
 	{
 		error = mlt_property_set_int( property, value );
+//		__android_log_print(ANDROID_LOG_ERROR, "shiyang",
+//							"mlt_properties mlt_properties_set_int name=%s, value=%d, error=%d", name, error, value);
 		mlt_properties_do_mirror( self, name );
+	} else {
+		__android_log_print(ANDROID_LOG_ERROR, "shiyang",
+							"mlt_properties mlt_properties_set_int property == nullptr");
 	}
 
 	mlt_events_fire( self, "property-changed", name, NULL );

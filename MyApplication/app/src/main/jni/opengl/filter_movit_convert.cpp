@@ -461,7 +461,9 @@ static int movit_render( EffectChain *chain, mlt_frame frame, mlt_image_format *
 }
 
 // Create an MltInput for an image with the given format and dimensions.
-static MltInput* create_input( mlt_properties properties, mlt_image_format format, int aspect_width, int aspect_height, int width, int height )
+static MltInput* create_input( mlt_properties properties, mlt_image_format format,
+							   int aspect_width, int aspect_height,
+							   int width, int height )
 {
 	MltInput* input = new MltInput( format );
 	if ( format == mlt_image_rgb24a || format == mlt_image_opengl ) {
@@ -505,7 +507,8 @@ static uint8_t* make_input_copy( mlt_image_format format, uint8_t *image, int wi
 	return img_copy;
 }
 
-static int convert_image( mlt_frame frame, uint8_t **image, mlt_image_format *format, mlt_image_format output_format )
+static int convert_image( mlt_frame frame, uint8_t **image,
+						  mlt_image_format *format, mlt_image_format output_format )
 {
 	// Nothing to do!
 	if ( *format == output_format )
@@ -692,8 +695,9 @@ mlt_filter filter_movit_convert_init( mlt_profile profile, mlt_service_type type
 		if ( !cpu_csc )
 			cpu_csc = create_filter( profile, "imageconvert" );
 		if ( cpu_csc )
-			mlt_properties_set_data( MLT_FILTER_PROPERTIES( filter ), "cpu_csc", cpu_csc, 0,
-				(mlt_destructor) mlt_filter_close, NULL );
+			mlt_properties_set_data( MLT_FILTER_PROPERTIES( filter ),
+									 "cpu_csc", cpu_csc, 0,
+									 (mlt_destructor) mlt_filter_close, NULL );
 		filter->process = process;
 	}
 	return filter;

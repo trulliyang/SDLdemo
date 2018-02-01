@@ -81,6 +81,7 @@ bool PaddingEffect::needs_linear_light() const
 	    border_color.a == 1.0) {
 		return false;
 	}
+
 	return true;
 }
 

@@ -62,7 +62,7 @@ int test_filters(char *filter_name, char *video_name) {
 	m_producer.set("real_time", 1);
 	m_producer.set("terminate_on_pause", 0);
 
-	Mlt::FilteredConsumer m_consumer(m_pprofile,"xgl",NULL);
+	Mlt::FilteredConsumer m_consumer(m_pprofile, "xgl" ,NULL);
 
     int t_h = m_pprofile.height();
     int t_w = m_pprofile.width();
@@ -101,6 +101,15 @@ int test_filters(char *filter_name, char *video_name) {
         __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filter1 movit.crop is invalid");
     }
 
+//    Mlt::Filter m_filterOverlay(m_pprofile, "movit.overlay");
+//    if(m_filterOverlay.is_valid()){
+//        m_producer.lock();
+//        m_producer.attach(m_filterOverlay);
+//        m_producer.unlock();
+//    } else {
+//        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filter1 movit.overlay is invalid");
+//    }
+
 //	Mlt::Filter m_filter2(m_pprofile, "movit.mirror");
 //	if(m_filter2.is_valid()){
 //		m_producer.lock();
@@ -119,23 +128,33 @@ int test_filters(char *filter_name, char *video_name) {
 //        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterVignette movit.vignette is invalid");
 //    }
 
-//    Mlt::Filter m_filterGray(m_pprofile, "movit.gray");
-//    if(m_filterGray.is_valid()){
-//        m_producer.lock();
-//        m_producer.attach(m_filterGray);
-//        m_producer.unlock();
-//    } else {
-//        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterGray movit.gray is invalid");
-//    }
 
-//    Mlt::Filter m_filterBlur(m_pprofile, "movit.blur");
-//    if(m_filterGray.is_valid()){
-//        m_producer.lock();
-//        m_producer.attach(m_filterBlur);
-//        m_producer.unlock();
-//    } else {
-//        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterBlur movit.blur is invalid");
-//    }
+    Mlt::Filter m_filterSlice(m_pprofile, "movit.slice");
+    if(m_filterSlice.is_valid()){
+        m_producer.lock();
+        m_producer.attach(m_filterSlice);
+        m_producer.unlock();
+    } else {
+        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterSlice movit.slice is invalid");
+    }
+
+    Mlt::Filter m_filterGray(m_pprofile, "movit.gray");
+    if(m_filterGray.is_valid()){
+        m_producer.lock();
+        m_producer.attach(m_filterGray);
+        m_producer.unlock();
+    } else {
+        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterGray movit.gray is invalid");
+    }
+
+    Mlt::Filter m_filterBlur(m_pprofile, "movit.blur");
+    if(m_filterBlur.is_valid()){
+        m_producer.lock();
+        m_producer.attach(m_filterBlur);
+        m_producer.unlock();
+    } else {
+        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterBlur movit.blur is invalid");
+    }
 
 //	Mlt::Filter m_filterPixelation(m_pprofile, "movit.pixelation");
 //	if(m_filterPixelation.is_valid()){

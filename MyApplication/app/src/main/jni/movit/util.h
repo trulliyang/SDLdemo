@@ -11,6 +11,8 @@
 #include "defs.h"
 #include "fp16.h"
 
+#include <android/log.h>
+
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
 namespace movit {
