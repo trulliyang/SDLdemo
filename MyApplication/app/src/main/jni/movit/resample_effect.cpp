@@ -157,7 +157,8 @@ unsigned combine_samples(const Tap<float> *src, Tap<DestFloat> *dst, float num_s
 
 		DestFloat pos, total_weight;
 		float sum_sq_error;
-		combine_two_samples(w1, w2, pos1, pos1_pos2_diff, inv_pos1_pos2_diff, num_subtexels, inv_num_subtexels, &pos, &total_weight, &sum_sq_error);
+		combine_two_samples(w1, w2, pos1, pos1_pos2_diff, inv_pos1_pos2_diff,
+							num_subtexels, inv_num_subtexels, &pos, &total_weight, &sum_sq_error);
 
 		// If the interpolation error is larger than that of about sqrt(2) of
 		// a level at 8-bit precision, don't combine. (You'd think 1.0 was enough,
@@ -206,7 +207,9 @@ void normalize_sum(Tap<T>* vals, unsigned num)
 //
 // The greedy strategy for combining samples is optimal.
 template<class DestFloat>
-unsigned combine_many_samples(const Tap<float> *weights, unsigned src_size, unsigned src_samples, unsigned dst_samples, Tap<DestFloat> **bilinear_weights)
+unsigned combine_many_samples(const Tap<float> *weights, unsigned src_size,
+							  unsigned src_samples, unsigned dst_samples,
+							  Tap<DestFloat> **bilinear_weights)
 {
 	float num_subtexels = src_size / movit_texel_subpixel_precision;
 	float inv_num_subtexels = movit_texel_subpixel_precision / src_size;
@@ -215,7 +218,10 @@ unsigned combine_many_samples(const Tap<float> *weights, unsigned src_size, unsi
 
 	unsigned max_samples_saved = UINT_MAX;
 	for (unsigned y = 0; y < dst_samples && max_samples_saved > 0; ++y) {
-		unsigned num_samples_saved = combine_samples<DestFloat>(weights + y * src_samples, NULL, num_subtexels, inv_num_subtexels, src_samples, max_samples_saved, pos1_pos2_diff, inv_pos1_pos2_diff);
+		unsigned num_samples_saved = combine_samples<DestFloat>(weights + y * src_samples, NULL,
+																num_subtexels, inv_num_subtexels,
+																src_samples, max_samples_saved,
+																pos1_pos2_diff, inv_pos1_pos2_diff);
 		max_samples_saved = min(max_samples_saved, num_samples_saved);
 	}
 
@@ -500,7 +506,9 @@ string SingleResamplePassEffect::output_fragment_shader()
 //
 // For horizontal scaling, we fill in the exact same texture;
 // the shader just interprets it differently.
-void SingleResamplePassEffect::update_texture(GLuint glsl_program_num, const string &prefix, unsigned *sampler_num)
+void SingleResamplePassEffect::update_texture(GLuint glsl_program_num,
+											  const string &prefix,
+											  unsigned *sampler_num)
 {
 	unsigned src_size, dst_size;
 	if (direction == SingleResamplePassEffect::HORIZONTAL) {
@@ -553,9 +561,13 @@ void SingleResamplePassEffect::update_texture(GLuint glsl_program_num, const str
 	    internal_format == last_texture_internal_format) {
 		// Texture dimensions and type are unchanged; it is more efficient
 		// to just update it rather than making an entirely new texture.
-		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, weights.src_bilinear_samples, weights.dst_samples, GL_RG, type, pixels);
+		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0,
+						weights.src_bilinear_samples, weights.dst_samples,
+						GL_RG, type, pixels);
 	} else {
-		glTexImage2D(GL_TEXTURE_2D, 0, internal_format, weights.src_bilinear_samples, weights.dst_samples, 0, GL_RG, type, pixels);
+		glTexImage2D(GL_TEXTURE_2D, 0, internal_format,
+					 weights.src_bilinear_samples, weights.dst_samples,
+					 0, GL_RG, type, pixels);
 		last_texture_width = weights.src_bilinear_samples;
 		last_texture_height = weights.dst_samples;
 		last_texture_internal_format = internal_format;
@@ -566,7 +578,8 @@ void SingleResamplePassEffect::update_texture(GLuint glsl_program_num, const str
 	delete[] weights.bilinear_weights_fp32;
 }
 
-ScalingWeights calculate_scaling_weights(unsigned src_size, unsigned dst_size, float zoom, float offset)
+ScalingWeights calculate_scaling_weights(unsigned src_size, unsigned dst_size,
+										 float zoom, float offset)
 {
 	if (!lanczos_table_init_done) {
 		// Only needed if run from outside ResampleEffect.
@@ -671,7 +684,8 @@ ScalingWeights calculate_scaling_weights(unsigned src_size, unsigned dst_size, f
 	// samples, since one would assume overall errors in the shape don't matter as much.
 	const float max_error = 2.0f / (255.0f * 255.0f);
 	Tap<fp16_int_t> *bilinear_weights_fp16 = NULL;
-	int src_bilinear_samples = combine_many_samples(weights, src_size, src_samples, dst_samples, &bilinear_weights_fp16);
+	int src_bilinear_samples = combine_many_samples(weights, src_size, src_samples, dst_samples,
+													&bilinear_weights_fp16);
 	Tap<float> *bilinear_weights_fp32 = NULL;
 	double max_sum_sq_error_fp16 = 0.0;
 	for (unsigned y = 0; y < dst_samples; ++y) {
@@ -688,7 +702,8 @@ ScalingWeights calculate_scaling_weights(unsigned src_size, unsigned dst_size, f
 	if (max_sum_sq_error_fp16 > max_error) {
 		delete[] bilinear_weights_fp16;
 		bilinear_weights_fp16 = NULL;
-		src_bilinear_samples = combine_many_samples(weights, src_size, src_samples, dst_samples, &bilinear_weights_fp32);
+		src_bilinear_samples = combine_many_samples(weights, src_size, src_samples, dst_samples,
+													&bilinear_weights_fp32);
 	}
 
 	delete[] weights;
@@ -702,7 +717,9 @@ ScalingWeights calculate_scaling_weights(unsigned src_size, unsigned dst_size, f
 	return ret;
 }
 
-void SingleResamplePassEffect::set_gl_state(GLuint glsl_program_num, const string &prefix, unsigned *sampler_num)
+void SingleResamplePassEffect::set_gl_state(GLuint glsl_program_num,
+											const string &prefix,
+											unsigned *sampler_num)
 {
 	Effect::set_gl_state(glsl_program_num, prefix, sampler_num);
 

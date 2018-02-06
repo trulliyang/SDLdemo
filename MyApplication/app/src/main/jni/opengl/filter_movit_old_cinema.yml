@@ -1,0 +1,70 @@
+schema_version: 0.1
+type: filter
+identifier: movit.old_cinema
+title: old cinema (GLSL)
+version: 1
+copyright: shiyang1
+creator: shiyang1
+license: GPLv2
+language: en
+tags:
+  - Video
+description: >
+  generate a old cinema style frame.
+
+parameters:
+  - identifier: SepiaValue
+    title: old cinema sepia
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.5
+    mutable: yes
+
+  - identifier: NoiseValue
+    title: old cinema noise
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.5
+    mutable: yes
+
+  - identifier: ScratchValue
+    title: old cinema scratch
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.5
+    mutable: yes
+
+  - identifier: InnerVignetting
+    title: old cinema inner vignetting
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.5
+    mutable: yes
+
+  - identifier: OuterVignetting
+    title: old cinema outer vignetting
+    type: float
+    minimum: 0.0
+    maximum: 1.4
+    default: 0.9
+    mutable: yes
+
+  - identifier: RandomValue
+    title: old cinema random
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.5
+    mutable: yes
+
+  - identifier: TimeLapse
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 2000.0
+    default: 2000.0
+    mutable: yes

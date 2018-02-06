@@ -99,7 +99,9 @@ mlt_playlist mlt_playlist_init( )
 		self->list = calloc( self->size, sizeof( playlist_entry * ) );
 		if ( self->list == NULL ) goto error2;
 		
-		mlt_events_register( MLT_PLAYLIST_PROPERTIES( self ), "playlist-next", (mlt_transmitter) mlt_playlist_next );
+		mlt_events_register( MLT_PLAYLIST_PROPERTIES( self ),
+							 "playlist-next",
+							 (mlt_transmitter) mlt_playlist_next );
 	}
 
 	return self;

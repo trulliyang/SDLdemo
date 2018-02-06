@@ -1,4 +1,4 @@
-schema_version: 0.2
+shema_version: 0.2
 type: consumer
 identifier: avformat
 title: FFmpeg Output

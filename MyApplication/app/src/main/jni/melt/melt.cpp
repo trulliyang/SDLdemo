@@ -92,14 +92,14 @@ int test_filters(char *filter_name, char *video_name) {
 //        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterResize movit.resize is invalid");
 //    }
 
-    Mlt::Filter m_filterCrop(m_pprofile, "movit.crop");
-    if(m_filterCrop.is_valid()){
-        m_producer.lock();
-        m_producer.attach(m_filterCrop);
-        m_producer.unlock();
-    } else {
-        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filter1 movit.crop is invalid");
-    }
+//    Mlt::Filter m_filterCrop(m_pprofile, "movit.crop");
+//    if(m_filterCrop.is_valid()){
+//        m_producer.lock();
+//        m_producer.attach(m_filterCrop);
+//        m_producer.unlock();
+//    } else {
+//        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filter1 movit.crop is invalid");
+//    }
 
 //    Mlt::Filter m_filterOverlay(m_pprofile, "movit.overlay");
 //    if(m_filterOverlay.is_valid()){
@@ -129,32 +129,42 @@ int test_filters(char *filter_name, char *video_name) {
 //    }
 
 
-    Mlt::Filter m_filterSlice(m_pprofile, "movit.slice");
-    if(m_filterSlice.is_valid()){
-        m_producer.lock();
-        m_producer.attach(m_filterSlice);
-        m_producer.unlock();
-    } else {
-        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterSlice movit.slice is invalid");
-    }
+//    Mlt::Filter m_filterSlice(m_pprofile, "movit.slice");
+//    if(m_filterSlice.is_valid()){
+//        m_producer.lock();
+//        m_producer.attach(m_filterSlice);
+//        m_producer.unlock();
+//    } else {
+//        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterSlice movit.slice is invalid");
+//    }
 
-    Mlt::Filter m_filterGray(m_pprofile, "movit.gray");
-    if(m_filterGray.is_valid()){
-        m_producer.lock();
-        m_producer.attach(m_filterGray);
-        m_producer.unlock();
-    } else {
-        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterGray movit.gray is invalid");
-    }
+//    Mlt::Filter m_filterGray(m_pprofile, "movit.gray");
+//    if(m_filterGray.is_valid()){
+//        m_producer.lock();
+//        m_producer.attach(m_filterGray);
+//        m_producer.unlock();
+//    } else {
+//        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterGray movit.gray is invalid");
+//    }
 
-    Mlt::Filter m_filterBlur(m_pprofile, "movit.blur");
-    if(m_filterBlur.is_valid()){
-        m_producer.lock();
-        m_producer.attach(m_filterBlur);
-        m_producer.unlock();
-    } else {
-        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterBlur movit.blur is invalid");
-    }
+//    Mlt::Filter m_filterBlur(m_pprofile, "movit.blur");
+//    if(m_filterBlur.is_valid()){
+//        m_producer.lock();
+//        m_producer.attach(m_filterBlur);
+//        m_producer.unlock();
+//    } else {
+//        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterBlur movit.blur is invalid");
+//    }
+
+	Mlt::Filter m_filterOldCinema(m_pprofile, "movit.old_cinema");
+	if(m_filterOldCinema.is_valid()){
+		m_producer.lock();
+		m_producer.attach(m_filterOldCinema);
+		m_producer.unlock();
+	} else {
+		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterOldCinema movit.old_cinema is invalid");
+	}
+
 
 //	Mlt::Filter m_filterPixelation(m_pprofile, "movit.pixelation");
 //	if(m_filterPixelation.is_valid()){
@@ -164,7 +174,6 @@ int test_filters(char *filter_name, char *video_name) {
 //	} else {
 //		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterPixelation movit.pixelation is invalid");
 //	}
-
 
 //	Mlt::Filter m_filterRect(m_pprofile, "movit.rect");
 //	if(m_filterRect.is_valid()){

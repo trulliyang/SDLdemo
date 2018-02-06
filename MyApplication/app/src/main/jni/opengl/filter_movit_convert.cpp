@@ -279,7 +279,8 @@ static Effect* build_movit_chain( mlt_service service, mlt_frame frame, GlslChai
 
 static void dispose_movit_effects( mlt_service service, mlt_frame frame )
 {
-	if ( service == (mlt_service) -1 ) {
+	if ( service == (mlt_service) -1 )
+	{
 		mlt_producer producer = mlt_producer_cut_parent( mlt_frame_get_original_producer( frame ) );
 		delete GlslManager::get_input( producer, frame );
 		GlslManager::set_input( producer, frame, NULL );
@@ -295,11 +296,13 @@ static void dispose_movit_effects( mlt_service service, mlt_frame frame )
 	GlslManager::get_effect_secondary_input( service, frame, &input_b, &frame_b );
 	dispose_movit_effects( input_a, frame );
 
-	if ( input_b ) {
+	if ( input_b )
+	{
 		dispose_movit_effects( input_b, frame_b );
 	}
 	GlslManager::get_effect_third_input( service, frame, &input_b, &frame_b );
-	if ( input_b ) {
+	if ( input_b )
+	{
 		dispose_movit_effects( input_b, frame_b );
 	}
 }
@@ -312,7 +315,8 @@ static void finalize_movit_chain( mlt_service leaf_service, mlt_frame frame )
 	build_fingerprint( leaf_service, frame, &new_fingerprint );
 
 	// Build the chain if needed.
-	if ( !chain || new_fingerprint != chain->fingerprint ) {
+	if ( !chain || new_fingerprint != chain->fingerprint )
+	{
 		mlt_log_debug( leaf_service, "=== CREATING NEW CHAIN (old chain=%p, leaf=%p, fingerprint=%s) ===\n", chain, leaf_service, new_fingerprint.c_str() );
 		mlt_profile profile = mlt_service_profile( leaf_service );
 		chain = new GlslChain;
@@ -335,7 +339,9 @@ static void finalize_movit_chain( mlt_service leaf_service, mlt_frame frame )
 		chain->effect_chain->finalize();
 
 		GlslManager::set_chain( leaf_service, chain );
-	} else {
+	}
+	else
+	{
 		// Delete all the created Effect instances to avoid memory leaks.
 		dispose_movit_effects( leaf_service, frame );
 	}
@@ -343,7 +349,8 @@ static void finalize_movit_chain( mlt_service leaf_service, mlt_frame frame )
 
 static void set_movit_parameters( GlslChain *chain, mlt_service service, mlt_frame frame )
 {
-	if ( service == (mlt_service) -1 ) {
+	if ( service == (mlt_service) -1 )
+	{
 		mlt_producer producer = mlt_producer_cut_parent( mlt_frame_get_original_producer( frame ) );
 		MltInput* input = chain->inputs[ producer ];
 		input->set_pixel_data( GlslManager::get_input_pixel_pointer( producer, frame ) );
@@ -357,33 +364,39 @@ static void set_movit_parameters( GlslChain *chain, mlt_service service, mlt_fra
 	mlt_service input_b;
 	mlt_frame frame_b;
 	GlslManager::get_effect_secondary_input( service, frame, &input_b, &frame_b );
-	if ( input_b ) {
+	if ( input_b )
+	{
 		set_movit_parameters( chain, input_b, frame_b );
 	}
 	GlslManager::get_effect_third_input( service, frame, &input_b, &frame_b );
-	if ( input_b ) {
+	if ( input_b )
+	{
 		set_movit_parameters( chain, input_b, frame_b );
 	}
 
 	mlt_properties properties = MLT_SERVICE_PROPERTIES( service );
 	int count = mlt_properties_count( properties );
-	for (int i = 0; i < count; ++i) {
+	for (int i = 0; i < count; ++i)
+	{
 		const char *name = mlt_properties_get_name( properties, i );
 		if (strncmp(name, "_movit.parms.float.", strlen("_movit.parms.float.")) == 0 &&
-			mlt_properties_get_value( properties, i )) {
+			mlt_properties_get_value( properties, i ))
+		{
 			bool ok = effect->set_float(name + strlen("_movit.parms.float."),
 				mlt_properties_get_double( properties, name ));
 			assert(ok);
 		}
 		if (strncmp(name, "_movit.parms.int.", strlen("_movit.parms.int.")) == 0 &&
-			mlt_properties_get_value( properties, i )) {
+			mlt_properties_get_value( properties, i ))
+		{
 			bool ok = effect->set_int(name + strlen("_movit.parms.int."),
 				mlt_properties_get_int( properties, name ));
 			assert(ok);
 		}
 		if (strncmp(name, "_movit.parms.vec3.", strlen("_movit.parms.vec3.")) == 0 &&
 		    strcmp(name + strlen(name) - 3, "[0]") == 0 &&
-		    mlt_properties_get_value( properties, i )) {
+		    mlt_properties_get_value( properties, i ))
+		{
 			float val[3];
 			char *name_copy = strdup(name);
 			char *index_char = name_copy + strlen(name_copy) - 2;
@@ -399,7 +412,8 @@ static void set_movit_parameters( GlslChain *chain, mlt_service service, mlt_fra
 		}
 		if (strncmp(name, "_movit.parms.vec4.", strlen("_movit.parms.vec4.")) == 0 &&
 		    strcmp(name + strlen(name) - 3, "[0]") == 0 &&
-		    mlt_properties_get_value( properties, i )) {
+		    mlt_properties_get_value( properties, i ))
+		{
 			float val[4];
 			char *name_copy = strdup(name);
 			char *index_char = name_copy + strlen(name_copy) - 2;
@@ -420,7 +434,8 @@ static void set_movit_parameters( GlslChain *chain, mlt_service service, mlt_fra
 
 static void dispose_pixel_pointers( GlslChain *chain, mlt_service service, mlt_frame frame )
 {
-	if ( service == (mlt_service) -1 ) {
+	if ( service == (mlt_service) -1 )
+	{
 		mlt_producer producer = mlt_producer_cut_parent( mlt_frame_get_original_producer( frame ) );
 		MltInput* input = chain->inputs[ producer ];
 		input->invalidate_pixel_data();
@@ -434,11 +449,13 @@ static void dispose_pixel_pointers( GlslChain *chain, mlt_service service, mlt_f
 	mlt_service input_b;
 	mlt_frame frame_b;
 	GlslManager::get_effect_secondary_input( service, frame, &input_b, &frame_b );
-	if ( input_b ) {
+	if ( input_b )
+	{
 		dispose_pixel_pointers( chain, input_b, frame_b );
 	}
 	GlslManager::get_effect_third_input( service, frame, &input_b, &frame_b );
-	if ( input_b ) {
+	if ( input_b )
+	{
 		dispose_pixel_pointers( chain, input_b, frame_b );
 	}
 }
@@ -447,12 +464,15 @@ static int movit_render( EffectChain *chain, mlt_frame frame, mlt_image_format *
 {
 	GlslManager* glsl = GlslManager::get_instance();
 	int error;
-	if ( output_format == mlt_image_glsl_texture ) {
+	if ( output_format == mlt_image_glsl_texture )
+	{
 		error = glsl->render_frame_texture( chain, frame, width, height, image );
 	}
-	else {
+	else
+	{
 		error = glsl->render_frame_rgba( chain, frame, width, height, image );
-		if ( !error && output_format != mlt_image_rgb24a ) {
+		if ( !error && output_format != mlt_image_rgb24a )
+		{
 			*format = mlt_image_rgb24a;
 			error = convert_on_cpu( frame, image, format, output_format );
 		}
@@ -464,17 +484,20 @@ static int movit_render( EffectChain *chain, mlt_frame frame, mlt_image_format *
 static MltInput* create_input( mlt_properties properties, mlt_image_format format,
 							   int aspect_width, int aspect_height,
 							   int width, int height )
-{
+{__android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang create_input");
 	MltInput* input = new MltInput( format );
 	if ( format == mlt_image_rgb24a || format == mlt_image_opengl ) {
+		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang format = rgb24a or opengl");
 		// TODO: Get the color space if available.
 		input->useFlatInput( FORMAT_RGBA_POSTMULTIPLIED_ALPHA, width, height );
 	}
 	else if ( format == mlt_image_rgb24 ) {
+		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang format = rgb24");
 		// TODO: Get the color space if available.
 		input->useFlatInput( FORMAT_RGB, width, height );
 	}
 	else if ( format == mlt_image_yuv420p ) {
+		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang format = yuv420p");
 		ImageFormat image_format = {};
 		YCbCrFormat ycbcr_format = {};
 		get_format_from_properties( properties, &image_format, &ycbcr_format );
@@ -482,6 +505,7 @@ static MltInput* create_input( mlt_properties properties, mlt_image_format forma
 		input->useYCbCrInput( image_format, ycbcr_format, width, height );
 	}
 	else if ( format == mlt_image_yuv422 ) {
+		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang format = yuv422");
 		ImageFormat image_format = {};
 		YCbCrFormat ycbcr_format = {};
 		get_format_from_properties( properties, &image_format, &ycbcr_format );
@@ -499,9 +523,12 @@ static uint8_t* make_input_copy( mlt_image_format format, uint8_t *image, int wi
 {
 	int img_size = mlt_image_format_size( format, width, height, NULL );
 	uint8_t* img_copy = (uint8_t*) mlt_pool_alloc( img_size );
-	if ( format == mlt_image_yuv422 ) {
+	if ( format == mlt_image_yuv422 )
+	{
 		yuv422_to_yuv422p( image, img_copy, width, height );
-	} else {
+	}
+	else
+	{
 		memcpy( img_copy, image, img_size );
 	}
 	return img_copy;
@@ -536,7 +563,8 @@ static int convert_image( mlt_frame frame, uint8_t **image,
 	
 	// If we're at the beginning of a series of Movit effects, store the input
 	// sent into the chain.
-	if ( output_format == mlt_image_glsl ) {
+	if ( output_format == mlt_image_glsl )
+	{
 		mlt_producer producer = mlt_producer_cut_parent( mlt_frame_get_original_producer( frame ) );
 		mlt_profile profile = mlt_service_profile( MLT_PRODUCER_SERVICE( producer ) );
 		MltInput *input = create_input( properties, *format, profile->width, profile->height, width, height );
@@ -549,10 +577,12 @@ static int convert_image( mlt_frame frame, uint8_t **image,
 	}
 
 	// If we're at the _end_ of a series of Movit effects, render the chain.
-	if ( *format == mlt_image_glsl ) {
+	if ( *format == mlt_image_glsl )
+	{
 		mlt_service leaf_service = (mlt_service) *image;
 
-		if ( leaf_service == (mlt_service) -1 ) {
+		if ( leaf_service == (mlt_service) -1 )
+		{
 			// Something on the way requested conversion to mlt_glsl,
 			// but never added an effect. Don't build a Movit chain;
 			// just do the conversion and we're done.
@@ -695,8 +725,7 @@ mlt_filter filter_movit_convert_init( mlt_profile profile, mlt_service_type type
 		if ( !cpu_csc )
 			cpu_csc = create_filter( profile, "imageconvert" );
 		if ( cpu_csc )
-			mlt_properties_set_data( MLT_FILTER_PROPERTIES( filter ),
-									 "cpu_csc", cpu_csc, 0,
+			mlt_properties_set_data( MLT_FILTER_PROPERTIES( filter ), "cpu_csc", cpu_csc, 0,
 									 (mlt_destructor) mlt_filter_close, NULL );
 		filter->process = process;
 	}

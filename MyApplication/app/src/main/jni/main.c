@@ -61,8 +61,9 @@ int main(int argc, char *argv[])
     SDL_Window *window;
     SDL_Renderer *renderer;
 
-    if(SDL_CreateWindowAndRenderer(0, 0, 0, &window, &renderer) < 0)
+    if(SDL_CreateWindowAndRenderer(0, 0, 0, &window, &renderer) < 0){
         exit(2);
+    }
 
 //    char file_path[1024];
 //    sprintf(file_path,"%s/image.bmp",source_path);
@@ -72,8 +73,9 @@ int main(int argc, char *argv[])
 //    char *file_path = "/mnt/sdcard/wallpaperBlue.bmp";
 //    char *file_path = "/mnt/sdcard/image.bmp";
 	Sprite sprite = LoadSprite(file_path, renderer);
-    if(sprite.texture == NULL)
+    if(sprite.texture == NULL) {
         exit(2);
+    }
 
     /* Main render loop */
     Uint8 done = 0;

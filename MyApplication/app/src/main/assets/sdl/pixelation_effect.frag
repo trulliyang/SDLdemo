@@ -1,4 +1,4 @@
-// generate a gray frame
+// generate a pixelatio frame
 
 
 vec4 FUNCNAME(vec2 tc) {

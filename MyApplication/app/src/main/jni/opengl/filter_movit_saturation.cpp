@@ -26,7 +26,8 @@
 
 using namespace movit;
 
-static int get_image( mlt_frame frame, uint8_t **image, mlt_image_format *format, int *width, int *height, int writable )
+static int get_image( mlt_frame frame, uint8_t **image, mlt_image_format *format,
+					  int *width, int *height, int writable )
 {
 	mlt_filter filter = (mlt_filter) mlt_frame_pop_service( frame );
 	mlt_properties properties = MLT_FILTER_PROPERTIES( filter );
@@ -53,7 +54,8 @@ static mlt_frame process( mlt_filter filter, mlt_frame frame )
 
 extern "C" {
 
-mlt_filter filter_movit_saturation_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg )
+mlt_filter filter_movit_saturation_init( mlt_profile profile, mlt_service_type type,
+										 const char *id, char *arg )
 {
 	mlt_filter filter = NULL;
 	GlslManager* glsl = GlslManager::get_instance();
