@@ -86,10 +86,11 @@ vec4 FUNCNAME(vec2 tc) {
 	//finalColour = finalColour + NoiseValue * (finalColour - noiseOverlay);
 
 	// Step 5: Apply scratches
-	if ( PREFIX(RandomValue) < PREFIX(ScratchValue) ){
+	float rd = PREFIX(RandomValue)*3.0;
+	if ( rd < PREFIX(ScratchValue) ){
 		// Pick a random spot to show scratches
 		float dist = 1.0 / PREFIX(ScratchValue);
-		float d = distance(tc, vec2(PREFIX(RandomValue) * dist, PREFIX(RandomValue) * dist));
+		float d = distance(tc, vec2(rd * dist, rd * dist));
 		if ( d < 0.4 ){
 			// Generate the scratch
 			float xPeriod = 8.0;

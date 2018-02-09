@@ -21,7 +21,8 @@ vec4 FUNCNAME(vec2 tc) {
 	vec4 bottom = INPUT1(tc);
 	vec4 top = INPUT2(tc);
 #endif
-	return top + (1.0 - top.a) * bottom;
+//	return top + (1.0 - top.a) * bottom;
+	return top*0.5 + 0.5 * bottom;
 }
 
 #undef SWAP_INPUTS

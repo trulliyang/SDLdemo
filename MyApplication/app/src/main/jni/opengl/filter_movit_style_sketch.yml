@@ -1,0 +1,38 @@
+schema_version: 0.1
+type: filter
+identifier: movit.style_sketch
+title:  style sketch (GLSL)
+version: 1
+copyright: shiyang1
+creator: shiyang1
+license: GPLv2
+language: en
+tags:
+  - Video
+description: >
+  generate a sketch style frame.
+
+parameters:
+  - identifier: edgeStrengthSK
+    title: style sketch edgeStrength
+    type: float
+    minimum: 0.0
+    maximum: 100.0
+    default: 2.0
+    mutable: yes
+
+  - identifier: widthStepSK
+    title: style sketch widthStep
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.000520
+    mutable: yes
+
+  - identifier: heightStepSK
+    title: style sketch heightStep
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.000933
+    mutable: yes

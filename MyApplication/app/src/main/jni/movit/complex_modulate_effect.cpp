@@ -22,7 +22,9 @@ string ComplexModulateEffect::output_fragment_shader()
 	return read_file("complex_modulate_effect.frag");
 }
 
-void ComplexModulateEffect::set_gl_state(GLuint glsl_program_num, const string &prefix, unsigned *sampler_num)
+void ComplexModulateEffect::set_gl_state(GLuint glsl_program_num,
+										 const string &prefix,
+										 unsigned *sampler_num)
 {
 	Effect::set_gl_state(glsl_program_num, prefix, sampler_num);
 

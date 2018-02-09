@@ -482,29 +482,26 @@ static int movit_render( EffectChain *chain, mlt_frame frame, mlt_image_format *
 
 // Create an MltInput for an image with the given format and dimensions.
 static MltInput* create_input( mlt_properties properties, mlt_image_format format,
-							   int aspect_width, int aspect_height,
-							   int width, int height )
-{__android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang create_input");
+							   int aspect_width, int aspect_height, int width, int height )
+{
+	__android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang create_input");
 	MltInput* input = new MltInput( format );
 	if ( format == mlt_image_rgb24a || format == mlt_image_opengl ) {
 		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang format = rgb24a or opengl");
 		// TODO: Get the color space if available.
 		input->useFlatInput( FORMAT_RGBA_POSTMULTIPLIED_ALPHA, width, height );
-	}
-	else if ( format == mlt_image_rgb24 ) {
+	} else if ( format == mlt_image_rgb24 ) {
 		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang format = rgb24");
 		// TODO: Get the color space if available.
 		input->useFlatInput( FORMAT_RGB, width, height );
-	}
-	else if ( format == mlt_image_yuv420p ) {
+	} else if ( format == mlt_image_yuv420p ) {
 		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang format = yuv420p");
 		ImageFormat image_format = {};
 		YCbCrFormat ycbcr_format = {};
 		get_format_from_properties( properties, &image_format, &ycbcr_format );
 		ycbcr_format.chroma_subsampling_x = ycbcr_format.chroma_subsampling_y = 2;
 		input->useYCbCrInput( image_format, ycbcr_format, width, height );
-	}
-	else if ( format == mlt_image_yuv422 ) {
+	} else if ( format == mlt_image_yuv422 ) {
 		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang format = yuv422");
 		ImageFormat image_format = {};
 		YCbCrFormat ycbcr_format = {};
@@ -523,19 +520,18 @@ static uint8_t* make_input_copy( mlt_image_format format, uint8_t *image, int wi
 {
 	int img_size = mlt_image_format_size( format, width, height, NULL );
 	uint8_t* img_copy = (uint8_t*) mlt_pool_alloc( img_size );
-	if ( format == mlt_image_yuv422 )
-	{
+	if ( format == mlt_image_yuv422 ) {
 		yuv422_to_yuv422p( image, img_copy, width, height );
-	}
-	else
-	{
+	} else {
 		memcpy( img_copy, image, img_size );
 	}
 	return img_copy;
 }
 
-static int convert_image( mlt_frame frame, uint8_t **image,
-						  mlt_image_format *format, mlt_image_format output_format )
+static int convert_image( mlt_frame frame,
+						  uint8_t **image,
+						  mlt_image_format *format,
+						  mlt_image_format output_format )
 {
 	// Nothing to do!
 	if ( *format == output_format )

@@ -32,7 +32,9 @@ string YCbCrConversionEffect::output_fragment_shader()
 	return read_file("ycbcr_conversion_effect.frag");
 }
 
-void YCbCrConversionEffect::set_gl_state(GLuint glsl_program_num, const string &prefix, unsigned *sampler_num)
+void YCbCrConversionEffect::set_gl_state(GLuint glsl_program_num,
+										 const string &prefix,
+										 unsigned *sampler_num)
 {
 	Effect::set_gl_state(glsl_program_num, prefix, sampler_num);
 

@@ -48,8 +48,8 @@ namespace movit {
         ScratchValue = 0.5f;
         InnerVignetting = 0.5f;
         OuterVignetting = 0.9f;
-        RandomValue = rand()%100/100.0f;
-        TimeLapse = 1000.0f*(rand()%100/50.0f);
+        RandomValue = rand()%100*0.01f;
+        TimeLapse = 1000.0f*(rand()%200*0.01f);
     }
 
 }  // namespace movit

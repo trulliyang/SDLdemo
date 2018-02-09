@@ -16,7 +16,7 @@ static Repository *m_repo = NULL;
 void factory_init() {
 	// should call mltsetenv before this init
 	static int factory_inited = 0;
-	if (factory_inited == 0) {
+	if (0 == factory_inited) {
 		m_repo = Factory::init();
 		factory_inited = 1;
 	}
@@ -48,7 +48,119 @@ int query_filters(char **filternames, int maxcnt){
 	return loop;
 }
 
-int test_filters(char *filter_name, char *video_name) {
+int test_filters_transitions(char *filter_name, char *video_name0, char *video_name1) {
+	factory_init();
+	Mlt::Profile m_pprofile;
+	Mlt::Profile m_cprofile;
+
+	m_pprofile.set_explicit(0);
+
+	Mlt::Producer m_producer0(m_pprofile, "avformat", video_name0);
+
+	m_producer0.set("put_mode", 0);
+	m_producer0.set("real_time", 1);
+	m_producer0.set("terminate_on_pause", 0);
+
+	Mlt::Producer m_producer1(m_pprofile, "avformat", video_name1);
+
+	m_producer1.set("put_mode", 0);
+	m_producer1.set("real_time", 1);
+	m_producer1.set("terminate_on_pause", 0);
+
+	Mlt::FilteredConsumer m_consumer(m_pprofile, "xgl", NULL);
+
+	m_consumer.set("width", 1920);
+	m_consumer.set("height", 1072);
+
+	Mlt::Filter m_filter(m_pprofile, "movit.convert");
+	if (m_filter.is_valid()) {
+		m_producer0.lock();
+		m_producer0.attach(m_filter);
+		m_producer0.unlock();
+	}
+
+	Mlt::Filter m_filter1(m_pprofile, "movit.mirror");
+	if (m_filter1.is_valid()) {
+		m_producer0.lock();
+		m_producer0.attach(m_filter1);
+		m_producer0.unlock();
+	}
+
+	Mlt::Filter m_filter2(m_pprofile, "movit.convert");
+	if (m_filter2.is_valid()) {
+		m_producer1.lock();
+		m_producer1.attach(m_filter2);
+		m_producer1.unlock();
+	}
+
+	Mlt::Filter m_filter3(m_pprofile, "movit.mirror");
+	if (m_filter3.is_valid()) {
+		m_producer1.lock();
+		m_producer1.attach(m_filter3);
+		m_producer1.unlock();
+	}
+
+	Mlt::Tractor m_tractor(m_pprofile);
+	if (m_tractor.is_valid()) {
+		m_tractor.lock();
+		m_tractor.connect_producer(m_producer0, 0);
+		m_tractor.connect_producer(m_producer1, 1);
+		m_tractor.set_track(m_producer0, 0);
+		m_tractor.set_track(m_producer1, 1);
+		m_tractor.unlock();
+	}
+
+	Mlt::Transition m_transition(m_pprofile, "movit.overlay", NULL);
+	if (m_transition.is_valid()) {
+		m_tractor.lock();
+		m_transition.set("always_active", "1");
+		m_transition.set("accepts_blanks", "1");
+		m_tractor.plant_transition(m_transition, 0, 1);
+		m_transition.set_in_and_out(0, 5000);
+		m_tractor.unlock();
+	}
+
+//	Mlt::Filter m_filter2(m_pprofile, "movit.lift_gamma_gain");
+//	if(m_filter1.is_valid()){
+//		/*
+//        m_filter.set("av.x","200");
+//        m_filter.set("av.y","10");
+//        m_filter.set("av.w","300");
+//        m_filter.set("av.h","300");
+//        */
+////		m_filter.set("_movit.parms.float.radius",112.4);
+//
+//		m_producer.lock();
+//		m_producer.attach(m_filter2);
+//		m_producer.unlock();
+//	}
+
+//	Mlt::Filter m_filter3(m_pprofile, "movit.glow");
+//	if(m_filter1.is_valid()){
+//		/*
+//        m_filter.set("av.x","200");
+//        m_filter.set("av.y","10");
+//        m_filter.set("av.w","300");
+//        m_filter.set("av.h","300");
+//        */
+////		m_filter.set("_movit.parms.float.radius",112.4);
+//
+//		m_producer.lock();
+//		m_producer.attach(m_filter3);
+//		m_producer.unlock();
+//	}
+
+	m_consumer.connect(m_tractor);
+	m_consumer.run();
+
+	end:
+//    Factory::close();
+	m_repo = NULL;
+	return 0;
+
+}
+
+int test_filters(char *filter_name, char *video_name0, char *video_name1) {
 	factory_init();
 	Mlt::Profile m_pprofile;
 	Mlt::Profile m_cprofile;
@@ -56,7 +168,7 @@ int test_filters(char *filter_name, char *video_name) {
 	m_pprofile.set_explicit(0);
 //	Mlt::Producer m_producer(m_pprofile, video_name);
 
-    Mlt::Producer m_producer(m_pprofile, "avformat", video_name);
+    Mlt::Producer m_producer(m_pprofile, "avformat", video_name0);
 
     m_producer.set("put_mode", 0);
 	m_producer.set("real_time", 1);
@@ -67,7 +179,7 @@ int test_filters(char *filter_name, char *video_name) {
     int t_h = m_pprofile.height();
     int t_w = m_pprofile.width();
 
-    __android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang video w=%d,h=%d",t_w, t_h);
+    __android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang video w=%d, h=%d", t_w, t_h);
 
 	m_consumer.set("width", t_w);
 	m_consumer.set("height", t_h);
@@ -80,18 +192,10 @@ int test_filters(char *filter_name, char *video_name) {
 		m_producer.attach(m_filter);
 		m_producer.unlock();
 	} else {
-        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filter movit.convert is invalid");
+        __android_log_print(ANDROID_LOG_ERROR, "shiyang",
+                            "m_filter movit.convert is invalid");
     }
-
-//    Mlt::Filter m_filterResize(m_pprofile, "movit.resize");
-//    if (m_filterResize.is_valid()) {
-//        m_producer.lock();
-//        m_producer.attach(m_filterResize);
-//        m_producer.unlock();
-//    } else {
-//        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterResize movit.resize is invalid");
-//    }
-
+    
 //    Mlt::Filter m_filterCrop(m_pprofile, "movit.crop");
 //    if(m_filterCrop.is_valid()){
 //        m_producer.lock();
@@ -99,6 +203,15 @@ int test_filters(char *filter_name, char *video_name) {
 //        m_producer.unlock();
 //    } else {
 //        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filter1 movit.crop is invalid");
+//    }
+    
+//    Mlt::Filter m_filterResize(m_pprofile, "movit.resize");
+//    if (m_filterResize.is_valid()) {
+//        m_producer.lock();
+//        m_producer.attach(m_filterResize);
+//        m_producer.unlock();
+//    } else {
+//        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterResize movit.resize is invalid");
 //    }
 
 //    Mlt::Filter m_filterOverlay(m_pprofile, "movit.overlay");
@@ -128,7 +241,6 @@ int test_filters(char *filter_name, char *video_name) {
 //        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterVignette movit.vignette is invalid");
 //    }
 
-
 //    Mlt::Filter m_filterSlice(m_pprofile, "movit.slice");
 //    if(m_filterSlice.is_valid()){
 //        m_producer.lock();
@@ -156,15 +268,25 @@ int test_filters(char *filter_name, char *video_name) {
 //        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterBlur movit.blur is invalid");
 //    }
 
-	Mlt::Filter m_filterOldCinema(m_pprofile, "movit.old_cinema");
-	if(m_filterOldCinema.is_valid()){
+//	Mlt::Filter m_filterOldCinema(m_pprofile, "movit.old_cinema");
+//	if (m_filterOldCinema.is_valid()) {
+//		m_producer.lock();
+//		m_producer.attach(m_filterOldCinema);
+//		m_producer.unlock();
+//	} else {
+//		__android_log_print(ANDROID_LOG_ERROR, "shiyang",
+//                            "m_filterOldCinema movit.old_cinema is invalid");
+//	}
+	
+	Mlt::Filter m_filterStyleSketch(m_pprofile, "movit.style_sketch");
+	if (m_filterStyleSketch.is_valid()) {
 		m_producer.lock();
-		m_producer.attach(m_filterOldCinema);
+		m_producer.attach(m_filterStyleSketch);
 		m_producer.unlock();
 	} else {
-		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterOldCinema movit.old_cinema is invalid");
+		__android_log_print(ANDROID_LOG_ERROR, "shiyang",
+							"m_filterStyleSketch movit.style_sketch is invalid");
 	}
-
 
 //	Mlt::Filter m_filterPixelation(m_pprofile, "movit.pixelation");
 //	if(m_filterPixelation.is_valid()){
@@ -183,10 +305,21 @@ int test_filters(char *filter_name, char *video_name) {
 //	} else {
 //		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterRect movit.rect is invalid");
 //	}
-
+    
+    Mlt::Filter m_filterCrop(m_pprofile, "movit.crop");
+    if(m_filterCrop.is_valid()){
+        m_producer.lock();
+        m_producer.attach(m_filterCrop);
+        m_producer.unlock();
+    } else {
+        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filter1 movit.crop is invalid");
+    }
+    
 	m_consumer.connect(m_producer);
 	m_consumer.run();
-
+    
+    __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_consumer.run() over");
+    
 	sleep(1);
 	consume_stop = 1;
 //	end:
@@ -223,8 +356,12 @@ extern "C" {
 
 extern char source_path[1024];
 
-int test_filters_c(char *filter_name, char *video_name){
-	return test_filters(filter_name, video_name);
+int test_filters_c(char *filter_name, char *video_name0, char *video_name1){
+	return test_filters(filter_name, video_name0, video_name1);
+}
+
+int test_filters_transitions_c(char *filter_name, char *video_name0, char *video_name1) {
+	return test_filters_transitions(filter_name, video_name0, video_name1);
 }
 
 int query_filters_c(char **filters, int maxcnt){
@@ -237,10 +374,14 @@ int query_filters_c(char **filters, int maxcnt){
 //	__android_log_vprint(ANDROID_LOG_INFO, "123455", ll, lll);
 //
 //}
+
 int main( int argc, char **argv ){
-//	mlt_log_set_callback(new_callback);
+    char *name0 = (char *) "mnt/sdcard/bbc-japan_1080p.mp4";
+    char *name1 = (char *) "mnt/sdcard/dengziqi.mp4";
+//	  mlt_log_set_callback(new_callback);
     //leaktracer::MemoryTrace::GetInstance().startMonitoringAllThreads();
-	test_filters_c(NULL, (char *) "mnt/sdcard/bbc-japan_1080p.mp4");
+    test_filters_c(NULL, name0, name1);
+//	test_filters_transitions_c(NULL, name0, name1);
 //	  test_filters_c(NULL, (char *) "mnt/sdcard/sdltest.mp4");
 //    test_filters_c(NULL, (char *) "mnt/sdcard/DCIM/Camera/20171012_062910.mp4");
 //    test_filters_c(NULL, (char *) "mnt/sdcard/DCIM/Camera/20180124_112850.mp4");

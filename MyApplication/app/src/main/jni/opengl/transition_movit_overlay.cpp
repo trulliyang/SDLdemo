@@ -30,7 +30,8 @@
 
 using namespace movit;
 
-static int get_image( mlt_frame a_frame, uint8_t **image, mlt_image_format *format, int *width, int *height, int writable )
+static int get_image( mlt_frame a_frame, uint8_t **image, mlt_image_format *format,
+					  int *width, int *height, int writable )
 {
 	int error;
 
@@ -68,7 +69,8 @@ static mlt_frame process( mlt_transition transition, mlt_frame a_frame, mlt_fram
 }
 
 extern "C"
-mlt_transition transition_movit_overlay_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg )
+mlt_transition transition_movit_overlay_init( mlt_profile profile, mlt_service_type type,
+											  const char *id, char *arg )
 {
 	mlt_transition transition = NULL;
 	GlslManager* glsl = GlslManager::get_instance();
