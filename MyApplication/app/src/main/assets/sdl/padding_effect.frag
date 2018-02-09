@@ -8,9 +8,9 @@
 
 vec4 FUNCNAME(vec2 tc) {
 	tc -= PREFIX(offset);
-	tc -= vec2(0.25);
+//	tc -= vec2(0.25);
 	tc *= PREFIX(scale);
-    tc *= 2.0;
+//    tc *= 2.0;
 
 
 	vec2 tc_texels = tc * PREFIX(normalized_coords_to_texels);

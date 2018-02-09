@@ -39,10 +39,33 @@ void VignetteEffect::inform_input_size(unsigned input_num, unsigned width, unsig
 	}
 }
 
+int max = 40;
+int cnt = 0;
+bool inc = true;
+
 void VignetteEffect::set_gl_state(GLuint glsl_program_num, const string &prefix, unsigned *sampler_num)
 {
 	Effect::set_gl_state(glsl_program_num, prefix, sampler_num);
-
+    
+    if (inc) {
+        if (cnt < max) {
+            cnt++;
+        } else {
+            inc = false;
+        }
+    }
+    if (!inc) {
+        if (cnt > 0) {
+            cnt--;
+        } else {
+            inc = true;
+        }
+    }
+    
+    
+    float dt = cnt*0.05f/(float)max;
+	radius = 0.2f;
+	inner_radius = 0.8f + dt;
 	uniform_pihalf_div_radius = (float) (0.5 * M_PI / radius);
 	uniform_flipped_center = Point2D(center.x, 1.0f - center.y);
 }

@@ -86,7 +86,7 @@ vec4 FUNCNAME(vec2 tc) {
 	//finalColour = finalColour + NoiseValue * (finalColour - noiseOverlay);
 
 	// Step 5: Apply scratches
-	float rd = PREFIX(RandomValue)*3.0;
+	float rd = PREFIX(RandomValue);
 	if ( rd < PREFIX(ScratchValue) ){
 		// Pick a random spot to show scratches
 		float dist = 1.0 / PREFIX(ScratchValue);
@@ -106,15 +106,12 @@ vec4 FUNCNAME(vec2 tc) {
 
 	// Step 6: Apply vignetting
 	// Max distance from centre to corner is ~0.7. Scale that to 1.0.
-	float d = distance(vec2(0.5, 0.5), tc) * 1.414213;
-	float vignetting = clamp((PREFIX(OuterVignetting) - d) / (PREFIX(OuterVignetting) - PREFIX(InnerVignetting)), 0.0, 1.0);
-	finalColour.xyz *= vignetting;
+//	float d = distance(vec2(0.5, 0.5), tc) * 1.414213;
+//	float vignetting = clamp((PREFIX(OuterVignetting) - d) / (PREFIX(OuterVignetting) - PREFIX(InnerVignetting)), 0.0, 1.0);
+//	finalColour.xyz *= vignetting;
 
 	// Apply colour
-//	gl_FragColor.xyz = finalColour;
-//	gl_FragColor.w = 1.0;
 	return vec4(finalColour, 1.0);
-//    return vec4(1.0);
 }
 
 

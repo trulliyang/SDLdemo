@@ -37,6 +37,8 @@ namespace movit {
         float OuterVignetting;
         float RandomValue;
         float TimeLapse;
+        float VigCount;
+        bool needIncrease;
     };
 
 }  // namespace movit

@@ -277,6 +277,15 @@ int test_filters(char *filter_name, char *video_name0, char *video_name1) {
 //		__android_log_print(ANDROID_LOG_ERROR, "shiyang",
 //                            "m_filterOldCinema movit.old_cinema is invalid");
 //	}
+
+//	Mlt::Filter m_filterVignette(m_pprofile, "movit.vignette");
+//	if(m_filterVignette.is_valid()){
+//		m_producer.lock();
+//		m_producer.attach(m_filterVignette);
+//		m_producer.unlock();
+//	} else {
+//		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterVignette movit.vignette is invalid");
+//	}
 	
 	Mlt::Filter m_filterStyleSketch(m_pprofile, "movit.style_sketch");
 	if (m_filterStyleSketch.is_valid()) {

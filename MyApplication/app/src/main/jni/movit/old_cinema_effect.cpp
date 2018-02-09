@@ -25,6 +25,9 @@ namespace movit {
         register_float("OuterVignetting", &OuterVignetting);
         register_float("RandomValue", &RandomValue);
         register_float("TimeLapse", &TimeLapse);
+    
+        VigCount = 0;
+        needIncrease = true;
     }
 
     string OldCinemaEffect::output_fragment_shader()
@@ -32,22 +35,41 @@ namespace movit {
         return read_file("old_cinema_effect.frag");
     }
 
-    void OldCinemaEffect::inform_input_size(unsigned input_num,
-                                             unsigned width,
-                                             unsigned height) {
+    void OldCinemaEffect::inform_input_size(unsigned input_num, unsigned width, unsigned height) {
         assert(input_num == 0);
     }
 
     void OldCinemaEffect::set_gl_state(GLuint glsl_program_num,
-                                        const string &prefix,
-                                        unsigned *sampler_num)
+                                       const string &prefix,
+                                       unsigned *sampler_num)
     {
         Effect::set_gl_state(glsl_program_num, prefix, sampler_num);
-        SepiaValue = 0.5f;
-        NoiseValue = 0.5f;
+        SepiaValue = 0.12f;
+        NoiseValue = 0.2f;
         ScratchValue = 0.5f;
-        InnerVignetting = 0.5f;
-        OuterVignetting = 0.9f;
+        
+        int up = 40;
+        if (needIncrease) {
+            if (VigCount < up) {
+                VigCount++;
+            } else {
+                needIncrease = false;
+            }
+        }
+        if (!needIncrease) {
+            if (VigCount > 0) {
+                VigCount--;
+            } else {
+                needIncrease = true;
+            }
+        }
+        
+        float vig = VigCount*0.05f/(float)up;
+        
+//        float vig = rand()%up*0.05f/(float)up;
+        InnerVignetting = 0.775f + vig;
+        OuterVignetting = 0.95f + vig;
+        
         RandomValue = rand()%100*0.01f;
         TimeLapse = 1000.0f*(rand()%200*0.01f);
     }

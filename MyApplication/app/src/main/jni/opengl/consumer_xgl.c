@@ -396,7 +396,8 @@ static void show_frame()
     gvTextureSamplerHandle = glGetUniformLocation(gTextureProgram, "texture");
     checkGlError("glGetAttribLocation");
 
-    glViewport( 0, 0, new_frame.width, new_frame.height );
+//    glViewport( 0, 0, new_frame.width, new_frame.height );
+	glViewport( 0, 0, 1920, 1080 );
 //        glViewport( 0, 0,1280, 720 );
 
     check_errorr();

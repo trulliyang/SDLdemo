@@ -41,7 +41,7 @@ namespace movit {
     {
         Effect::set_gl_state(glsl_program_num, prefix, sampler_num);
     
-        edgeStrength = 2.0f;
+        edgeStrength = 5.0f;
 //        widthStep = 1.0f/1920.0f;
 //        heightStep = 1.0f/1072.0f;
     }
