@@ -24,7 +24,9 @@
 
 extern mlt_consumer consumer_xgl_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
 extern mlt_filter filter_glsl_manager_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
+extern mlt_filter filter_movit_alpha_matting_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
 extern mlt_filter filter_movit_blur_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
+extern mlt_filter filter_movit_chroma_key_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
 extern mlt_filter filter_movit_convert_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
 extern mlt_filter filter_movit_crop_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
 extern mlt_filter filter_deconvolution_sharpen_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
@@ -65,7 +67,9 @@ void opengles_mlt_register( mlt_repository repository)
 	MLT_REGISTER( consumer_type, "xgl", consumer_xgl_init );
 //#endif
 	MLT_REGISTER( filter_type, "glsl.manager", filter_glsl_manager_init );
+	MLT_REGISTER( filter_type, "movit.alpha_matting", filter_movit_alpha_matting_init );
 	MLT_REGISTER( filter_type, "movit.blur", filter_movit_blur_init );
+	MLT_REGISTER( filter_type, "movit.chroma_key", filter_movit_chroma_key_init );
 	MLT_REGISTER( filter_type, "movit.convert", filter_movit_convert_init );
 	MLT_REGISTER( filter_type, "movit.crop", filter_movit_crop_init );
 	MLT_REGISTER( filter_type, "movit.diffusion", filter_movit_diffusion_init );
@@ -88,9 +92,10 @@ void opengles_mlt_register( mlt_repository repository)
 	MLT_REGISTER( transition_type, "movit.luma_mix", transition_movit_luma_init );
 	MLT_REGISTER( transition_type, "movit.mix", transition_movit_mix_init );
 	MLT_REGISTER( transition_type, "movit.overlay", transition_movit_overlay_init );
-
-
+	
+	MLT_REGISTER_METADATA( filter_type, "movit.alpha_matting", metadata, "filter_movit_alpha_matting.yml" );
 	MLT_REGISTER_METADATA( filter_type, "movit.blur", metadata, "filter_movit_blur.yml" );
+	MLT_REGISTER_METADATA( filter_type, "movit.chroma_key", metadata, "filter_movit_chroma_key.yml" );
 	MLT_REGISTER_METADATA( filter_type, "movit.diffusion", metadata, "filter_movit_diffusion.yml" );
 	MLT_REGISTER_METADATA( filter_type, "movit.glow", metadata, "filter_movit_glow.yml" );
 	MLT_REGISTER_METADATA( filter_type, "movit.gray", metadata, "filter_movit_gray.yml" );

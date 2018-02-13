@@ -1,0 +1,222 @@
+schema_version: 0.1
+type: filter
+identifier: movit.alpha_matting
+title: alpha matting (GLSL)
+version: 1
+copyright: shiyang1
+creator: shiyang1
+license: GPLv2
+language: en
+tags:
+  - Video
+description: >
+  generate a old cinema style frame.
+
+parameters:
+  - identifier: blackValueMin
+    title: old cinema sepia
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.0
+    mutable: yes
+
+  - identifier: blackValueMax
+    title: old cinema noise
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.25
+    mutable: yes
+
+  - identifier: graySaturationMin
+    title: old cinema scratch
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.0
+    mutable: yes
+
+  - identifier: graySaturationMax
+    title: old cinema inner vignetting
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.3
+    mutable: yes
+
+  - identifier: grayValueMin
+    title: old cinema outer vignetting
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.25
+    mutable: yes
+
+  - identifier: grayValueMax
+    title: old cinema random
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.8
+    mutable: yes
+
+  - identifier: whiteSaturationMin
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.0
+    mutable: yes
+
+  - identifier: whiteSaturationMax
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.3
+    mutable: yes
+
+  - identifier: whiteValueMin
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.8
+    mutable: yes
+
+  - identifier: whiteValueMax
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 1.0
+    mutable: yes
+
+  - identifier: redHueMin
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 360.0
+    default: 337.5
+    mutable: yes
+
+  - identifier: redHueMax
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 360.0
+    default: 22.5
+    mutable: yes
+
+  - identifier: orangeHueMin
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 360.0
+    default: 22.5
+    mutable: yes
+
+  - identifier: orangeHueMax
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 360.0
+    default: 45.0
+    mutable: yes
+
+  - identifier: yellowHueMin
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 360.0
+    default: 45.0
+    mutable: yes
+
+  - identifier: yellowHueMax
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 360.0
+    default: 90.0
+    mutable: yes
+
+  - identifier: greenHueMin
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 360.0
+    default: 90.0
+    mutable: yes
+
+  - identifier: greenHueMax
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 360.0
+    default: 205.5
+    mutable: yes
+
+  - identifier: cyanHueMin
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 360.0
+    default: 205.5
+    mutable: yes
+
+  - identifier: cyanHueMax
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 360.0
+    default: 228.0
+    mutable: yes
+
+  - identifier: blueHueMin
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 360.0
+    default: 228.0
+    mutable: yes
+
+  - identifier: blueHueMax
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 360.0
+    default: 292.5
+    mutable: yes
+
+  - identifier: purpleHueMin
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 360.0
+    default: 292.5
+    mutable: yes
+
+  - identifier: purpleHueMax
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 360.0
+    default: 337.5
+    mutable: yes
+
+  - identifier: pinkHueMin
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 360.0
+    default: 306.0
+    mutable: yes
+
+  - identifier: pinkHueMax
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 360.0
+    default: 324.0
+    mutable: yes

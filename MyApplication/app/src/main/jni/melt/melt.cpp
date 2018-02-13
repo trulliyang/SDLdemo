@@ -287,16 +287,35 @@ int test_filters(char *filter_name, char *video_name0, char *video_name1) {
 //		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterVignette movit.vignette is invalid");
 //	}
 	
-	Mlt::Filter m_filterStyleSketch(m_pprofile, "movit.style_sketch");
-	if (m_filterStyleSketch.is_valid()) {
+//	Mlt::Filter m_filterStyleSketch(m_pprofile, "movit.style_sketch");
+//	if (m_filterStyleSketch.is_valid()) {
+//		m_producer.lock();
+//		m_producer.attach(m_filterStyleSketch);
+//		m_producer.unlock();
+//	} else {
+//		__android_log_print(ANDROID_LOG_ERROR, "shiyang",
+//							"m_filterStyleSketch movit.style_sketch is invalid");
+//	}
+	
+//	Mlt::Filter m_filterChromaKey(m_pprofile, "movit.chroma_key");
+//	if (m_filterChromaKey.is_valid()) {
+//		m_producer.lock();
+//		m_producer.attach(m_filterChromaKey);
+//		m_producer.unlock();
+//	} else {
+//		__android_log_print(ANDROID_LOG_ERROR, "shiyang",
+//							"m_filterChromaKey movit.chroma_key is invalid");
+//	}
+	
+	Mlt::Filter m_filterAlphaMatting(m_pprofile, "movit.alpha_matting");
+	if (m_filterAlphaMatting.is_valid()) {
 		m_producer.lock();
-		m_producer.attach(m_filterStyleSketch);
+		m_producer.attach(m_filterAlphaMatting);
 		m_producer.unlock();
 	} else {
-		__android_log_print(ANDROID_LOG_ERROR, "shiyang",
-							"m_filterStyleSketch movit.style_sketch is invalid");
+		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterAlphaMatting movit.alpha_matting is invalid");
 	}
-
+	
 //	Mlt::Filter m_filterPixelation(m_pprofile, "movit.pixelation");
 //	if(m_filterPixelation.is_valid()){
 //		m_producer.lock();
@@ -385,7 +404,18 @@ int query_filters_c(char **filters, int maxcnt){
 //}
 
 int main( int argc, char **argv ){
-    char *name0 = (char *) "mnt/sdcard/bbc-japan_1080p.mp4";
+//    char *name0 = (char *) "mnt/sdcard/bbc-japan_1080p.mp4";
+//	char *name0 = (char *) "mnt/sdcard/syred.mp4";
+//	char *name0 = (char *) "mnt/sdcard/sygreen.mp4";
+//    char *name0 = (char *) "mnt/sdcard/DCIM/Camera/20180213_152043.mp4";
+//    char *name0 = (char *) "mnt/sdcard/DCIM/Camera/20180213_151956.mp4";
+//	char *name0 = (char *) "mnt/sdcard/DCIM/Camera/20180213_153223.mp4";//dog, good
+//	char *name0 = (char *) "mnt/sdcard/DCIM/Camera/20180213_153659.mp4";//sheep
+//	char *name0 = (char *) "mnt/sdcard/DCIM/sygreendog.mp4";
+//	char *name0 = (char *) "mnt/sdcard/sygwall.mp4";
+//    char *name0 = (char *) "mnt/sdcard/1_C_original.mp4";
+//	char *name0 = (char *) "mnt/sdcard/greenlamp.mp4";
+	char *name0 = (char *) "mnt/sdcard/DCIM/Camera/20180213_164554.mp4";
     char *name1 = (char *) "mnt/sdcard/dengziqi.mp4";
 //	  mlt_log_set_callback(new_callback);
     //leaktracer::MemoryTrace::GetInstance().startMonitoringAllThreads();

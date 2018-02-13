@@ -1,0 +1,54 @@
+schema_version: 0.1
+type: filter
+identifier: movit.chroma_key
+title: chroma key (GLSL)
+version: 1
+copyright: shiyang1
+creator: shiyang1
+license: GPLv2
+language: en
+tags:
+  - Video
+description: >
+  replace target color in a frame.
+
+parameters:
+  - identifier: targetColor_r
+    title: chroma key target color red component
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.0
+    mutable: yes
+
+  - identifier: targetColor_g
+    title: chroma key target color green component
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 1.0
+    mutable: yes
+
+  - identifier: targetColor_b
+    title: chroma key target color blue component
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.0
+    mutable: yes
+
+  - identifier: thresholdSensitivity
+    title: chroma key threshold sensitivity
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.3
+    mutable: yes
+
+  - identifier: smoothing
+    title: chroma key smoothing
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.1
+    mutable: yes

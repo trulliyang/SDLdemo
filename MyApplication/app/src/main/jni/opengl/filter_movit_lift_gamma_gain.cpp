@@ -26,7 +26,8 @@
 
 using namespace movit;
 
-static int get_image( mlt_frame frame, uint8_t **image, mlt_image_format *format, int *width, int *height, int writable )
+static int get_image( mlt_frame frame, uint8_t **image, mlt_image_format *format,
+                      int *width, int *height, int writable )
 {
 	mlt_filter filter = (mlt_filter) mlt_frame_pop_service( frame );
 	mlt_properties properties = MLT_FILTER_PROPERTIES( filter );
@@ -88,6 +89,7 @@ mlt_filter filter_lift_gamma_gain_init( mlt_profile profile, mlt_service_type ty
 		mlt_properties_set_double( properties, "gain_b", 1.0 );
 		filter->process = process;
 	}
+ 
 	return filter;
 }
 
