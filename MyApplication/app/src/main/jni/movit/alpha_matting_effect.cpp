@@ -129,9 +129,9 @@ namespace movit {
         yellowHueMax = 90.0f;
     
         greenHueMin = 90.0f;
-        greenHueMax = 205.5f;
+        greenHueMax = 180.5f;
     
-        cyanHueMin = 205.5f;
+        cyanHueMin = 180.5f;
         cyanHueMax = 228.0f;
     
         blueHueMin = 228.0f;

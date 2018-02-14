@@ -1063,6 +1063,7 @@ class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
     // Startup
     public SDLSurface(Context context) {
         super(context);
+        getHolder().setFormat(PixelFormat.RGB_888);
         getHolder().addCallback(this);
 
         setFocusable(true);

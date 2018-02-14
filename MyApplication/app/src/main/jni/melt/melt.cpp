@@ -407,6 +407,7 @@ int main( int argc, char **argv ){
 //    char *name0 = (char *) "mnt/sdcard/bbc-japan_1080p.mp4";
 //	char *name0 = (char *) "mnt/sdcard/syred.mp4";
 //	char *name0 = (char *) "mnt/sdcard/sygreen.mp4";
+//    char *name0 = (char *) "mnt/sdcard/DCIM/Camera/20180213_151919.mp4";
 //    char *name0 = (char *) "mnt/sdcard/DCIM/Camera/20180213_152043.mp4";
 //    char *name0 = (char *) "mnt/sdcard/DCIM/Camera/20180213_151956.mp4";
 //	char *name0 = (char *) "mnt/sdcard/DCIM/Camera/20180213_153223.mp4";//dog, good
@@ -415,7 +416,10 @@ int main( int argc, char **argv ){
 //	char *name0 = (char *) "mnt/sdcard/sygwall.mp4";
 //    char *name0 = (char *) "mnt/sdcard/1_C_original.mp4";
 //	char *name0 = (char *) "mnt/sdcard/greenlamp.mp4";
-	char *name0 = (char *) "mnt/sdcard/DCIM/Camera/20180213_164554.mp4";
+//	char *name0 = (char *) "mnt/sdcard/DCIM/Camera/20180213_164554.mp4";
+//	char *name0 = (char *) "mnt/sdcard/DCIM/Camera/20180213_171921.mp4";
+//	char *name0 = (char *) "mnt/sdcard/DCIM/Camera/20180213_171947.mp4";
+    char *name0 = (char *) "mnt/sdcard/sygreen00001.mp4";
     char *name1 = (char *) "mnt/sdcard/dengziqi.mp4";
 //	  mlt_log_set_callback(new_callback);
     //leaktracer::MemoryTrace::GetInstance().startMonitoringAllThreads();

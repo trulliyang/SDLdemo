@@ -50,77 +50,81 @@
 
 vec4 PREFIX(rgb2hsv)(vec4 colorRGB)
 {
+    float h,s,v;
     if (colorRGB.r >= colorRGB.g && colorRGB.r >= colorRGB.b) {
-        float v = colorRGB.r;
+        v = colorRGB.r;
         float minC = 0.0;
         if (colorRGB.g >= colorRGB.b) {
             minC = colorRGB.b;
         } else {
             minC = colorRGB.g;
         }
-        float s = 0.0;
+        s = 0.0;
         if (v > 0.0) {
             s = 1.0 - minC/v;
         } else {
             s = 0.0;
         }
-        float h = 60.0*(colorRGB.g - colorRGB.b)/(v-minC);
+        h = 60.0*(colorRGB.g - colorRGB.b)/(v-minC);
         if (h<0.0) {
             h = h+360.0;
         }
         return vec4(h,s,v,colorRGB.a);
     }
-    else if (colorRGB.g >= colorRGB.r && colorRGB.g >=colorRGB.b) {
-        float v = colorRGB.g;
+    else if (colorRGB.g >= colorRGB.r && colorRGB.g >= colorRGB.b) {
+        v = colorRGB.g;
         float minC = 0.0;
         if (colorRGB.r >= colorRGB.b) {
             minC = colorRGB.b;
         } else {
             minC = colorRGB.r;
         }
-        float s = 0.0;
+        s = 0.0;
         if (v > 0.0) {
             s = 1.0 - minC/v;
         } else {
             s = 0.0;
         }
-        float h = 120.0+60.0*(colorRGB.b - colorRGB.r)/(v-minC);
+        h = 120.0+60.0*(colorRGB.b - colorRGB.r)/(v-minC);
         if (h<0.0) {
             h = h+360.0;
         }
         return vec4(h,s,v,colorRGB.a);
     }
-    else if (colorRGB.b >= colorRGB.r && colorRGB.b >=colorRGB.g) {
-        float v = colorRGB.b;
+    else if (colorRGB.b >= colorRGB.r && colorRGB.b >= colorRGB.g) {
+        v = colorRGB.b;
         float minC = 0.0;
         if (colorRGB.r >= colorRGB.g) {
             minC = colorRGB.g;
         } else {
             minC = colorRGB.r;
         }
-        float s = 0.0;
+        s = 0.0;
         if (v > 0.0) {
             s = 1.0 - minC/v;
         } else {
             s = 0.0;
         }
-        float h = 240.0+60.0*(colorRGB.r - colorRGB.g)/(v-minC);
+        h = 240.0+60.0*(colorRGB.r - colorRGB.g)/(v-minC);
         if (h < 0.0) {
            h = h+360.0;
         }
         return vec4(h,s,v,colorRGB.a);
+    } else {
+        return vec4(1.0, 1.0, 1.0, 1.0);
     }
 }
 
 int PREFIX(getColorIndex)(vec4 colorHSV)
 {
-    int index = 0;
+    int index = -1;
     float h = colorHSV.r;
     float s = colorHSV.g;
     float v = colorHSV.b;
 
-    if (v <= PREFIX(blackValueMax)) {
-        index = 0;
+//    if (v >= PREFIX(blackValueMin)) {
+    if (v <= PREFIX(blackValueMax)/2.5) {
+        index = -1;
     } else if (s <= PREFIX(graySaturationMax)) {
         if (v <= PREFIX(grayValueMax)) {
             index = 1;
@@ -225,13 +229,40 @@ vec4 FUNCNAME(vec2 tc)
 {
     vec4 color = INPUT(tc);
     int colorBGIndex = 6;//PREFIX(getBackGroundColorIndex)();
-    bool isBG = PREFIX(isBackGroundColorIndex)(colorBGIndex, color);
+    vec4 colorHSV = PREFIX(rgb2hsv)(color);
+    int colorIndex = PREFIX(getColorIndex)(colorHSV);
+//    bool isBG = PREFIX(isBackGroundColorIndex)(colorBGIndex, color);
     vec4 x;
-    if (isBG) {
+    if (colorIndex == colorBGIndex) {
         //gl_FragColor = vec4(color.r, color.g, color.b, 0.0);
         x = vec4(1.0, 1.0, 0.0, 1.0);
     } else {
-        //gl_FragColor = vec4(0.0, 0.0, 1.0, 1.0);
+//        if (0 == colorIndex) {
+//            x = vec4(0.0, 0.0, 0.0, 1.0);
+//        } else if (1 == colorIndex) {
+//            x = vec4(0.5, 0.5, 0.5, 1.0);
+//        } else if (2 == colorIndex) {
+//            x = vec4(1.0, 1.0, 1.0, 1.0);
+//        } else if (3 == colorIndex) {
+//            x = vec4(1.0, 0.0, 0.0, 1.0);
+//        } else if (4 == colorIndex) {
+//            x = vec4(1.0, 0.5, 0.0, 1.0);
+//        } else if (5 == colorIndex) {
+//            x = vec4(1.0, 1.0, 0.0, 1.0);
+//        } else if (6 == colorIndex) {
+//            x = vec4(0.0, 1.0, 0.0, 1.0);
+//        } else if (7 == colorIndex) {
+//            x = vec4(0.0, 0.4, 1.0, 1.0);
+//        } else if (8 == colorIndex) {
+//            x = vec4(0.0, 0.0, 1.0, 1.0);
+//        } else if (9 == colorIndex) {
+//            x = vec4(0.0, 0.87, 1.0, 1.0);
+//        } else if (10 == colorIndex) {
+//            x = vec4(0.5, 0.87, 1.0, 1.0);
+//        } else if (-1 == colorIndex) {
+//            x = color;
+//        }
+//        //gl_FragColor = vec4(0.0, 0.0, 1.0, 1.0);
         x = color;
     }
 
