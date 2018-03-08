@@ -110,7 +110,7 @@ int test_filters_transitions(char *filter_name, char *video_name0, char *video_n
 		m_tractor.unlock();
 	}
 
-	Mlt::Transition m_transition(m_pprofile, "movit.overlay", NULL);
+	Mlt::Transition m_transition(m_pprofile, "movit.green_replacing_overlay", NULL);
 	if (m_transition.is_valid()) {
 		m_tractor.lock();
 		m_transition.set("always_active", "1");
@@ -406,7 +406,7 @@ int query_filters_c(char **filters, int maxcnt){
 //}
 
 int main( int argc, char **argv ){
-//    char *name0 = (char *) "mnt/sdcard/bbc-japan_1080p.mp4";
+    char *namebbc = (char *) "mnt/sdcard/bbc-japan_1080p.mp4";
 //	char *name0 = (char *) "mnt/sdcard/syred.mp4";
 //	char *name0 = (char *) "mnt/sdcard/sygreen.mp4";
 //    char *name0 = (char *) "mnt/sdcard/DCIM/Camera/20180213_151919.mp4";
@@ -453,8 +453,8 @@ int main( int argc, char **argv ){
 //		fclose(fp);
 //	}
 	
-    test_filters_c(NULL, name0, namegs0);
-//	  test_filters_transitions_c(NULL, name0, name1);
+//    test_filters_c(NULL, name0, namegs0);
+	  test_filters_transitions_c(NULL, namebbc, name0);
 //	  test_filters_c(NULL, (char *) "mnt/sdcard/sdltest.mp4");
 //    test_filters_c(NULL, (char *) "mnt/sdcard/DCIM/Camera/20171012_062910.mp4");
 //    test_filters_c(NULL, (char *) "mnt/sdcard/DCIM/Camera/20180124_112850.mp4");

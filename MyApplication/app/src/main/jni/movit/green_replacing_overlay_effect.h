@@ -37,6 +37,15 @@ private:
 	// If true, overlays input1 on top of input2 instead of vice versa.
 	// Must be set before finalize.
 	bool swap_inputs;
+	
+	float targetColorRed;
+	float targetColorGreen;
+	float targetColorBlue;
+	float targetColorAlpha;
+	
+	float diff;
+	float diffMin;
+	float diffMax;
 };
 
 }  // namespace movit

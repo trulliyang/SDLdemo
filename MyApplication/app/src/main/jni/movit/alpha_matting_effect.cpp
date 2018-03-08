@@ -169,11 +169,13 @@ namespace movit {
 //        targetColorBlue = 0.0f;
 //        targetColorAlpha = 1.0f;
     
+        // origin color
 //        targetColorRed = 79.0f/255.0f;
 //        targetColorGreen = 249.0f/255.0f;
 //        targetColorBlue = 42.0f/255.0f;
 //        targetColorAlpha = 1.0f;
     
+        // normal rgb
         targetColorRed = 60.0f/255.0f;
         targetColorGreen = 255.0f/255.0f;
         targetColorBlue = 0.0f/255.0f;
