@@ -73,6 +73,21 @@ static int get_image( mlt_frame frame, uint8_t **image, mlt_image_format *format
                                mlt_properties_anim_get_double( properties, "pinkHueMin", position, length ) );
     mlt_properties_set_double( properties, "_movit.parms.float.pinkHueMax",
                                mlt_properties_anim_get_double( properties, "pinkHueMax", position, length ) );
+    // new
+    mlt_properties_set_double( properties, "_movit.parms.float.targetColorRed",
+                               mlt_properties_anim_get_double( properties, "targetColorRed", position, length ) );
+    mlt_properties_set_double( properties, "_movit.parms.float.targetColorGreen",
+                               mlt_properties_anim_get_double( properties, "targetColorGreen", position, length ) );
+    mlt_properties_set_double( properties, "_movit.parms.float.targetColorBlue",
+                               mlt_properties_anim_get_double( properties, "targetColorBlue", position, length ) );
+    mlt_properties_set_double( properties, "_movit.parms.float.targetColorAlpha",
+                               mlt_properties_anim_get_double( properties, "targetColorAlpha", position, length ) );
+    mlt_properties_set_double( properties, "_movit.parms.float.diff",
+                               mlt_properties_anim_get_double( properties, "diff", position, length ) );
+    mlt_properties_set_double( properties, "_movit.parms.float.diffMin",
+                               mlt_properties_anim_get_double( properties, "diffMin", position, length ) );
+    mlt_properties_set_double( properties, "_movit.parms.float.diffMax",
+                               mlt_properties_anim_get_double( properties, "diffMax", position, length ) );
     
     GlslManager::get_instance()->unlock_service( frame );
     *format = mlt_image_glsl;
@@ -139,6 +154,15 @@ mlt_filter filter_movit_alpha_matting_init( mlt_profile profile, mlt_service_typ
         
         mlt_properties_set_double( MLT_FILTER_PROPERTIES(filter), "pinkHueMin", 306.0f );
         mlt_properties_set_double( MLT_FILTER_PROPERTIES(filter), "pinkHueMax", 324.0f );
+    
+        mlt_properties_set_double( MLT_FILTER_PROPERTIES(filter), "targetColorRed", 0.0f );
+        mlt_properties_set_double( MLT_FILTER_PROPERTIES(filter), "targetColorGreen", 1.0f );
+        mlt_properties_set_double( MLT_FILTER_PROPERTIES(filter), "targetColorBlue", 0.0f );
+        mlt_properties_set_double( MLT_FILTER_PROPERTIES(filter), "targetColorAlpha", 1.0f );
+    
+        mlt_properties_set_double( MLT_FILTER_PROPERTIES(filter), "diff", 0.1f );
+        mlt_properties_set_double( MLT_FILTER_PROPERTIES(filter), "diffMin", 0.1f );
+        mlt_properties_set_double( MLT_FILTER_PROPERTIES(filter), "diffMax", 0.9f );
     }
     return filter;
 }

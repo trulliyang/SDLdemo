@@ -52,6 +52,15 @@ namespace movit {
     
         pinkHueMin = 306.0f;
         pinkHueMax = 324.0f;
+    
+        targetColorRed = 0.0f;
+        targetColorGreen = 1.0f;
+        targetColorBlue = 0.0f;
+        targetColorAlpha = 1.0f;
+    
+        diff = 0.1f;
+        diffMin = 0.1f;
+        diffMax = 0.9f;
         
         register_float("blackValueMin", &blackValueMin);
         register_float("blackValueMax", &blackValueMax);
@@ -89,20 +98,32 @@ namespace movit {
     
         register_float("pinkHueMin", &pinkHueMin);
         register_float("pinkHueMax", &pinkHueMax);
+    
+        register_float("targetColorRed", &targetColorRed);
+        register_float("targetColorGreen", &targetColorGreen);
+        register_float("targetColorBlue", &targetColorBlue);
+        register_float("targetColorAlpha", &targetColorAlpha);
+    
+        register_float("diff", &diff);
+        register_float("diffMin", &diffMin);
+        register_float("diffMax", &diffMax);
     }
 
     string AlphaMattingEffect::output_fragment_shader()
     {
-        return read_file("alpha_matting_effect.frag");
+//        return read_file("alpha_matting_effect.frag");
+        return read_file("alpha_matting_b_effect.frag");
     }
 
-    void AlphaMattingEffect::inform_input_size(unsigned input_num, unsigned width, unsigned height) {
+    void AlphaMattingEffect::inform_input_size(unsigned input_num,
+                                               unsigned width,
+                                               unsigned height) {
         assert(input_num == 0);
     }
 
     void AlphaMattingEffect::set_gl_state(GLuint glsl_program_num,
-                                       const string &prefix,
-                                       unsigned *sampler_num)
+                                          const string &prefix,
+                                          unsigned *sampler_num)
     {
         Effect::set_gl_state(glsl_program_num, prefix, sampler_num);
         
@@ -142,6 +163,25 @@ namespace movit {
     
         pinkHueMin = 306.0f;
         pinkHueMax = 324.0f;
+    
+//        targetColorRed = 0.0f;
+//        targetColorGreen = 1.0f;
+//        targetColorBlue = 0.0f;
+//        targetColorAlpha = 1.0f;
+    
+//        targetColorRed = 79.0f/255.0f;
+//        targetColorGreen = 249.0f/255.0f;
+//        targetColorBlue = 42.0f/255.0f;
+//        targetColorAlpha = 1.0f;
+    
+        targetColorRed = 60.0f/255.0f;
+        targetColorGreen = 255.0f/255.0f;
+        targetColorBlue = 0.0f/255.0f;
+        targetColorAlpha = 1.0f;
+        
+        diff = 0.1f;
+        diffMin = 0.1f;
+        diffMax = 0.9f;
     }
 
 }  // namespace movit

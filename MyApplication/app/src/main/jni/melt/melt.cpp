@@ -178,8 +178,10 @@ int test_filters(char *filter_name, char *video_name0, char *video_name1) {
 
     int t_h = m_pprofile.height();
     int t_w = m_pprofile.width();
-
+//	t_w = 1280;
+//	t_h = 720;
     __android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang video w=%d, h=%d", t_w, t_h);
+
 
 	m_consumer.set("width", t_w);
 	m_consumer.set("height", t_h);
@@ -192,8 +194,7 @@ int test_filters(char *filter_name, char *video_name0, char *video_name1) {
 		m_producer.attach(m_filter);
 		m_producer.unlock();
 	} else {
-        __android_log_print(ANDROID_LOG_ERROR, "shiyang",
-                            "m_filter movit.convert is invalid");
+        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filter movit.convert is invalid");
     }
     
 //    Mlt::Filter m_filterCrop(m_pprofile, "movit.crop");
@@ -356,6 +357,7 @@ int test_filters(char *filter_name, char *video_name0, char *video_name1) {
 	m_repo = NULL;
 	return 0;
 }
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -421,10 +423,38 @@ int main( int argc, char **argv ){
 //	char *name0 = (char *) "mnt/sdcard/DCIM/Camera/20180213_171947.mp4";
     char *name0 = (char *) "mnt/sdcard/sygreen00001.mp4";
     char *name1 = (char *) "mnt/sdcard/dengziqi.mp4";
+	
+	char *nameg0 = (char *) "mnt/sdcard/lmjs.mp4";
+	char *nameg1 = (char *) "mnt/sdcard/lmyt.mp4";
+    char *nameg2 = (char *) "mnt/sdcard/lmsp1.mp4";
+    char *nameg3 = (char *) "mnt/sdcard/lmyd.mp4";
+    char *nameg4 = (char *) "mnt/sdcard/lmsp2.mp4";
+    char *nameg5 = (char *) "mnt/sdcard/lmyw.mp4";
+	
+	char *namegs0 = (char *) "mnt/sdcard/lmsc/gs9_1.mp4";
+	char *namegs1 = (char *) "mnt/sdcard/lmsc/gs9_2.mp4";
+	char *namegs2 = (char *) "mnt/sdcard/lmsc/gs9_3.mp4";
+	char *namegs3 = (char *) "mnt/sdcard/lmsc/gs9_4.mp4";
+	char *namegs4 = (char *) "mnt/sdcard/lmsc/gs9_5.mp4";
+	char *namegs5 = (char *) "mnt/sdcard/lmsc/gs9_6.mp4";
+	char *namegs6 = (char *) "mnt/sdcard/lmsc/Fire Explosion Effect - green screen 9_7.mp4";
+	
+	char *namef0 = (char *) "mnt/sdcard/greenlamp.mp4";
+	char *namef1 = (char *) "mnt/sdcard/1_C_original.mp4";
 //	  mlt_log_set_callback(new_callback);
     //leaktracer::MemoryTrace::GetInstance().startMonitoringAllThreads();
-    test_filters_c(NULL, name0, name1);
-//	test_filters_transitions_c(NULL, name0, name1);
+//	FILE *fp = NULL;
+//	char *fname = nameg3;
+//	fp = fopen(fname, "r");
+//	if (NULL == fp) {
+//		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang open file %s failed", fname);
+//	} else {
+//        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang file %s exists", fname);
+//		fclose(fp);
+//	}
+	
+    test_filters_c(NULL, name0, namegs0);
+//	  test_filters_transitions_c(NULL, name0, name1);
 //	  test_filters_c(NULL, (char *) "mnt/sdcard/sdltest.mp4");
 //    test_filters_c(NULL, (char *) "mnt/sdcard/DCIM/Camera/20171012_062910.mp4");
 //    test_filters_c(NULL, (char *) "mnt/sdcard/DCIM/Camera/20180124_112850.mp4");

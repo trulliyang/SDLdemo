@@ -66,6 +66,15 @@ namespace movit {
     
         float pinkHueMin;
         float pinkHueMax;
+    
+        float targetColorRed;
+        float targetColorGreen;
+        float targetColorBlue;
+        float targetColorAlpha;
+    
+        float diff;
+        float diffMin;
+        float diffMax;
     };
 
 }  // namespace movit

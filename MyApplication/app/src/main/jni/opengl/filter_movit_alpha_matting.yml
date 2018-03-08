@@ -220,3 +220,59 @@ parameters:
     maximum: 360.0
     default: 324.0
     mutable: yes
+
+  - identifier: targetColorRed
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.0
+    mutable: yes
+
+  - identifier: targetColorGreen
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 1.0
+    mutable: yes
+
+  - identifier: targetColorBlue
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 0.0
+    default: 0.0
+    mutable: yes
+
+  - identifier: targetColorAlpha
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 1.0
+    mutable: yes
+
+  - identifier: diff
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.1
+    mutable: yes
+
+  - identifier: diffMin
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.1
+    mutable: yes
+
+  - identifier: diffMax
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.9
+    mutable: yes

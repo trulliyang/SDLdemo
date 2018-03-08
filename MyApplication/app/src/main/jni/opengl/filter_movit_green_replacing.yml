@@ -1,0 +1,70 @@
+schema_version: 0.1
+type: filter
+identifier: movit.green_replacing
+title: alpha matting (GLSL)
+version: 1
+copyright: shiyang1
+creator: shiyang1
+license: GPLv2
+language: en
+tags:
+  - Video
+description: >
+  generate a old cinema style frame.
+
+parameters:
+  - identifier: greenSaturationMin
+    title: old cinema scratch
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.0
+    mutable: yes
+
+  - identifier: greenSaturationMax
+    title: old cinema inner vignetting
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.3
+    mutable: yes
+
+  - identifier: greenValueMin
+    title: old cinema outer vignetting
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.25
+    mutable: yes
+
+  - identifier: greenValueMax
+    title: old cinema random
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.8
+    mutable: yes
+
+  - identifier: greenHueMin
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 360.0
+    default: 90.0
+    mutable: yes
+
+  - identifier: greenHueMax
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 360.0
+    default: 205.5
+    mutable: yes
+
+  - identifier: threshold
+    title: old cinema time lapse
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.0
+    mutable: yes

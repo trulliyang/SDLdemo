@@ -242,53 +242,73 @@ bool PREFIX(isBackGroundColorIndex)(int index, vec4 color)
 vec4 FUNCNAME(vec2 tc)
 {
     vec4 color = INPUT(tc);
-    int colorBGIndex = 6;//PREFIX(getBackGroundColorIndex)();
-    vec4 colorHSV = PREFIX(rgb2hsv)(color);
-    int colorIndex = PREFIX(getColorIndex)(colorHSV);
-//    bool isBG = PREFIX(isBackGroundColorIndex)(colorBGIndex, color);
+    float a = 0.3;
     vec4 x;
-    if (colorIndex == colorBGIndex) {
-        //gl_FragColor = vec4(color.r, color.g, color.b, 0.0);
-        float maxv = 0.0;
-        if (maxv < color.r) {
-            maxv = color.r;
+    if (a > 0.5) {
+        int colorBGIndex = 6;//PREFIX(getBackGroundColorIndex)();
+        vec4 colorHSV = PREFIX(rgb2hsv)(color);
+        int colorIndex = PREFIX(getColorIndex)(colorHSV);
+    //    bool isBG = PREFIX(isBackGroundColorIndex)(colorBGIndex, color);
+
+        if (colorIndex == colorBGIndex) {
+            //gl_FragColor = vec4(color.r, color.g, color.b, 0.0);
+            float maxv = 0.0;
+            if (maxv < color.r) {
+                maxv = color.r;
+            }
+            if (maxv < color.g) {
+                maxv = color.g;
+            }
+            if (maxv < color.b) {
+                maxv = color.b;
+            }
+            x = vec4(maxv, maxv, maxv, maxv);
+    //        x = vec4(1.0, 0.0, 1.0, 1.0);
+        } else {
+            x = color;
         }
-        if (maxv < color.g) {
-            maxv = color.g;
-        }
-        if (maxv < color.b) {
-            maxv = color.b;
-        }
-        x = vec4(maxv, maxv, maxv, maxv);
-//        x = vec4(1.0, 0.0, 1.0, 1.0);
     } else {
-//        if (0 == colorIndex) {
-//            x = vec4(0.0, 0.0, 0.0, 1.0);
-//        } else if (1 == colorIndex) {
-//            x = vec4(0.5, 0.5, 0.5, 1.0);
-//        } else if (2 == colorIndex) {
-//            x = vec4(1.0, 1.0, 1.0, 1.0);
-//        } else if (3 == colorIndex) {
-//            x = vec4(1.0, 0.0, 0.0, 1.0);
-//        } else if (4 == colorIndex) {
-//            x = vec4(1.0, 0.5, 0.0, 1.0);
-//        } else if (5 == colorIndex) {
-//            x = vec4(1.0, 1.0, 0.0, 1.0);
-//        } else if (6 == colorIndex) {
-//            x = vec4(0.0, 1.0, 0.0, 1.0);
-//        } else if (7 == colorIndex) {
-//            x = vec4(0.0, 0.4, 1.0, 1.0);
-//        } else if (8 == colorIndex) {
-//            x = vec4(0.0, 0.0, 1.0, 1.0);
-//        } else if (9 == colorIndex) {
-//            x = vec4(0.0, 0.87, 1.0, 1.0);
-//        } else if (10 == colorIndex) {
-//            x = vec4(0.5, 0.87, 1.0, 1.0);
-//        } else if (-1 == colorIndex) {
-//            x = color;
-//        }
-//        //gl_FragColor = vec4(0.0, 0.0, 1.0, 1.0);
+        // get target color
+//        float tR = PREFIX(targetColorRed);
+//        float tG = PREFIX(targetColorGreen);
+//        float tB = PREFIX(targetColorBlue);
+//        float tA = PREFIX(targetColorAlpha);
         x = color;
+        float alpha = 1.0;
+        if (color.g>(color.r+0.03125) && color.g>(color.b+0.03125)) {
+            vec4 tColor = vec4(PREFIX(targetColorRed), PREFIX(targetColorGreen), PREFIX(targetColorBlue), PREFIX(targetColorAlpha));
+
+            // calculate diff
+            float redMean = (tColor.r + color.r)*0.5;
+
+            float deltaR = tColor.r - color.r;
+            float deltaG = tColor.g - color.g;
+            float deltaB = tColor.b - color.b;
+
+            float partR = (2.0 + redMean)*deltaR*deltaR;
+            float partG = 4.0*deltaG*deltaG;
+            float partB = (3.0 - redMean)*deltaB*deltaB;
+
+            float delta = sqrt(partR + partG + partB)*0.111111;
+
+    //        if (delta < PREFIX(diffMin)) {
+    //            alpha = 0.0;
+    //        } else if (delta < PREFIX(diffMax)) {
+    //            alpha = 0.5;
+    //        }
+
+            if (delta <= PREFIX(diff)) {
+                alpha = 0.0;
+                x = vec4(0.0, 0.0, 0.0, 1.0);
+            } else {
+                alpha = 0.5;
+                x = vec4(0.5, 0.5, 0.5, 1.0);
+            }
+
+        }
+
+//        x = vec4(color.rgb, alpha);
+//        x = vec4(color.rgb*alpha, 1.0);
     }
 
     //gl_FragColor = vec4(0.0, 0.0, 1.0, 1.0);
