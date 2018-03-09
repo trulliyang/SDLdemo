@@ -11,11 +11,21 @@ GreenReplacingOverlayEffect::GreenReplacingOverlayEffect()
 	__android_log_print(ANDROID_LOG_ERROR, "shiyang", "shiyang GreenReplacingOverlayEffect Constructor");
 	register_int("swap_inputs", (int *)&swap_inputs);
 	
-	targetColorRed = 0.0f;
-	targetColorGreen = 1.0f;
-	targetColorBlue = 0.0f;
-	targetColorAlpha = 1.0f;
-	
+//	targetColorRed = 0.0f;
+//	targetColorGreen = 1.0f;
+//	targetColorBlue = 0.0f;
+//	targetColorAlpha = 1.0f;
+    
+//    targetColorRed = 16.0f/255.0f;
+//    targetColorGreen = 240.0f/255.0f;
+//    targetColorBlue = 16.0f/255.0f;
+//    targetColorAlpha = 1.0f;
+    
+    targetColorRed = -5.0f/255.0f;
+    targetColorGreen = 183.0f/255.0f;
+    targetColorBlue = -2.0f/255.0f;
+    targetColorAlpha = 1.0f;
+    
 	diff = 0.1f;
 	diffMin = 0.1f;
 	diffMax = 0.9f;

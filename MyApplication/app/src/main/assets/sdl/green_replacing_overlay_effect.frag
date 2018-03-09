@@ -157,6 +157,55 @@ vec4 FUNCNAME(vec2 tc) {
 //
 //	return topNew + (1.0 - topNew.a) * bottom;
         vec4 x = color;
+
+        // test the color value
+        float dtValue = 0.004;
+
+//        float dtR = abs(color.r - 16.0/255.0);
+//        float dtG = abs(color.g - 240.0/255.0);
+//        float dtB = abs(color.b - 16.0/255.0);
+
+//        float dtR = abs(color.r - 79.0/255.0);
+//        float dtG = abs(color.g - 249.0/255.0);
+//        float dtB = abs(color.b - 42.0/255.0);
+
+//        float dtR = abs(color.r - 60.0/255.0);
+//        float dtG = abs(color.g - 255.0/255.0);
+//        float dtB = abs(color.b - 0.0/255.0);
+
+//        float dtR = abs(color.r - 75.0/255.0);
+//        float dtG = abs(color.g - 249.0/255.0);
+//        float dtB = abs(color.b - 42.0/255.0);
+
+//        float dtR = abs(color.r - 0.0/255.0);
+//        float dtG = abs(color.g - 216.0/255.0);
+//        float dtB = abs(color.b - 0.0/255.0);
+
+//        float dtR = abs(color.r - (-5.0)/255.0);
+//        float dtG = abs(color.g - 183.0/255.0);
+//        float dtB = abs(color.b - (-2.0)/255.0);
+
+//        if (dtR<dtValue && dtG<dtValue && dtB<dtValue) {
+//            return vec4(1.0, 1.0, 1.0, 1.0);
+//        } else {
+//            return vec4(1.0, 0.0, 0.0, 1.0);
+//        }
+
+//        // check red
+//        float dtR = abs(color.r + 5.0/255.0);
+//       if (dtR<dtValue) {
+//            return vec4(1.0, 0.0, 0.0, 1.0);
+//        }
+//        // check green
+//        float dtG = abs(color.g - 183.0/255.0);
+//        if (dtG<dtValue) {
+//            return vec4(0.0, 1.0, 0.0, 1.0);
+//        }
+//        // check blue
+//        float dtB = abs(color.b + 2.0/255.0);
+//        if (dtB<dtValue) {
+//            return vec4(0.0, 0.0, 1.0, 1.0);
+//        }
         float alpha = 1.0;
         if (color.g>(color.r+0.03125) && color.g>(color.b+0.03125)) {
             vec4 tColor = vec4(PREFIX(targetColorRed), PREFIX(targetColorGreen), PREFIX(targetColorBlue), PREFIX(targetColorAlpha));
