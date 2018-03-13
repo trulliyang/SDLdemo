@@ -1,0 +1,22 @@
+schema_version: 0.1
+type: transition
+identifier: movit.fade_out_in_overlay
+title: Overlay (GLSL)
+version: 1
+copyright: Dan Dennedy
+creator: Steinar H. Gunderson
+license: GPLv2
+language: en
+tags:
+  - Video
+description: >
+  A simple video overlay or alpha-compositing effect using the Porter-Duff over operation.
+
+parameters:
+  - identifier: fade_progress
+    title: Outer Radius
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.0
+    mutable: yes

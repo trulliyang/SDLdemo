@@ -79,12 +79,12 @@ int test_filters_transitions(char *filter_name, char *video_name0, char *video_n
 		m_producer0.unlock();
 	}
 
-	Mlt::Filter m_filter1(m_pprofile, "movit.mirror");
-	if (m_filter1.is_valid()) {
-		m_producer0.lock();
-		m_producer0.attach(m_filter1);
-		m_producer0.unlock();
-	}
+//	Mlt::Filter m_filter1(m_pprofile, "movit.mirror");
+//	if (m_filter1.is_valid()) {
+//		m_producer0.lock();
+//		m_producer0.attach(m_filter1);
+//		m_producer0.unlock();
+//	}
 
 	Mlt::Filter m_filter2(m_pprofile, "movit.convert");
 	if (m_filter2.is_valid()) {
@@ -93,12 +93,12 @@ int test_filters_transitions(char *filter_name, char *video_name0, char *video_n
 		m_producer1.unlock();
 	}
 
-	Mlt::Filter m_filter3(m_pprofile, "movit.mirror");
-	if (m_filter3.is_valid()) {
-		m_producer1.lock();
-		m_producer1.attach(m_filter3);
-		m_producer1.unlock();
-	}
+//	Mlt::Filter m_filter3(m_pprofile, "movit.mirror");
+//	if (m_filter3.is_valid()) {
+//		m_producer1.lock();
+//		m_producer1.attach(m_filter3);
+//		m_producer1.unlock();
+//	}
 
 	Mlt::Tractor m_tractor(m_pprofile);
 	if (m_tractor.is_valid()) {
@@ -110,16 +110,26 @@ int test_filters_transitions(char *filter_name, char *video_name0, char *video_n
 		m_tractor.unlock();
 	}
 
-	Mlt::Transition m_transition(m_pprofile, "movit.green_replacing_overlay", NULL);
-	if (m_transition.is_valid()) {
+//	Mlt::Transition m_transition(m_pprofile, "movit.green_replacing_overlay", NULL);
+//	if (m_transition.is_valid()) {
+//		m_tractor.lock();
+//		m_transition.set("always_active", "1");
+//		m_transition.set("accepts_blanks", "1");
+//		m_tractor.plant_transition(m_transition, 0, 1);
+//		m_transition.set_in_and_out(0, 5000);
+//		m_tractor.unlock();
+//	}
+	
+	Mlt::Transition m_transition2(m_pprofile, "movit.fade_out_in_overlay", NULL);
+	if (m_transition2.is_valid()) {
 		m_tractor.lock();
-		m_transition.set("always_active", "1");
-		m_transition.set("accepts_blanks", "1");
-		m_tractor.plant_transition(m_transition, 0, 1);
-		m_transition.set_in_and_out(0, 5000);
+		m_transition2.set("always_active", "1");
+		m_transition2.set("accepts_blanks", "1");
+		m_tractor.plant_transition(m_transition2, 0, 1);
+		m_transition2.set_in_and_out(0, 5000);
 		m_tractor.unlock();
 	}
-
+	
 //	Mlt::Filter m_filter2(m_pprofile, "movit.lift_gamma_gain");
 //	if(m_filter1.is_valid()){
 //		/*
@@ -430,7 +440,9 @@ int main( int argc, char **argv ){
     char *nameg3 = (char *) "mnt/sdcard/lmyd.mp4";
     char *nameg4 = (char *) "mnt/sdcard/lmsp2.mp4";
     char *nameg5 = (char *) "mnt/sdcard/lmyw.mp4";
-	
+    
+    char *namelalalags0 = (char *) "mnt/sdcard/gs9_1.m4v";
+    
 	char *namegs0 = (char *) "mnt/sdcard/lmsc/gs9_1.mp4";
 	char *namegs1 = (char *) "mnt/sdcard/lmsc/gs9_2.mp4";
 	char *namegs2 = (char *) "mnt/sdcard/lmsc/gs9_3.mp4";
@@ -454,7 +466,8 @@ int main( int argc, char **argv ){
 //	}
 	
 //    test_filters_c(NULL, name0, namegs0);
-	  test_filters_transitions_c(NULL, namebbc, name0);
+    test_filters_transitions_c(NULL, namebbc, name0);
+//    test_filters_transitions_c(NULL, namebbc, namelalalags0);
 //	  test_filters_c(NULL, (char *) "mnt/sdcard/sdltest.mp4");
 //    test_filters_c(NULL, (char *) "mnt/sdcard/DCIM/Camera/20171012_062910.mp4");
 //    test_filters_c(NULL, (char *) "mnt/sdcard/DCIM/Camera/20180124_112850.mp4");

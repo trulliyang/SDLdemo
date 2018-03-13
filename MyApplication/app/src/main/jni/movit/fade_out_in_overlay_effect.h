@@ -1,5 +1,5 @@
-#ifndef _MOVIT_GREEN_REPLACING_OVERLAY_EFFECT_H
-#define _MOVIT_GREEN_REPLACING_OVERLAY_EFFECT_H 1
+#ifndef _MOVIT_FADE_OUT_IN_OVERLAY_EFFECT_H
+#define _MOVIT_FADE_OUT_IN_OVERLAY_EFFECT_H 1
 
 // Put one image on top of another, using alpha where appropriate.
 // (If both images are the same aspect and the top image has alpha=1.0
@@ -16,16 +16,16 @@
 
 namespace movit {
 
-class GreenReplacingOverlayEffect : public Effect {
+class FadeOutInOverlayEffect : public Effect {
 public:
-	GreenReplacingOverlayEffect();
-	virtual std::string effect_type_id() const { return "GreenReplacingOverlayEffect"; }
+    FadeOutInOverlayEffect();
+	virtual std::string effect_type_id() const { return "FadeOutInOverlayEffect"; }
 	std::string output_fragment_shader();
 
 	virtual bool needs_srgb_primaries() const { return false; }
 	virtual unsigned num_inputs() const { return 2; }
 	virtual bool one_to_one_sampling() const { return true; }
-
+	void set_gl_state(GLuint glsl_program_num, const std::string &prefix, unsigned *sampler_num);
 	// Actually, if _either_ image has blank alpha, our output will have
 	// blank alpha, too (this only tells the framework that having _both_
 	// images with blank alpha would result in blank alpha).
@@ -37,23 +37,9 @@ private:
 	// If true, overlays input1 on top of input2 instead of vice versa.
 	// Must be set before finalize.
 	bool swap_inputs;
-	
-	float targetColorRed;
-	float targetColorGreen;
-	float targetColorBlue;
-	float targetColorAlpha;
-	
-	float perTopWidth;
-	float perTopHeight;
-	
-	float perBottomWidth;
-	float perBottomHeight;
-	
-	float diff;
-	float diffMin;
-	float diffMax;
+    float fade_progress;
 };
 
 }  // namespace movit
 
-#endif // !defined(_MOVIT_GREEN_REPLACING_OVERLAY_EFFECT_H)
+#endif // !defined(_MOVIT_FADE_OUT_IN_OVERLAY_EFFECT_H)

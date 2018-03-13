@@ -246,6 +246,29 @@ vec4 FUNCNAME(vec2 tc) {
                     max = color.b;
                 }
                 color = vec4(max, max, max, 0.5);
+
+                // check the color around
+                float perW = PREFIX(perTopWidth);
+                float perH = PREFIX(perTopHeight);
+
+            #if SWAP_INPUTS
+            //	vec4 bottom = INPUT2(tc);
+                vec4 topColorUp = INPUT1(vec2(tc.x, tc.y+perH));
+                vec4 topColorDown = INPUT1(vec2(tc.x, tc.y-perH));
+                vec4 topColorLeft = INPUT1(vec2(tc.x-perW, tc.y));
+                vec4 topColorRight = INPUT1(vec2(tc.x+perW, tc.y));
+            #else
+            //	vec4 bottom = INPUT1(tc);
+                vec4 topColorUp = INPUT2(vec2(tc.x, tc.y+perH));
+                vec4 topColorDown = INPUT2(vec2(tc.x, tc.y-perH));
+                vec4 topColorLeft = INPUT2(vec2(tc.x-perW, tc.y));
+                vec4 topColorRight = INPUT2(vec2(tc.x+perW, tc.y));
+            #endif
+                if (topColorUp.r < 0.1) {
+                    color.a = 0.0;
+                }
+
+
             }
 
         }

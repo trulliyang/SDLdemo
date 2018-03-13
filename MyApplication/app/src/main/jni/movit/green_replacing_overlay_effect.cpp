@@ -25,7 +25,25 @@ GreenReplacingOverlayEffect::GreenReplacingOverlayEffect()
     targetColorGreen = 183.0f/255.0f;
     targetColorBlue = -2.0f/255.0f;
     targetColorAlpha = 1.0f;
+	
+//	targetColorRed = 0.0f/255.0f;
+//	targetColorGreen = 255.0f/255.0f;
+//	targetColorBlue = 0.0f/255.0f;
+//	targetColorAlpha = 1.0f;
     
+//    targetColorRed = 52.0f/255.0f;
+//    targetColorGreen = 224.0f/255.0f;
+//    targetColorBlue = 4.0f/255.0f;
+//    targetColorAlpha = 1.0f;
+    
+	perTopWidth = 1.0f/1920.0f;
+	perTopHeight = 1.0f/1070.0f;
+	
+//	targetColorRed = 49.0f/255.0f;
+//	targetColorGreen = 251.0f/255.0f;
+//	targetColorBlue = 44.0f/255.0f;
+//	targetColorAlpha = 1.0f;
+	
 	diff = 0.1f;
 	diffMin = 0.1f;
 	diffMax = 0.9f;
@@ -38,6 +56,9 @@ GreenReplacingOverlayEffect::GreenReplacingOverlayEffect()
 	register_float("diff", &diff);
 	register_float("diffMin", &diffMin);
 	register_float("diffMax", &diffMax);
+	
+	register_float("perTopWidth", &perTopWidth);
+	register_float("perTopHeight", &perTopHeight);
 }
 
 string GreenReplacingOverlayEffect::output_fragment_shader()
