@@ -26,7 +26,7 @@
 #include <movit/init.h>
 #include <movit/effect_chain.h>
 #include <movit/util.h>
-#include <movit/overlay_effect.h>
+#include <movit/video_on_video_overlay_effect.h>
 
 using namespace movit;
 
@@ -52,7 +52,7 @@ static int get_image( mlt_frame a_frame, uint8_t **image, mlt_image_format *form
 
 	GlslManager::set_effect_input( service, a_frame, (mlt_service) a_image );
 	GlslManager::set_effect_secondary_input( service, a_frame, (mlt_service) b_image, b_frame );
-	GlslManager::set_effect( service, a_frame, new OverlayEffect );
+	GlslManager::set_effect( service, a_frame, new VideoOnVideoOverlayEffect );
 	*image = (uint8_t *) service;
 
 	mlt_service_unlock( service );
@@ -69,10 +69,8 @@ static mlt_frame process( mlt_transition transition, mlt_frame a_frame, mlt_fram
 }
 
 extern "C"
-mlt_transition transition_movit_overlay_init( mlt_profile profile,
-											  mlt_service_type type,
-											  const char *id,
-											  char *arg )
+mlt_transition transition_movit_video_on_video_overlay_init( mlt_profile profile, mlt_service_type type,
+											  const char *id, char *arg )
 {
 	mlt_transition transition = NULL;
 	GlslManager* glsl = GlslManager::get_instance();

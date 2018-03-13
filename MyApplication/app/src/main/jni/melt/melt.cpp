@@ -12,7 +12,8 @@
 using namespace Mlt;
 
 static Repository *m_repo = NULL;
-
+int test_filters_transitions(char *filter_name, char *video_name0, char *video_name1);
+int test_filters_transitions2(char *filter_name, char *video_name0, char *video_name1, char *video_name2, char *video_name3);
 void factory_init() {
 	// should call mltsetenv before this init
 	static int factory_inited = 0;
@@ -46,6 +47,178 @@ int query_filters(char **filternames, int maxcnt){
 		w++;
 	}
 	return loop;
+}
+
+int test_filters_four_path(char *filter_name,
+                           char *video_name0, char *video_name1,
+                           char *video_name2, char *video_name3) {
+	test_filters_transitions2(filter_name, video_name0, video_name1, video_name2, video_name3);
+}
+
+int test_filters_transitions2(char *filter_name,
+							  char *video_name0, char *video_name1,
+							  char *video_name2, char *video_name3) {
+	factory_init();
+	Mlt::Profile m_pprofile;
+    Mlt::Profile m_pprofile1;
+	Mlt::Profile m_cprofile;
+	
+	m_pprofile.set_explicit(0);
+	
+	Mlt::Producer m_producer0(m_pprofile, "avformat", video_name0);
+	m_producer0.set("put_mode", 0);
+	m_producer0.set("real_time", 1);
+	m_producer0.set("terminate_on_pause", 0);
+	
+	Mlt::Producer m_producer1(m_pprofile, "avformat", video_name1);
+	m_producer1.set("put_mode", 0);
+	m_producer1.set("real_time", 1);
+	m_producer1.set("terminate_on_pause", 0);
+	
+	Mlt::Producer m_producer2(m_pprofile1, "avformat", video_name2);
+	m_producer2.set("put_mode", 0);
+	m_producer2.set("real_time", 1);
+	m_producer2.set("terminate_on_pause", 0);
+	
+	Mlt::Producer m_producer3(m_pprofile1, "avformat", video_name3);
+	m_producer3.set("put_mode", 0);
+	m_producer3.set("real_time", 1);
+	m_producer3.set("terminate_on_pause", 0);
+	
+	Mlt::FilteredConsumer m_consumer(m_pprofile, "xgl", NULL);
+	m_consumer.set("width", 1920);
+	m_consumer.set("height", 1072);
+    
+    Mlt::FilteredConsumer m_consumer2(m_pprofile1, "xgl", NULL);
+    m_consumer2.set("width", 1920);
+    m_consumer2.set("height", 1072);
+    
+	Mlt::Filter m_filter0(m_pprofile, "movit.convert");
+	if (m_filter0.is_valid()) {
+		m_producer0.lock();
+		m_producer0.attach(m_filter0);
+		m_producer0.unlock();
+	}
+	
+	Mlt::Filter m_filter1(m_pprofile, "movit.convert");
+	if (m_filter1.is_valid()) {
+		m_producer1.lock();
+		m_producer1.attach(m_filter1);
+		m_producer1.unlock();
+	}
+	
+	Mlt::Filter m_filter2(m_pprofile1, "movit.convert");
+	if (m_filter2.is_valid()) {
+		m_producer2.lock();
+		m_producer2.attach(m_filter2);
+		m_producer2.unlock();
+	}
+	
+	Mlt::Filter m_filter3(m_pprofile1, "movit.convert");
+	if (m_filter3.is_valid()) {
+		m_producer3.lock();
+		m_producer3.attach(m_filter3);
+		m_producer3.unlock();
+	}
+	
+	
+	Mlt::Tractor m_tractor(m_pprofile);
+	if (m_tractor.is_valid()) {
+		m_tractor.lock();
+		m_tractor.connect_producer(m_producer0, 0);
+		m_tractor.connect_producer(m_producer1, 1);
+//		m_tractor.connect_producer(m_producer2, 2);
+//		m_tractor.connect_producer(m_producer3, 3);
+		m_tractor.set_track(m_producer0, 0);
+		m_tractor.set_track(m_producer1, 1);
+//		m_tractor.set_track(m_producer2, 2);
+//		m_tractor.set_track(m_producer3, 3);
+		m_tractor.unlock();
+	}
+    
+    Mlt::Tractor m_tractor2(m_pprofile1);
+    if (m_tractor2.is_valid()) {
+        m_tractor2.lock();
+//        m_tractor2.connect_producer(m_producer0, 0);
+//        m_tractor2.connect_producer(m_producer1, 1);
+		m_tractor2.connect_producer(m_producer2, 2);
+		m_tractor2.connect_producer(m_producer3, 3);
+//        m_tractor2.set_track(m_producer0, 0);
+//        m_tractor2.set_track(m_producer1, 1);
+		m_tractor2.set_track(m_producer2, 2);
+		m_tractor2.set_track(m_producer3, 3);
+        m_tractor2.unlock();
+    }
+    
+//	Mlt::Transition m_transition(m_pprofile, "movit.green_replacing_overlay", NULL);
+//	if (m_transition.is_valid()) {
+//		m_tractor.lock();
+//		m_transition.set("always_active", "1");
+//		m_transition.set("accepts_blanks", "1");
+//		m_tractor.plant_transition(m_transition, 0, 1);
+//		m_transition.set_in_and_out(0, 5000);
+//		m_tractor.unlock();
+//	}
+
+	Mlt::Transition m_transition2(m_pprofile, "movit.fade_out_in_overlay", NULL);
+	if (m_transition2.is_valid()) {
+		m_tractor.lock();
+		m_transition2.set("always_active", "1");
+		m_transition2.set("accepts_blanks", "1");
+		m_tractor.plant_transition(m_transition2, 0, 1);
+		m_transition2.set_in_and_out(0, 5000);
+		m_tractor.unlock();
+	}
+    Mlt::Transition m_transition22(m_pprofile1, "movit.fade_out_in_overlay", NULL);
+    if (m_transition22.is_valid()) {
+        m_tractor2.lock();
+        m_transition22.set("always_active", "1");
+        m_transition22.set("accepts_blanks", "1");
+        m_tractor2.plant_transition(m_transition22, 0, 1);
+        m_transition22.set_in_and_out(0, 5000);
+        m_tractor2.unlock();
+    }
+//	Mlt::Filter m_filter2(m_pprofile, "movit.lift_gamma_gain");
+//	if(m_filter1.is_valid()){
+//		/*
+//        m_filter.set("av.x","200");
+//        m_filter.set("av.y","10");
+//        m_filter.set("av.w","300");
+//        m_filter.set("av.h","300");
+//        */
+////		m_filter.set("_movit.parms.float.radius",112.4);
+//
+//		m_producer.lock();
+//		m_producer.attach(m_filter2);
+//		m_producer.unlock();
+//	}
+
+//	Mlt::Filter m_filter3(m_pprofile, "movit.glow");
+//	if(m_filter1.is_valid()){
+//		/*
+//        m_filter.set("av.x","200");
+//        m_filter.set("av.y","10");
+//        m_filter.set("av.w","300");
+//        m_filter.set("av.h","300");
+//        */
+////		m_filter.set("_movit.parms.float.radius",112.4);
+//
+//		m_producer.lock();
+//		m_producer.attach(m_filter3);
+//		m_producer.unlock();
+//	}
+	
+	m_consumer.connect(m_tractor);
+	m_consumer.run();
+    
+//    m_consumer2.connect(m_tractor2);
+//    m_consumer2.run();
+    
+	end:
+//    Factory::close();
+	m_repo = NULL;
+	return 0;
+	
 }
 
 int test_filters_transitions(char *filter_name, char *video_name0, char *video_name1) {
@@ -110,23 +283,18 @@ int test_filters_transitions(char *filter_name, char *video_name0, char *video_n
 		m_tractor.unlock();
 	}
 
-//	Mlt::Transition m_transition(m_pprofile, "movit.green_replacing_overlay", NULL);
-//	if (m_transition.is_valid()) {
-//		m_tractor.lock();
-//		m_transition.set("always_active", "1");
-//		m_transition.set("accepts_blanks", "1");
-//		m_tractor.plant_transition(m_transition, 0, 1);
-//		m_transition.set_in_and_out(0, 5000);
-//		m_tractor.unlock();
-//	}
-	
-	Mlt::Transition m_transition2(m_pprofile, "movit.fade_out_in_overlay", NULL);
-	if (m_transition2.is_valid()) {
+	Mlt::Transition m_transition(m_pprofile,
+//								 "movit.green_replacing_overlay",
+//								 "movit.fade_out_in_overlay",
+//								 "movit.overlay",
+								 "movit.video_on_video_overlay",
+								 NULL);
+	if (m_transition.is_valid()) {
 		m_tractor.lock();
-		m_transition2.set("always_active", "1");
-		m_transition2.set("accepts_blanks", "1");
-		m_tractor.plant_transition(m_transition2, 0, 1);
-		m_transition2.set_in_and_out(0, 5000);
+		m_transition.set("always_active", "1");
+		m_transition.set("accepts_blanks", "1");
+		m_tractor.plant_transition(m_transition, 0, 1);
+		m_transition.set_in_and_out(0, 5000);
 		m_tractor.unlock();
 	}
 	
@@ -404,6 +572,12 @@ int test_filters_transitions_c(char *filter_name, char *video_name0, char *video
 	return test_filters_transitions(filter_name, video_name0, video_name1);
 }
 
+int test_filters_four_path_c(char *filter_name,
+                             char *video_name0, char *video_name1,
+                             char *video_name2, char *video_name3) {
+    return test_filters_four_path(filter_name, video_name0, video_name1, video_name2, video_name3);
+}
+
 int query_filters_c(char **filters, int maxcnt){
 	return query_filters(filters,maxcnt);
 }
@@ -472,6 +646,10 @@ int main( int argc, char **argv ){
 //    test_filters_c(NULL, (char *) "mnt/sdcard/DCIM/Camera/20171012_062910.mp4");
 //    test_filters_c(NULL, (char *) "mnt/sdcard/DCIM/Camera/20180124_112850.mp4");
 
+ 
+	test_filters_four_path_c(NULL, nameg0,nameg1,nameg2,nameg3);
+ 
+ 
 	return 1;
 }
 #ifdef __cplusplus

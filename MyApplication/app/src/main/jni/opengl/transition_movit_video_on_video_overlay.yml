@@ -1,0 +1,46 @@
+schema_version: 0.1
+type: transition
+identifier: movit.video_on_video_overlay
+title: Overlay (GLSL)
+version: 1
+copyright: Dan Dennedy
+creator: Steinar H. Gunderson
+license: GPLv2
+language: en
+tags:
+  - Video
+description: >
+  A simple video overlay or alpha-compositing effect using the Porter-Duff over operation.
+
+parameters:
+  - identifier: x_offset_percentage
+    title: Outer Radius
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.0
+    mutable: yes
+
+  - identifier: y_offset_percentage
+    title: Outer Radius
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.0
+    mutable: yes
+
+  - identifier: w_top_percentage
+    title: Outer Radius
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.0
+    mutable: yes
+
+  - identifier: h_top_percentage
+    title: Outer Radius
+    type: float
+    minimum: 0.0
+    maximum: 1.0
+    default: 0.0
+    mutable: yes
