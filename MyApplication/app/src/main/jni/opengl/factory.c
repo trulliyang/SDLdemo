@@ -52,6 +52,7 @@ extern mlt_transition transition_movit_overlay_init( mlt_profile profile, mlt_se
 extern mlt_transition transition_movit_green_replacing_overlay_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
 extern mlt_transition transition_movit_fade_out_in_overlay_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
 extern mlt_transition transition_movit_video_on_video_overlay_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
+extern mlt_transition transition_movit_watermark_overlay_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
 
 extern char source_path[1024];
 
@@ -98,6 +99,7 @@ void opengles_mlt_register( mlt_repository repository)
 	MLT_REGISTER( transition_type, "movit.green_replacing_overlay", transition_movit_green_replacing_overlay_init );
 	MLT_REGISTER( transition_type, "movit.fade_out_in_overlay", transition_movit_fade_out_in_overlay_init );
 	MLT_REGISTER( transition_type, "movit.video_on_video_overlay", transition_movit_video_on_video_overlay_init );
+	MLT_REGISTER( transition_type, "movit.watermark_overlay", transition_movit_watermark_overlay_init );
 	
 	MLT_REGISTER_METADATA( filter_type, "movit.alpha_matting", metadata, "filter_movit_alpha_matting.yml" );
 	MLT_REGISTER_METADATA( filter_type, "movit.blur", metadata, "filter_movit_blur.yml" );
@@ -123,5 +125,6 @@ void opengles_mlt_register( mlt_repository repository)
 	MLT_REGISTER_METADATA( transition_type, "movit.green_replacing_overlay", metadata, "transition_movit_green_replacing_overlay.yml" );
 	MLT_REGISTER_METADATA( transition_type, "movit.fade_out_in_overlay", metadata, "transition_movit_fade_out_in_overlay.yml" );
 	MLT_REGISTER_METADATA( transition_type, "movit.video_on_video_overlay", metadata, "transition_movit_video_on_video_overlay.yml" );
+	MLT_REGISTER_METADATA( transition_type, "movit.watermark_overlay", metadata, "transition_movit_watermark_overlay.yml" );
 
 }

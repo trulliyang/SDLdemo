@@ -363,11 +363,8 @@ void GlslManager::set_effect_third_input( mlt_service service, mlt_frame frame, 
 	set_frame_specific_data( service, frame, "_movit effect third input frame", input_frame, 0, NULL, NULL );
 }
 
-int GlslManager::render_frame_texture(EffectChain *chain,
-									  mlt_frame frame,
-									  int width,
-									  int height,
-									  uint8_t **image)
+int GlslManager::render_frame_texture(EffectChain *chain, mlt_frame frame,
+									  int width, int height, uint8_t **image)
 {
 	glsl_texture texture = get_texture( width, height, GL_RGBA8 );
 	if (!texture) {
@@ -416,9 +413,9 @@ int GlslManager::render_frame_texture(EffectChain *chain,
 	*image = (uint8_t*) &texture->texture;
 	mlt_frame_set_image( frame, *image, 0, NULL );
 	mlt_properties_set_data( MLT_FRAME_PROPERTIES(frame), "movit.convert.texture", texture, 0,
-		(mlt_destructor) GlslManager::release_texture, NULL );
+							 (mlt_destructor) GlslManager::release_texture, NULL );
 	mlt_properties_set_data( MLT_FRAME_PROPERTIES(frame), "movit.convert.fence", sync, 0,
-		(mlt_destructor) GlslManager::delete_sync, NULL );
+							 (mlt_destructor) GlslManager::delete_sync, NULL );
 
 	return 0;
 }

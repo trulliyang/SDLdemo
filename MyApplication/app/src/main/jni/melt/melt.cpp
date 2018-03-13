@@ -287,7 +287,8 @@ int test_filters_transitions(char *filter_name, char *video_name0, char *video_n
 //								 "movit.green_replacing_overlay",
 //								 "movit.fade_out_in_overlay",
 //								 "movit.overlay",
-								 "movit.video_on_video_overlay",
+//								 "movit.video_on_video_overlay",
+								 "movit.watermark_overlay",
 								 NULL);
 	if (m_transition.is_valid()) {
 		m_tractor.lock();
