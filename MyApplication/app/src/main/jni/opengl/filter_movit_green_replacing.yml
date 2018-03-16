@@ -13,7 +13,7 @@ description: >
   generate a old cinema style frame.
 
 parameters:
-  - identifier: greenSaturationMin
+  - identifier: targetColorRed
     title: old cinema scratch
     type: float
     minimum: 0.0
@@ -21,7 +21,7 @@ parameters:
     default: 0.0
     mutable: yes
 
-  - identifier: greenSaturationMax
+  - identifier: targetColorGreen
     title: old cinema inner vignetting
     type: float
     minimum: 0.0
@@ -29,7 +29,7 @@ parameters:
     default: 0.3
     mutable: yes
 
-  - identifier: greenValueMin
+  - identifier: targetColorBlue
     title: old cinema outer vignetting
     type: float
     minimum: 0.0
@@ -37,7 +37,7 @@ parameters:
     default: 0.25
     mutable: yes
 
-  - identifier: greenValueMax
+  - identifier: targetColorAlpha
     title: old cinema random
     type: float
     minimum: 0.0
@@ -45,7 +45,7 @@ parameters:
     default: 0.8
     mutable: yes
 
-  - identifier: greenHueMin
+  - identifier: diff
     title: old cinema time lapse
     type: float
     minimum: 0.0
@@ -53,7 +53,7 @@ parameters:
     default: 90.0
     mutable: yes
 
-  - identifier: greenHueMax
+  - identifier: diffMax
     title: old cinema time lapse
     type: float
     minimum: 0.0
@@ -61,7 +61,7 @@ parameters:
     default: 205.5
     mutable: yes
 
-  - identifier: threshold
+  - identifier: diffMin
     title: old cinema time lapse
     type: float
     minimum: 0.0

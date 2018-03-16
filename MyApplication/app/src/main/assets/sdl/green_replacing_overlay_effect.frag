@@ -207,7 +207,10 @@ vec4 FUNCNAME(vec2 tc) {
 //            return vec4(0.0, 0.0, 1.0, 1.0);
 //        }
         float alpha = 1.0;
-        if (color.g>(color.r+0.03125) && color.g>(color.b+0.03125)) {
+        float th = 0.2;//waterfall sccj01
+//        float th = 1.0;//zombia sccj02
+
+        if (color.g>(color.r+0.03125*th) && color.g>(color.b+0.03125*th)) {
             vec4 tColor = vec4(PREFIX(targetColorRed), PREFIX(targetColorGreen), PREFIX(targetColorBlue), PREFIX(targetColorAlpha));
 
             // calculate diff
@@ -229,7 +232,7 @@ vec4 FUNCNAME(vec2 tc) {
     //            alpha = 0.5;
     //        }
 
-            if (delta <= PREFIX(diff)) {
+            if (delta <= PREFIX(diff)*1.0) {
                 alpha = 0.0;
                 x = vec4(0.0, 0.0, 0.0, 1.0);
             } else {
@@ -245,28 +248,29 @@ vec4 FUNCNAME(vec2 tc) {
                 if (color.b > max) {
                     max = color.b;
                 }
-                color = vec4(max, max, max, 0.5);
+                color = vec4(max, max, max, 1.0-max);
+//                color = vec4(max, max, max, 0.0);
 
-                // check the color around
-                float perW = PREFIX(perTopWidth);
-                float perH = PREFIX(perTopHeight);
-
-            #if SWAP_INPUTS
-            //	vec4 bottom = INPUT2(tc);
-                vec4 topColorUp = INPUT1(vec2(tc.x, tc.y+perH));
-                vec4 topColorDown = INPUT1(vec2(tc.x, tc.y-perH));
-                vec4 topColorLeft = INPUT1(vec2(tc.x-perW, tc.y));
-                vec4 topColorRight = INPUT1(vec2(tc.x+perW, tc.y));
-            #else
-            //	vec4 bottom = INPUT1(tc);
-                vec4 topColorUp = INPUT2(vec2(tc.x, tc.y+perH));
-                vec4 topColorDown = INPUT2(vec2(tc.x, tc.y-perH));
-                vec4 topColorLeft = INPUT2(vec2(tc.x-perW, tc.y));
-                vec4 topColorRight = INPUT2(vec2(tc.x+perW, tc.y));
-            #endif
-                if (topColorUp.r < 0.1) {
-                    color.a = 0.0;
-                }
+//                // check the color around
+//                float perW = PREFIX(perTopWidth);
+//                float perH = PREFIX(perTopHeight);
+//
+//            #if SWAP_INPUTS
+//            //	vec4 bottom = INPUT2(tc);
+//                vec4 topColorUp = INPUT1(vec2(tc.x, tc.y+perH));
+//                vec4 topColorDown = INPUT1(vec2(tc.x, tc.y-perH));
+//                vec4 topColorLeft = INPUT1(vec2(tc.x-perW, tc.y));
+//                vec4 topColorRight = INPUT1(vec2(tc.x+perW, tc.y));
+//            #else
+//            //	vec4 bottom = INPUT1(tc);
+//                vec4 topColorUp = INPUT2(vec2(tc.x, tc.y+perH));
+//                vec4 topColorDown = INPUT2(vec2(tc.x, tc.y-perH));
+//                vec4 topColorLeft = INPUT2(vec2(tc.x-perW, tc.y));
+//                vec4 topColorRight = INPUT2(vec2(tc.x+perW, tc.y));
+//            #endif
+//                if (topColorUp.r < 0.1) {
+//                    color.a = 0.0;
+//                }
 
 
             }

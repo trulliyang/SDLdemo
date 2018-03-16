@@ -30,20 +30,20 @@ namespace movit {
         void set_gl_state(GLuint glsl_program_num, const std::string &prefix, unsigned *sampler_num);
 
     private:
-        float greenSaturationMin0;
-        float greenSaturationMax0;
-        float greenValueMin0;
-        float greenValueMax0;
-        float greenHueMin0;
-        float greenHueMax0;
+        float targetColorRed;
+        float targetColorGreen;
+        float targetColorBlue;
+        float targetColorAlpha;
     
-        float greenSaturationMin1;
-        float greenSaturationMax1;
-        float greenValueMin1;
-        float greenValueMax1;
-        float greenHueMin1;
-        float greenHueMax1;
-        
+        float perTopWidth;
+        float perTopHeight;
+    
+        float perBottomWidth;
+        float perBottomHeight;
+    
+        float diff;
+        float diffMin;
+        float diffMax;
         float threshold;
     };
 

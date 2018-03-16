@@ -284,11 +284,11 @@ int test_filters_transitions(char *filter_name, char *video_name0, char *video_n
 	}
 
 	Mlt::Transition m_transition(m_pprofile,
-//								 "movit.green_replacing_overlay",
+								 "movit.green_replacing_overlay",
 //								 "movit.fade_out_in_overlay",
 //								 "movit.overlay",
 //								 "movit.video_on_video_overlay",
-								 "movit.watermark_overlay",
+//								 "movit.watermark_overlay",
 								 NULL);
 	if (m_transition.is_valid()) {
 		m_tractor.lock();
@@ -628,6 +628,17 @@ int main( int argc, char **argv ){
 	
 	char *namef0 = (char *) "mnt/sdcard/greenlamp.mp4";
 	char *namef1 = (char *) "mnt/sdcard/1_C_original.mp4";
+	
+	char *namesccjtop0 = (char *) "mnt/sdcard/sccj/sccj01.mov";
+	char *namesccjbottom0 = (char *) "mnt/sdcard/sccj/sccj01-1.mov";
+	
+	char *namesccjtop1 = (char *) "mnt/sdcard/sccj/sccj02.mov";
+	char *namesccjbottom1 = (char *) "mnt/sdcard/sccj/sccj02-1.mov";
+	
+	char *namesccjtop2 = (char *) "mnt/sdcard/sccj/sccj03.mov";
+	char *namesccjbottom2 = (char *) "mnt/sdcard/sccj/sccj03-1.mov";
+	
+	
 //	  mlt_log_set_callback(new_callback);
     //leaktracer::MemoryTrace::GetInstance().startMonitoringAllThreads();
 //	FILE *fp = NULL;
@@ -640,15 +651,17 @@ int main( int argc, char **argv ){
 //		fclose(fp);
 //	}
 	
+	test_filters_c(NULL, namesccjtop0, NULL);
 //    test_filters_c(NULL, name0, namegs0);
-    test_filters_transitions_c(NULL, namebbc, name0);
+//    test_filters_transitions_c(NULL, namebbc, name0);
+//	test_filters_transitions_c(NULL, namesccjbottom0, namesccjtop0);
 //    test_filters_transitions_c(NULL, namebbc, namelalalags0);
 //	  test_filters_c(NULL, (char *) "mnt/sdcard/sdltest.mp4");
 //    test_filters_c(NULL, (char *) "mnt/sdcard/DCIM/Camera/20171012_062910.mp4");
 //    test_filters_c(NULL, (char *) "mnt/sdcard/DCIM/Camera/20180124_112850.mp4");
 
  
-	test_filters_four_path_c(NULL, nameg0,nameg1,nameg2,nameg3);
+	test_filters_four_path_c(NULL, nameg0, nameg1, nameg2, nameg3);
  
  
 	return 1;

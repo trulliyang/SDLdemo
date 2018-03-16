@@ -16,35 +16,32 @@ namespace movit {
     
     GreenReplacingEffect::GreenReplacingEffect()
     {
-        greenSaturationMin0 = 0.0f;
-        greenSaturationMax0 = 0.3f;
-        greenValueMin0 = 0.25f;
-        greenValueMax0 = 0.8f;
-        greenHueMin0 = 90.0f;
-        greenHueMax0 = 180.5f;
-    
-        greenSaturationMin1 = 0.0f;
-        greenSaturationMax1 = 0.3f;
-        greenValueMin1 = 0.25f;
-        greenValueMax1 = 0.8f;
-        greenHueMin1 = 90.0f;
-        greenHueMax1 = 180.5f;
         
         threshold = 0.0f;
-        
-        register_float("greenSaturationMin0", &greenSaturationMin0);
-        register_float("greenSaturationMax0", &greenSaturationMax0);
-        register_float("greenValueMin0", &greenValueMin0);
-        register_float("greenValueMax0", &greenValueMax0);
-        register_float("greenHueMin0", &greenHueMin0);
-        register_float("greenHueMax0", &greenHueMax0);
+        // waterfall sccj01
+        targetColorRed = 27.0f/255.0f;
+        targetColorGreen = 157.0f/255.0f;
+        targetColorBlue = 14.0f/255.0f;
+        targetColorAlpha = 1.0f;
     
-        register_float("greenSaturationMin1", &greenSaturationMin1);
-        register_float("greenSaturationMax1", &greenSaturationMax1);
-        register_float("greenValueMin1", &greenValueMin1);
-        register_float("greenValueMax1", &greenValueMax1);
-        register_float("greenHueMin1", &greenHueMin1);
-        register_float("greenHueMax1", &greenHueMax1);
+        // zombia sccj02
+//    targetColorRed = 22.0f/255.0f;
+//    targetColorGreen = 168.0f/255.0f;
+//    targetColorBlue = 2.0f/255.0f;
+//    targetColorAlpha = 1.0f;
+    
+        diff = 0.1f;
+        diffMin = 0.1f;
+        diffMax = 0.9f;
+    
+        register_float("targetColorRed", &targetColorRed);
+        register_float("targetColorGreen", &targetColorGreen);
+        register_float("targetColorBlue", &targetColorBlue);
+        register_float("targetColorAlpha", &targetColorAlpha);
+    
+        register_float("diff", &diff);
+        register_float("diffMin", &diffMin);
+        register_float("diffMax", &diffMax);
         
         register_float("threshold", &threshold);
     }
@@ -65,25 +62,6 @@ namespace movit {
                                             unsigned *sampler_num)
     {
         Effect::set_gl_state(glsl_program_num, prefix, sampler_num);
-    
-        greenSaturationMin0 = 0.0f;
-        greenSaturationMax0 = 0.3f;
-        greenValueMin0 = 0.25f;
-        greenValueMax0 = 0.8f;
-        greenHueMin0 = 90.0f;
-        greenHueMax0 = 180.5f;
-    
-        greenSaturationMin1 = 0.0f;
-        greenSaturationMax1 = 0.3f;
-        greenValueMin1 = 0.25f;
-        greenValueMax1 = 0.8f;
-        greenHueMin1 = 90.0f;
-        greenHueMax1 = 180.5f;
-        
-        threshold += 0.01f;
-        if (threshold > 1.0f) {
-            threshold = 0.0f;
-        }
     }
 
 }  // namespace movit
