@@ -284,9 +284,9 @@ int test_filters_transitions(char *filter_name, char *video_name0, char *video_n
 	}
 
 	Mlt::Transition m_transition(m_pprofile,
-								 "movit.green_replacing_overlay",
+//								 "movit.green_replacing_overlay",
 //								 "movit.fade_out_in_overlay",
-//								 "movit.overlay",
+								 "movit.overlay",
 //								 "movit.video_on_video_overlay",
 //								 "movit.watermark_overlay",
 								 NULL);
@@ -487,13 +487,33 @@ int test_filters(char *filter_name, char *video_name0, char *video_name1) {
 //							"m_filterChromaKey movit.chroma_key is invalid");
 //	}
 	
-	Mlt::Filter m_filterAlphaMatting(m_pprofile, "movit.alpha_matting");
-	if (m_filterAlphaMatting.is_valid()) {
+//	Mlt::Filter m_filterAlphaMatting(m_pprofile, "movit.alpha_matting");
+//	if (m_filterAlphaMatting.is_valid()) {
+//		m_producer.lock();
+//		m_producer.attach(m_filterAlphaMatting);
+//		m_producer.unlock();
+//	} else {
+//		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterAlphaMatting movit.alpha_matting is invalid");
+//	}
+
+
+
+//    Mlt::Filter m_filterGreenReplacing(m_pprofile, "movit.green_replacing");
+//    if (m_filterGreenReplacing.is_valid()) {
+//        m_producer.lock();
+//        m_producer.attach(m_filterGreenReplacing);
+//        m_producer.unlock();
+//    } else {
+//        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterGreenReplacing movit.green_replacing is invalid");
+//    }
+	
+	Mlt::Filter m_filterRotation(m_pprofile, "movit.rotation");
+	if (m_filterRotation.is_valid()) {
 		m_producer.lock();
-		m_producer.attach(m_filterAlphaMatting);
+		m_producer.attach(m_filterRotation);
 		m_producer.unlock();
 	} else {
-		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterAlphaMatting movit.alpha_matting is invalid");
+		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterRotation movit.rotation is invalid");
 	}
 	
 //	Mlt::Filter m_filterPixelation(m_pprofile, "movit.pixelation");
@@ -514,14 +534,14 @@ int test_filters(char *filter_name, char *video_name0, char *video_name1) {
 //		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterRect movit.rect is invalid");
 //	}
     
-    Mlt::Filter m_filterCrop(m_pprofile, "movit.crop");
-    if(m_filterCrop.is_valid()){
-        m_producer.lock();
-        m_producer.attach(m_filterCrop);
-        m_producer.unlock();
-    } else {
-        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filter1 movit.crop is invalid");
-    }
+//    Mlt::Filter m_filterCrop(m_pprofile, "movit.crop");
+//    if(m_filterCrop.is_valid()){
+//        m_producer.lock();
+//        m_producer.attach(m_filterCrop);
+//        m_producer.unlock();
+//    } else {
+//        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filter1 movit.crop is invalid");
+//    }
     
 	m_consumer.connect(m_producer);
 	m_consumer.run();
@@ -639,6 +659,8 @@ int main( int argc, char **argv ){
 	char *namesccjbottom2 = (char *) "mnt/sdcard/sccj/sccj03-1.mov";
 	
 	
+	char *namewebm0 = (char *) "mnt/sdcard/sccj/billborad.webm";
+	
 //	  mlt_log_set_callback(new_callback);
     //leaktracer::MemoryTrace::GetInstance().startMonitoringAllThreads();
 //	FILE *fp = NULL;
@@ -655,6 +677,8 @@ int main( int argc, char **argv ){
 //    test_filters_c(NULL, name0, namegs0);
 //    test_filters_transitions_c(NULL, namebbc, name0);
 //	test_filters_transitions_c(NULL, namesccjbottom0, namesccjtop0);
+//	test_filters_transitions_c(NULL, namesccjbottom0, namewebm0);
+	
 //    test_filters_transitions_c(NULL, namebbc, namelalalags0);
 //	  test_filters_c(NULL, (char *) "mnt/sdcard/sdltest.mp4");
 //    test_filters_c(NULL, (char *) "mnt/sdcard/DCIM/Camera/20171012_062910.mp4");

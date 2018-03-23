@@ -172,8 +172,8 @@ static int get_image( mlt_frame frame, uint8_t **image, mlt_image_format *format
 		GlslManager::get_instance()->lock_service( frame );
 //		*width = *width/2;
 //		*height = *height/2;
-		rect.x = 500.5f;
-        rect.y = 200.5f;
+//		rect.x = 500.5f;
+//        rect.y = 200.5f;
 		mlt_properties_set_int( filter_properties, "_movit.parms.int.width", *width );
 		mlt_properties_set_int( filter_properties, "_movit.parms.int.height", *height );
 		mlt_properties_set_double( filter_properties, "_movit.parms.float.left", rect.x );

@@ -34,7 +34,7 @@ vec4 FUNCNAME(vec2 tc) {
 
             if (delta <= PREFIX(diff)*1.0) {
                 alpha = 0.0;
-                x = vec4(0.0, 0.0, 0.0, 1.0);
+                x = vec4(0.0, 0.0, 0.0, 0.0);
             } else {
                 alpha = 0.5;
 
