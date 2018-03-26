@@ -18,6 +18,9 @@ namespace movit {
     {
         
         threshold = 0.0f;
+        threshold0 = 0.0f;
+        threshold1 = 0.0f;
+        
         // waterfall sccj01
         targetColorRed = 27.0f/255.0f;
         targetColorGreen = 157.0f/255.0f;
@@ -62,6 +65,27 @@ namespace movit {
                                             unsigned *sampler_num)
     {
         Effect::set_gl_state(glsl_program_num, prefix, sampler_num);
-    }
+        unsigned char pixel[4];
+        read_color(0, 0, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, pixel);
 
+    }
+    
+    void GreenReplacingEffect::read_color(int x, int y, int w, int h, GLenum format, GLenum type, void *pixels) {
+        if (NULL == pixels) {
+            __android_log_print(ANDROID_LOG_ERROR, "shiyang", "pointer pixels is NULL");
+            return;
+        }
+        
+        glReadPixels(x, y, w, h, format, type, pixels);
+        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "r=%d,g=%d,b=%d,a=%d",
+                            ((unsigned char *)pixels)[0], ((unsigned char *)pixels)[1],
+                            ((unsigned char *)pixels)[2], ((unsigned char *)pixels)[3]);
+    }
+    
+    void GreenReplacingEffect::set_bar(float value0, float value1) {
+        threshold0 = value0;
+        threshold1 = value1;
+    }
+    
+    
 }  // namespace movit

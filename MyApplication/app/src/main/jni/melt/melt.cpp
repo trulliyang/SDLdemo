@@ -284,9 +284,9 @@ int test_filters_transitions(char *filter_name, char *video_name0, char *video_n
 	}
 
 	Mlt::Transition m_transition(m_pprofile,
-//								 "movit.green_replacing_overlay",
+								 "movit.green_replacing_overlay",
 //								 "movit.fade_out_in_overlay",
-								 "movit.overlay",
+//								 "movit.overlay",
 //								 "movit.video_on_video_overlay",
 //								 "movit.watermark_overlay",
 								 NULL);
@@ -586,7 +586,7 @@ extern "C" {
 extern char source_path[1024];
 
 int test_filters_c(char *filter_name, char *video_name0, char *video_name1){
-	return test_filters(filter_name, video_name0, video_name1);
+        return test_filters(filter_name, video_name0, video_name1);
 }
 
 int test_filters_transitions_c(char *filter_name, char *video_name0, char *video_name1) {

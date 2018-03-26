@@ -28,7 +28,8 @@ namespace movit {
 
         virtual void inform_input_size(unsigned input_num, unsigned width, unsigned height);
         void set_gl_state(GLuint glsl_program_num, const std::string &prefix, unsigned *sampler_num);
-
+        void read_color(int x=0, int y=0, int w=1, int h=1, GLenum format=GL_RGBA, GLenum type=GL_UNSIGNED_BYTE, void *pixels= NULL);
+        void set_bar(float value0, float value1);
     private:
         float targetColorRed;
         float targetColorGreen;
@@ -45,6 +46,9 @@ namespace movit {
         float diffMin;
         float diffMax;
         float threshold;
+    
+        float threshold0;
+        float threshold1;
     };
 
 }  // namespace movit

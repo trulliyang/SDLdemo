@@ -1,21 +1,10 @@
 vec4 FUNCNAME(vec2 tc) {
-//	vec4 rgba = INPUT(tc);
-//	return rgba;
-
-//    if (PREFIX(test) > 2) {
-//        return vec4(1.0, 0.0, 0.0, 1.0);
-//    } else {
-//        return vec4(0.0, 1.0, 1.0, 1.0);
-//    }
-
-
-   float w = 1920.0;
-   float h = 1070.0;
+   float w = PREFIX(width);
+   float h = PREFIX(height);
    float wr = 1.0/w;
    float hr = 1.0/h;
    float wOrigin  = w*tc.x;
    float hOrigin  = h*tc.y;
-
 
     vec3 tcOrigin = vec3(wOrigin, hOrigin, 1.0);
 
@@ -23,18 +12,14 @@ vec4 FUNCNAME(vec2 tc) {
                       0.0, 1.0, 0.0,
                       0.0, 0.0, 1.0);
 
-
-    float rotate_degree = 45.0;
+//    float rotate_degree = 45.0;
     float rotate_x = w*0.5;
     float rotate_y = h*0.5;
 
-    float rotate_radius = rotate_degree * 3.1415926535897932384626 / 180.0;
-
+//    float rotate_radius = rotate_degree * 3.1415926535897932384626 / 180.0;
+    float rotate_radius = PREFIX(rotate_degree) * 0.017453292519943;
     float c = cos(rotate_radius);
     float s = sin(rotate_radius);
-
-
-
 
     rtmtx[0][0] = c;
     rtmtx[1][0] = -s;
@@ -48,16 +33,12 @@ vec4 FUNCNAME(vec2 tc) {
     rtmtx[1][2] = 0.0;
     rtmtx[2][2] = 1.0;
 
-
     vec3 tcRotate = rtmtx*tcOrigin;
 
+    vec4 rgbaRotate = vec4(PREFIX(outColorRed), PREFIX(outColorGreen), PREFIX(outColorBlue), PREFIX(outColorAlpha));
+    if (0.0 <= tcRotate.x*wr && tcRotate.x*wr <= 1.0 && 0.0 <= tcRotate.y*hr && tcRotate.y*hr <= 1.0) {
+        rgbaRotate = INPUT(vec2(tcRotate.x*wr, tcRotate.y*hr));
+    }
 
-
-//    vec3 tcRotate = PREFIX(rotate_matrix)*tcOrigin;
-    vec4 rgbaRotate = INPUT(vec2(tcRotate.x*wr, tcRotate.y*hr));
-
-//	ycbcr_a.rgb = PREFIX(ycbcr_matrix) * rgba.rgb + PREFIX(offset);
-
-	return rgbaRotate;
-
+    return rgbaRotate;
 }

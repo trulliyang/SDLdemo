@@ -16,8 +16,26 @@ namespace movit {
 
 RotationEffect::RotationEffect()
 {
-	register_uniform_mat3("rotation_matrix", &rotation_matrix);
-    register_uniform_int("test", &test);
+    rotate_degree = 0.0;
+    register_uniform_float("rotate_degree", &rotate_degree);
+    
+    width = 1920.0;
+    register_uniform_float("width", &width);
+    
+    height = 1070.0;
+    register_uniform_float("height", &height);
+    
+    outColorRed = 0.0;
+    register_uniform_float("outColorRed", &outColorRed);
+    
+    outColorGreen = 0.0;
+    register_uniform_float("outColorGreen", &outColorGreen);
+    
+    outColorBlue = 0.0;
+    register_uniform_float("outColorBlue", &outColorBlue);
+    
+    outColorAlpha = 1.0;
+    register_uniform_float("outColorAlpha", &outColorAlpha);
 }
 
 string RotationEffect::output_fragment_shader()
@@ -30,34 +48,23 @@ void RotationEffect::set_gl_state(GLuint glsl_program_num,
 								  unsigned *sampler_num)
 {
 	Effect::set_gl_state(glsl_program_num, prefix, sampler_num);
- 
-	Matrix3d rotation;
-    test = 3;
-    rotate_degree = 0.0;
-    rotate_x = 0.0;
-    rotate_y = 0.0;
-    
-    float rotate_radius = (float) (rotate_degree * 3.1415926535897932384626 / 180.0);
-    
-    float c = cos(rotate_radius);
-    float s = sin(rotate_radius);
-    
-//    rotation_matrix(0,s.0;
-    
-    
-    rotation(0,0) = 0.0;
-    rotation(0,1) = 0.0;
-    rotation(0,2) = 0.0;
+//    rotate_degree += 10;
+}
 
-    rotation(1,0) = 0.0;
-    rotation(1,1) = 0.0;
-    rotation(1,2) = 0.0;
+void RotationEffect::set_size(int _width, int _height) {
+    width = _width;
+    height = _height;
+}
 
-    rotation(2,0) = 0.0;
-    rotation(2,1) = 0.0;
-    rotation(2,2) = 1.0;
-    
-	rotation_matrix = rotation.inverse();
+void RotationEffect::set_rotate_degree(float _degree) {
+    rotate_degree = _degree;
+}
+
+void RotationEffect::set_out_color(float _r, float _g, float _b, float _a) {
+    outColorRed = _r;
+    outColorGreen = _g;
+    outColorBlue = _b;
+    outColorAlpha = _a;
 }
 
 }  // namespace movit
