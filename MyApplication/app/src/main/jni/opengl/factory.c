@@ -47,6 +47,7 @@ extern mlt_filter filter_movit_rotation_init( mlt_profile profile, mlt_service_t
 extern mlt_filter filter_movit_saturation_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
 extern mlt_filter filter_movit_scale_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
 extern mlt_filter filter_movit_style_sketch_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
+extern mlt_filter filter_movit_transform_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
 extern mlt_filter filter_movit_vignette_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
 extern mlt_filter filter_white_balance_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
 extern mlt_transition transition_movit_luma_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
@@ -97,6 +98,7 @@ void opengles_mlt_register( mlt_repository repository)
 	MLT_REGISTER( filter_type, "movit.scale", filter_movit_scale_init );
 	MLT_REGISTER( filter_type, "movit.sharpen", filter_deconvolution_sharpen_init );
 	MLT_REGISTER( filter_type, "movit.style_sketch", filter_movit_style_sketch_init );
+	MLT_REGISTER( filter_type, "movit.transform", filter_movit_transform_init );
 	MLT_REGISTER( filter_type, "movit.vignette", filter_movit_vignette_init );
 	MLT_REGISTER( filter_type, "movit.white_balance", filter_white_balance_init );
 	MLT_REGISTER( transition_type, "movit.luma_mix", transition_movit_luma_init );

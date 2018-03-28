@@ -48,9 +48,8 @@ namespace movit {
         Effect::set_gl_state(glsl_program_num, prefix, sampler_num);
     
 //        if (scale_x > 0.1 && scale_y > 0.1) {
-            
-            scale_x = cos(ra);
-            scale_y = cos(ra);
+//            scale_x = 2.0f*abs(cos(ra));
+//            scale_y = 2.0f*abs(cos(ra));
 //            ra += 0.01;
 //        }
 
