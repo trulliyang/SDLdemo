@@ -506,14 +506,23 @@ int test_filters(char *filter_name, char *video_name0, char *video_name1) {
 //    } else {
 //        __android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterGreenReplacing movit.green_replacing is invalid");
 //    }
+
+//	Mlt::Filter m_filterRotation(m_pprofile, "movit.rotation");
+//	if (m_filterRotation.is_valid()) {
+//		m_producer.lock();
+//		m_producer.attach(m_filterRotation);
+//		m_producer.unlock();
+//	} else {
+//		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterRotation movit.rotation is invalid");
+//	}
 	
-	Mlt::Filter m_filterRotation(m_pprofile, "movit.rotation");
-	if (m_filterRotation.is_valid()) {
+	Mlt::Filter m_filterScale(m_pprofile, "movit.scale");
+	if (m_filterScale.is_valid()) {
 		m_producer.lock();
-		m_producer.attach(m_filterRotation);
+		m_producer.attach(m_filterScale);
 		m_producer.unlock();
 	} else {
-		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterRotation movit.rotation is invalid");
+		__android_log_print(ANDROID_LOG_ERROR, "shiyang", "m_filterScale movit.scale is invalid");
 	}
 	
 //	Mlt::Filter m_filterPixelation(m_pprofile, "movit.pixelation");
@@ -673,8 +682,8 @@ int main( int argc, char **argv ){
 //		fclose(fp);
 //	}
 	
-	test_filters_c(NULL, namesccjtop0, NULL);
-//    test_filters_c(NULL, name0, namegs0);
+//	test_filters_c(NULL, namesccjtop0, NULL);
+    test_filters_c(NULL, name0, namegs0);
 //    test_filters_transitions_c(NULL, namebbc, name0);
 //	test_filters_transitions_c(NULL, namesccjbottom0, namesccjtop0);
 //	test_filters_transitions_c(NULL, namesccjbottom0, namewebm0);

@@ -45,6 +45,7 @@ extern mlt_filter filter_movit_resample_init( mlt_profile profile, mlt_service_t
 extern mlt_filter filter_movit_resize_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
 extern mlt_filter filter_movit_rotation_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
 extern mlt_filter filter_movit_saturation_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
+extern mlt_filter filter_movit_scale_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
 extern mlt_filter filter_movit_style_sketch_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
 extern mlt_filter filter_movit_vignette_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
 extern mlt_filter filter_white_balance_init( mlt_profile profile, mlt_service_type type, const char *id, char *arg );
@@ -93,6 +94,7 @@ void opengles_mlt_register( mlt_repository repository)
 	MLT_REGISTER( filter_type, "movit.resize", filter_movit_resize_init );
 	MLT_REGISTER( filter_type, "movit.rotation", filter_movit_rotation_init );
 	MLT_REGISTER( filter_type, "movit.saturation", filter_movit_saturation_init );
+	MLT_REGISTER( filter_type, "movit.scale", filter_movit_scale_init );
 	MLT_REGISTER( filter_type, "movit.sharpen", filter_deconvolution_sharpen_init );
 	MLT_REGISTER( filter_type, "movit.style_sketch", filter_movit_style_sketch_init );
 	MLT_REGISTER( filter_type, "movit.vignette", filter_movit_vignette_init );
@@ -121,6 +123,7 @@ void opengles_mlt_register( mlt_repository repository)
 	MLT_REGISTER_METADATA( filter_type, "movit.rect", metadata, "filter_movit_rect.yml" );
 //	MLT_REGISTER_METADATA( filter_type, "movit.rotation", metadata, "filter_movit_rotation.yml" );
 	MLT_REGISTER_METADATA( filter_type, "movit.saturation", metadata, "filter_movit_saturation.yml" );
+//	MLT_REGISTER_METADATA( filter_type, "movit.scale", metadata, "filter_movit_scale.yml" );
 	MLT_REGISTER_METADATA( filter_type, "movit.sharpen", metadata, "filter_movit_deconvolution_sharpen.yml" );
 	MLT_REGISTER_METADATA( filter_type, "movit.style_sketch", metadata, "filter_movit_style_sketch.yml" );
 	MLT_REGISTER_METADATA( filter_type, "movit.vignette", metadata, "filter_movit_vignette.yml" );
