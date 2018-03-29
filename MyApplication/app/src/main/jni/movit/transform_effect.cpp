@@ -48,8 +48,6 @@ namespace movit {
                                              unsigned width,
                                              unsigned height) {
         assert(input_num == 0);
-//        widthStep = 1.0f/width;
-//        heightStep = 1.0f/height;
     }
 
     void TransformEffect::set_gl_state(GLuint glsl_program_num,
@@ -57,25 +55,21 @@ namespace movit {
                                         unsigned *sampler_num)
     {
         Effect::set_gl_state(glsl_program_num, prefix, sampler_num);
-    
-//        if (scale_x > 0.1 && scale_y > 0.1) {
         
-        float test_value = abs(cos(test_all_value));
+        // start dancing haha
+        {
+            float test_value_raw = cos(test_all_value);
+            float test_value = abs(test_value_raw);
             scale_x = 2.0f*test_value;
-            scale_y = 2.0f*test_value;
-            rotate_degree = 45.0f*test_value;
-            translate_x = 0.25f*test_value;
-            translate_y = 0.25f*test_value;
-            test_all_value += 0.01;
-//        }
-    
-
+            scale_y = 3.0f*test_value;
         
-//        if (scale_x > 0.1 && scale_y > 0.1) {
-//            scale_x = 2.0f*abs(cos(test_scale_xy));
-//            scale_y = 2.0f*abs(cos(test_scale_xy));
-//            test_scale_xy += 0.01;
-//        }
+            width = 1920/scale_x;
+            height = 1070/scale_y;
+            rotate_degree = 360.0f*test_value;
+            translate_x = (0.5f-scale_x/2.0f)*test_value_raw;
+            translate_y = (0.5f-scale_y/2.0f)*test_value_raw;
+            test_all_value += 0.01;
+        }
     }
 
 }  // namespace movit
